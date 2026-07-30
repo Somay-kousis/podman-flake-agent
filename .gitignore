@@ -1,0 +1,14 @@
+data/cache/
+data/artifacts/
+data/*.db
+data/*.db-*
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+data/logs/
+data/dossiers/
+data/*.log
+data/gold.json
+.DS_Store

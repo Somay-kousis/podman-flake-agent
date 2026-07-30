@@ -1,0 +1,12 @@
+1..4
+ok 1 hi
+ok 2 bye # skip no reason
+not ok 3 fail
+# (from function `assert' in file ./helpers.bash, line 343,
+#  from function `expect_output' in file ./helpers.bash, line 370,
+#  in test file ./run.bats, line 786)
+# $ /path/to/podman foo -bar
+# time="2023-01-05T15:15:20Z" level=debug msg="this is debug"
+# time="2023-01-05T15:15:20Z" level=warning msg="this is warning"
+# #| FAIL: exit code is 123; expected 321
+ok 4 blah

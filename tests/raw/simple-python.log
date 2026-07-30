@@ -1,0 +1,68 @@
+[+0234s] env CONTAINERS_CONF=/var/tmp/go/src/github.com/containers/podman/test/apiv2/containers.conf PODMAN=./bin/podman /usr/bin/python3 -m unittest discover -v ./test/python/docker
+[+0238s] test_copy_to_container (compat.test_containers.TestContainers) ... /usr/lib/python3.10/site-packages/docker/utils/utils.py:269: DeprecationWarning: urllib.parse.splitnport() is deprecated as of 3.8, use urllib.parse.urlparse() instead
+[+0238s]   host, port = splitnport(parsed_url.netloc)
+[+0241s] ok
+[+0243s] test_create_container (compat.test_containers.TestContainers) ... ok
+[+0244s] test_create_network (compat.test_containers.TestContainers) ... ok
+[+0245s] test_filters (compat.test_containers.TestContainers) ... skipped 'TODO Endpoint does not yet support filters'
+[+0246s] test_kill_container (compat.test_containers.TestContainers) ... /usr/lib64/python3.10/threading.py:372: ResourceWarning: unclosed <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55054), raddr=('127.0.0.1', 8080)>
+[+0246s]   waiters_to_notify = _deque(_islice(all_waiters, n))
+[+0246s] ResourceWarning: Enable tracemalloc to get the object allocation traceback
+[+0247s] ok
+[+0248s] test_list_container (compat.test_containers.TestContainers) ... ok
+[+0252s] test_mount_preexisting_dir (compat.test_containers.TestContainers) ... ok
+[+0253s] test_mount_rw_by_default (compat.test_containers.TestContainers) ... ok
+[+0257s] test_non_existent_workdir (compat.test_containers.TestContainers) ... ok
+[+0258s] test_pause_container (compat.test_containers.TestContainers) ... ok
+[+0260s] test_pause_stopped_container (compat.test_containers.TestContainers) ... ok
+[+0261s] test_remove_container (compat.test_containers.TestContainers) ... ok
+[+0262s] test_remove_container_without_force (compat.test_containers.TestContainers) ... /usr/lib64/python3.10/email/feedparser.py:89: ResourceWarning: unclosed <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55068), raddr=('127.0.0.1', 8080)>
+[+0262s]   for ateof in reversed(self._eofstack):
+[+0262s] ResourceWarning: Enable tracemalloc to get the object allocation traceback
+[+0262s] /usr/lib64/python3.10/email/feedparser.py:89: ResourceWarning: unclosed <socket.socket fd=5, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55074), raddr=('127.0.0.1', 8080)>
+[+0262s]   for ateof in reversed(self._eofstack):
+[+0262s] ResourceWarning: Enable tracemalloc to get the object allocation traceback
+[+0262s] ok
+[+0264s] test_restart_container (compat.test_containers.TestContainers) ... ok
+[+0265s] test_start_container (compat.test_containers.TestContainers) ... ok
+[+0267s] test_start_container_with_random_port_bind (compat.test_containers.TestContainers) ... ok
+[+0268s] test_stop_container (compat.test_containers.TestContainers) ... ok
+[+0269s] test_unpause_container (compat.test_containers.TestContainers) ... ok
+[+0273s] test_build_image (compat.test_images.TestImages) ... ok
+[+0273s] test_get_image_exists_not (compat.test_images.TestImages)
+[+0274s] Negative test for get image ... ok
+[+0274s] test_image_history (compat.test_images.TestImages)
+[+0274s] Image history ... ok
+[+0274s] test_list_images (compat.test_images.TestImages)
+[+0276s] List images ... ok
+[+0276s] test_load_corrupt_image (compat.test_images.TestImages)
+[+0277s] Import|Load Image failure ... ok
+[+0277s] test_load_image (compat.test_images.TestImages)
+[+0279s] Import|Load Image ... ok
+[+0279s] test_remove_image (compat.test_images.TestImages)
+[+0280s] Remove image ... ok
+[+0280s] test_retag_valid_image (compat.test_images.TestImages)
+[+0280s] Validates if name updates when the image is retagged ... ok
+[+0280s] test_save_image (compat.test_images.TestImages)
+[+0282s] Export Image ... ok
+[+0282s] test_search_bogus_image (compat.test_images.TestImages)
+[+0290s] Search for bogus image should throw exception ... ok
+[+0290s] test_search_image (compat.test_images.TestImages)
+[+0291s] Search for image ... FAIL
+[+0291s] test_tag_valid_image (compat.test_images.TestImages)
+[+0292s] Validates if the image is tagged successfully ... ok
+[+0296s] test_Info (compat.test_system.TestSystem) ... ok
+[+0298s] test_info_container_details (compat.test_system.TestSystem) ... ok
+[+0299s] test_version (compat.test_system.TestSystem) ... ok
+[+0299s] ======================================================================
+[+0299s] FAIL: test_search_image (compat.test_images.TestImages)
+[+0299s] Search for image
+[+0299s] ----------------------------------------------------------------------
+[+0299s] Traceback (most recent call last):
+[+0299s]   File "/var/tmp/go/src/github.com/containers/podman/test/python/docker/compat/test_images.py", line 90, in test_search_image
+[+0299s]     self.assertIn("alpine", r["Name"])
+[+0299s] AssertionError: 'alpine' not found in 'docker.io/docker/desktop-kubernetes'
+[+0299s] ----------------------------------------------------------------------
+[+0299s] Ran 33 tests in 63.138s
+[+0299s] FAILED (failures=1, skipped=1)
+[+0299s] make: *** [Makefile:616: localapiv2] Error 1
