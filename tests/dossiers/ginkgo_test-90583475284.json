@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "job": {
+    "id": 90583475284,
+    "run_id": 30453491397,
+    "name": "int local rootless fedora-current / lima",
+    "conclusion": "failure",
+    "test": "int",
+    "mode": "local",
+    "priv": "rootless",
+    "distro": "fedora-current",
+    "started_at": "2026-07-29T13:04:07Z",
+    "completed_at": "2026-07-29T13:15:39Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30453491397/job/90583475284",
+    "run_attempt": 1,
+    "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-5f6fm",
+    "runner_id": 77687513,
+    "labels": [
+      "cncf-ubuntu-8-32-x86"
+    ],
+    "workflow_name": "ci",
+    "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+    "check_run_url": "https://api.github.com/repos/podman-container-tools/podman/check-runs/90583475284",
+    "status": "completed",
+    "created_at": "2026-07-29T13:02:18Z",
+    "steps": [
+      {
+        "job_id": 90583475284,
+        "number": 1,
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:04:08Z",
+        "completed_at": "2026-07-29T13:04:10Z"
+      },
+      {
+        "job_id": 90583475284,
+        "number": 2,
+        "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:04:10Z",
+        "completed_at": "2026-07-29T13:04:14Z"
+      },
+      {
+        "job_id": 90583475284,
+        "number": 3,
+        "name": "Run lima-vm/lima-actions/setup@55627e31b78637bf254a8b2a14da8ea7d12564e5",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:04:14Z",
+        "completed_at": "2026-07-29T13:05:08Z"
+      },
+      {
+        "job_id": 90583475284,
+        "number": 4,
+        "name": "Run test on lima",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-07-29T13:05:08Z",
+        "completed_at": "2026-07-29T13:15:35Z"
+      },
+      {
+        "job_id": 90583475284,
+        "number": 5,
+        "name": "Upload journal as artifact",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:15:35Z",
+        "completed_at": "2026-07-29T13:15:37Z"
+      },
+      {
+        "job_id": 90583475284,
+        "number": 10,
+        "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:15:37Z",
+        "completed_at": "2026-07-29T13:15:37Z"
+      },
+      {
+        "job_id": 90583475284,
+        "number": 11,
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:15:37Z",
+        "completed_at": "2026-07-29T13:15:37Z"
+      }
+    ],
+    "step_count": 7
+  },
+  "failing_step": {
+    "found": true,
+    "steps": [
+      {
+        "number": 4,
+        "name": "Run test on lima",
+        "conclusion": "failure",
+        "started_at": "2026-07-29T13:05:08Z",
+        "completed_at": "2026-07-29T13:15:35Z"
+      }
+    ],
+    "first": {
+      "number": 4,
+      "name": "Run test on lima",
+      "conclusion": "failure",
+      "started_at": "2026-07-29T13:05:08Z",
+      "completed_at": "2026-07-29T13:15:35Z"
+    },
+    "note": "the step name distinguishes setup/infrastructure failures from test failures without reading any log"
+  },
+  "log_window": {
+    "available": true,
+    "reason": "sliced to the failing step's time interval (truncated to the last 60000 lines); focused on 1 region(s) around 3 failure marker(s)",
+    "step": {
+      "number": 4,
+      "name": "Run test on lima",
+      "started_at": "2026-07-29T13:05:08Z",
+      "completed_at": "2026-07-29T13:15:35Z"
+    },
+    "text": "        ... 59896 lines elided ...\n  Podman volume rename podman volume rename handles error cases\t\t3.837487\n  Podman build podman build basic alpine with squash\t\t3.857452\n  Podman container interface name podman container interface name for macvlan/ipvlan network with no parent\t\t3.865136\n  Podman stop podman stop all containers -t\t\t4.071146\n  Podman pod create podman pod create --restart=no/never\t\t4.130967\n  Podman pod rm podman pod start/remove multiple pods via --pod-id-file\t\t4.157762\n  Podman rmi podman rmi -a with parent|child images\t\t4.275132\n  Podman pod kill podman pod kill all\t\t4.326964\n  Podman run podman run user capabilities test\t\t4.437713\n  Podman manifest push with --add-compression and --force-compression\t\t4.613984\n  Podman pod stop podman pod start/stop multiple pods via --pod-id-file\t\t4.631107\n  Podman rm podman rm --filter\t\t4.711274\n  Podman restart podman restart --filter\t\t4.719851\n  Podman pause podman pause --filter\t\t4.956373\n  Podman run networking podman run check dns\t\t5.317381\n  Podman kube play using a user namespace\t\t5.320282\n  Podman build podman build with a secret from file\t\t5.410612\n  Podman rmi podman rmi with cached images\t\t5.581061\n  Podman events podman events with an event filter and container=cid\t\t5.652563\n  Podman build podman build --build-context: URL source\t\t6.106442\n  Podman build podman build --build-context: Mixed source\t\t6.233297\n  Podman run with volumes podman run -v chowns multiple times on empty volume\t\t6.269489\n  Podman pod restart podman pod restart multiple pods\t\t6.273949\n  Podman run with volumes podman run -v chowns until copy-up on volume\t\t6.331573\n  Podman run with volumes podman run -v chowns until volume has contents\t\t6.349261\n  Podman load podman load xz compressed image\t\t6.363994\n  Podman run networking Aardvark Test 4: Two containers, different subnets\t\t6.435950\n  Podman manifest push must retry with defaults\t\t8.075784\n  Podman run podman run with restart policy does not restart on manual stop\t\t10.407531\n  Podman container clone podman container clone network passing\t\t10.914440\n  Podman run networking podman verify network scoped DNS server and also verify updating network dns server\t\t11.116651\n  Podman run networking podman network dns multiple servers\t\t11.146403\n  Podman pull podman pull chunked images uses config-based image IDs and enforces DiffID matching\t\t11.317750\n  Podman events podman events --until future\t\t19.396644\n  < Exit [SynchronizedAfterSuite] TOP-LEVEL - /var/tmp/podman/test/e2e/common_test.go:237 @ 07/29/26 13:15:34.907 (2.454s)\n  << Timeline\n------------------------------\nmake[1]: *** [Makefile:697: ginkgo-run] Error 1\nmake: *** [Makefile:705: ginkgo] Error 2\n\nSummarizing 1 Failure:\n  [FAIL] Podman rmi [It] podman image rm - concurrent with shared layers\n  /var/tmp/podman/test/e2e/common_test.go:1513\n\nRan 2361 of 2542 Specs in 359.012 seconds\nFAIL! -- 2360 Passed | 1 Failed | 0 Pending | 181 Skipped\n\n\nGinkgo ran 1 suite in 6m12.546625065s\n\nTest Suite Failed\nmake[1]: Leaving directory '/var/tmp/podman'\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Sending SIGKILL to the qemu driver process 3028\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Sending SIGKILL to the host agent process 3004\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing *.pid *.sock *.tmp under \\\"/home/ubuntu/.lima/podman-ci\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/ha.pid\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/ha.sock\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/qemu.pid\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/qmp.sock\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/serial.sock\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/serialv.sock\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/ssh.sock\\\"\"\ntime=\"2026-07-29T13:15:35Z\" level=info msg=\"Deleted \\\"podman-ci\\\" (\\\"/home/ubuntu/.lima/podman-ci\\\")\"\n##[error]Process completed with exit code 2.\n##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a\nwith:\n  name: journal-int-local-rootless-fedora-current.log\n  path: ./hack/ci/journal.log\n  if-no-files-found: ignore\n  compression-level: 6\n  overwrite: false\n  include-hidden-files: false\n  archive: true\nenv:\n  AUTOMATION_RELEASE: 20260722t094115z\n##[endgroup]\nWith the provided path, there will be 1 file uploaded\nArtifact name is valid!\nRoot directory input is valid!\nUploading artifact: journal-int-local-rootless-fedora-current.log.zip\nBeginning upload of artifact content to blob storage\nUploaded bytes 580049\nFinished uploading artifact content to blob storage!\nSHA256 digest of uploaded artifact is ccdb8cfd486eef7ad2d09bcb5e4c27103b2ca4dc096c0d63fab9e96ae4d97217\nFinalizing artifact upload\nArtifact journal-int-local-rootless-fedora-current.log successfully finalized. Artifact ID 8725191543\nArtifact journal-int-local-rootless-fedora-current.log has been successfully uploaded! Final size is 580049 bytes. Artifact ID is 8725191543\nArtifact download URL: https://github.com/podman-container-tools/podman/actions/runs/30453491397/artifacts/8725191543\n        ... 16 lines elided ...",
+    "line_count": 90,
+    "source_line_count": 153857,
+    "reduction_pct": 99.9,
+    "est_tokens": 1331,
+    "failure_markers": 3,
+    "failing_tests": [
+      {
+        "kind": "ginkgo",
+        "name": "Podman rmi podman image rm - concurrent with shared layers",
+        "raw": "[FAIL] Podman rmi [It] podman image rm - concurrent with shared layers"
+      }
+    ]
+  },
+  "run": {
+    "id": 30453491397,
+    "run_number": 1128,
+    "run_attempt": 1,
+    "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+    "head_branch": "ci-desired-runtime-storage",
+    "event": "pull_request",
+    "conclusion": "failure",
+    "pr_number": null,
+    "created_at": "2026-07-29T12:52:57Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30453491397",
+    "workflow_name": "ci",
+    "path": ".github/workflows/ci.yml",
+    "run_started_at": "2026-07-29T12:52:57Z",
+    "updated_at": "2026-07-29T13:49:48Z",
+    "actor_login": "vtushar06",
+    "previous_attempt_url": null,
+    "display_title": "hack/ci: rename STORAGE_FS to CI_DESIRED_STORAGE and add PODMAN_CI"
+  },
+  "pull_request": {
+    "present": false,
+    "note": "run was not from a pull request"
+  },
+  "siblings": {
+    "total": 55,
+    "failed": 2,
+    "failed_jobs": [
+      {
+        "id": 90595889445,
+        "name": "Total Success",
+        "conclusion": "failure",
+        "runner_name": "GitHub Actions 1063225518",
+        "started_at": "2026-07-29T13:49:43Z",
+        "completed_at": "2026-07-29T13:49:46Z"
+      },
+      {
+        "id": 90583474003,
+        "name": "macos machine applehv",
+        "conclusion": "failure",
+        "runner_name": "MacM1-3",
+        "started_at": "2026-07-29T13:02:19Z",
+        "completed_at": "2026-07-29T13:32:24Z"
+      }
+    ],
+    "conclusions": {
+      "failure": 3,
+      "success": 53
+    }
+  },
+  "history": {
+    "observations": 382,
+    "failures": 26,
+    "failure_rate": 0.068,
+    "by_conclusion": {
+      "failure": 26,
+      "skipped": 58,
+      "success": 298
+    },
+    "failures_by_runner": {
+      "cncf-ubuntu-8-32-x86-7vx47-runner-26xkm": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-7cl5w": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-8cmrx": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-b2n4s": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-b6wkv": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-dmgcz": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-jdqg9": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-p6nv8": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-p6trj": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-rfs7g": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-rvjv6": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-srvcv": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-wsf62": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-wt2ql": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-zh7gh": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-zxljj": 1,
+      "cncf-ubuntu-8-32-x86-bjzkg-runner-5f6fm": 1,
+      "cncf-ubuntu-8-32-x86-stc5t-runner-gbn9m": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-4qst2": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-79q9f": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-9x89k": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-ddc2n": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-jtzfp": 2,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-s6qwx": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-tjd4k": 1
+    },
+    "recent": [
+      {
+        "id": 90946826903,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-crfcz",
+        "head_sha": "6f815007601625696627e9f9b11c84167259e86f",
+        "head_branch": "composefs-handle-ETXTBSY",
+        "created_at": "2026-07-30T16:59:58Z"
+      },
+      {
+        "id": 90896286015,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-2tr7c",
+        "head_sha": "231a4df20d585474ebafd9e469f0730b480b7219",
+        "head_branch": "main",
+        "created_at": "2026-07-30T13:58:24Z"
+      },
+      {
+        "id": 90832604817,
+        "conclusion": "skipped",
+        "runner_name": null,
+        "head_sha": "444021f9f9975996f35ca3540fc5c80a82ae7910",
+        "head_branch": "contributing",
+        "created_at": "2026-07-30T09:19:24Z"
+      },
+      {
+        "id": 90673666271,
+        "conclusion": "skipped",
+        "runner_name": null,
+        "head_sha": "5d041e7b4741166ff432ca524d5850bbb2c232d1",
+        "head_branch": "contributing",
+        "created_at": "2026-07-29T18:25:44Z"
+      },
+      {
+        "id": 90647417112,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-hpfn9",
+        "head_sha": "6984b8bbca61916c3113ea06736371d560f9ea25",
+        "head_branch": "main",
+        "created_at": "2026-07-29T16:46:12Z"
+      },
+      {
+        "id": 90631043055,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-nsx7n",
+        "head_sha": "fd414fe5b6deea3c3818bebdc0548453dc07ace1",
+        "head_branch": "fix/healthcheck-flake-2",
+        "created_at": "2026-07-29T14:49:46Z"
+      },
+      {
+        "id": 90610702360,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-sfw5p",
+        "head_sha": "4c03666782a077edafa2bff3266697eaa1d50750",
+        "head_branch": "renovate/golang.org-x-net-0.x",
+        "created_at": "2026-07-29T14:31:20Z"
+      },
+      {
+        "id": 90609857106,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-chqb8",
+        "head_sha": "30234265b2357764d5029445f7e87cc4f93a927b",
+        "head_branch": "main",
+        "created_at": "2026-07-29T14:29:45Z"
+      },
+      {
+        "id": 90591408022,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-8g8pw",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90629994017,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-8g8pw",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90590630888,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-j7hdr",
+        "head_sha": "784f70980d70f190039c39a03d94de5f839aacd0",
+        "head_branch": "logformatter",
+        "created_at": "2026-07-29T13:18:02Z"
+      },
+      {
+        "id": 90583475284,
+        "conclusion": "failure",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-5f6fm",
+        "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+        "head_branch": "ci-desired-runtime-storage",
+        "created_at": "2026-07-29T12:52:57Z"
+      },
+      {
+        "id": 90566731431,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-cm5t9",
+        "head_sha": "58ccc45398ad543143c527177df9580f0b11adc0",
+        "head_branch": "main",
+        "created_at": "2026-07-29T11:42:25Z"
+      },
+      {
+        "id": 90550744890,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-smrbp",
+        "head_sha": "54ed0966b004e78cf454982904819906e8d9e953",
+        "head_branch": "fix-conmon-context-leak",
+        "created_at": "2026-07-29T10:21:10Z"
+      },
+      {
+        "id": 90539505297,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-k26kb",
+        "head_sha": "956e77bc395417b0f69526a17a0549928357dcce",
+        "head_branch": "main",
+        "created_at": "2026-07-29T09:30:31Z"
+      },
+      {
+        "id": 90533768155,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-plfc2",
+        "head_sha": "9b5e0f358f38abb96dbdc623c1b1d1fe57f45c70",
+        "head_branch": "renovate/github.com-mattn-go-sqlite3-1.x",
+        "created_at": "2026-07-29T09:07:44Z"
+      },
+      {
+        "id": 90632547962,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-plfc2",
+        "head_sha": "9b5e0f358f38abb96dbdc623c1b1d1fe57f45c70",
+        "head_branch": "renovate/github.com-mattn-go-sqlite3-1.x",
+        "created_at": "2026-07-29T09:07:44Z"
+      },
+      {
+        "id": 90531424710,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-q8g8g",
+        "head_sha": "6d5ef8a83dca95be770d787c5d80dace2d864647",
+        "head_branch": "ci-runner",
+        "created_at": "2026-07-29T08:58:42Z"
+      },
+      {
+        "id": 90544548070,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-q8g8g",
+        "head_sha": "6d5ef8a83dca95be770d787c5d80dace2d864647",
+        "head_branch": "ci-runner",
+        "created_at": "2026-07-29T08:58:42Z"
+      },
+      {
+        "id": 90515679098,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-8mp7d",
+        "head_sha": "79ce28aef18029010f1be8bb61ff3c8b6796df8c",
+        "head_branch": "fix-inspect-docker-transport-error",
+        "created_at": "2026-07-29T07:45:27Z"
+      }
+    ],
+    "note": "computed only over runs stored locally, not all of CI history"
+  },
+  "attempts": {
+    "runs_on_this_commit": 1,
+    "max_attempt": 1,
+    "job_outcomes_on_this_commit": [
+      "failure"
+    ],
+    "disagreement": false,
+    "runs": [
+      {
+        "id": 30453491397,
+        "run_attempt": 1,
+        "conclusion": "failure",
+        "created_at": "2026-07-29T12:52:57Z"
+      }
+    ],
+    "jobs": [
+      {
+        "id": 90583475284,
+        "run_id": 30453491397,
+        "run_attempt": 1,
+        "conclusion": "failure"
+      }
+    ],
+    "note": "disagreement=true means this exact commit both passed and failed this job -- the code cannot be the difference"
+  },
+  "related_issues": {
+    "candidates": [
+      {
+        "number": 18659,
+        "title": "\"podman image rm - concurrent with shared layers\" seems racy",
+        "state": "closed",
+        "shared_terms": [
+          "concurrent",
+          "image",
+          "layers",
+          "shared"
+        ],
+        "matched_on": "Podman rmi podman image rm - concurrent with shared layers",
+        "match_source": "test"
+      }
+    ],
+    "matched_against": [
+      "Podman rmi podman image rm - concurrent with shared layers"
+    ],
+    "match_source": "test",
+    "note": "lexical overlap with the failing test's name; a starting point, not a duplicate determination"
+  },
+  "known_fixes": {
+    "issues": [
+      {
+        "number": 18659,
+        "title": "\"podman image rm - concurrent with shared layers\" seems racy",
+        "state": "closed",
+        "closed_by": {
+          "actor": "openshift-merge-robot",
+          "created_at": "2023-05-23T20:05:35Z"
+        },
+        "fix_commits": [
+          {
+            "sha": "fb8a124905a347a37b85de014a713f6721f6e714",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "mtrmac",
+            "committed_at": "2023-05-23T16:16:28Z",
+            "source": "timeline"
+          }
+        ],
+        "has_identified_fix": true
+      }
+    ],
+    "with_identified_fix": 1,
+    "note": "the fix commit states what was actually wrong; it is evidence from a maintainer, not a classification by this tool"
+  },
+  "provenance": {
+    "log_fetched_at": "2026-07-30T18:54:51+00:00",
+    "log_bytes_raw": 19841242,
+    "log_sha256": "7c6a35bb39b5a27e4e644e947064115ec40a10be063dbd6c55f8971d13982e72",
+    "note": "every field is fetched from the GitHub API or counted from stored rows; nothing is inferred, scored, or classified"
+  }
+}

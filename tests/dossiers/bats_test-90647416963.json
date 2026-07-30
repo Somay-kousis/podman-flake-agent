@@ -1,0 +1,477 @@
+{
+  "schema_version": 1,
+  "job": {
+    "id": 90647416963,
+    "run_id": 30472261386,
+    "name": "sys local rootless fedora-prior / lima",
+    "conclusion": "failure",
+    "test": "sys",
+    "mode": "local",
+    "priv": "rootless",
+    "distro": "fedora-prior",
+    "started_at": "2026-07-29T16:56:56Z",
+    "completed_at": "2026-07-29T17:18:19Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30472261386/job/90647416963",
+    "run_attempt": 1,
+    "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-jfxfw",
+    "runner_id": 77746357,
+    "labels": [
+      "cncf-ubuntu-8-32-x86"
+    ],
+    "workflow_name": "ci",
+    "head_sha": "6984b8bbca61916c3113ea06736371d560f9ea25",
+    "check_run_url": "https://api.github.com/repos/podman-container-tools/podman/check-runs/90647416963",
+    "status": "completed",
+    "created_at": "2026-07-29T16:55:04Z",
+    "steps": [
+      {
+        "job_id": 90647416963,
+        "number": 1,
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T16:56:57Z",
+        "completed_at": "2026-07-29T16:56:58Z"
+      },
+      {
+        "job_id": 90647416963,
+        "number": 2,
+        "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T16:56:58Z",
+        "completed_at": "2026-07-29T16:57:01Z"
+      },
+      {
+        "job_id": 90647416963,
+        "number": 3,
+        "name": "Run lima-vm/lima-actions/setup@55627e31b78637bf254a8b2a14da8ea7d12564e5",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T16:57:01Z",
+        "completed_at": "2026-07-29T16:57:30Z"
+      },
+      {
+        "job_id": 90647416963,
+        "number": 4,
+        "name": "Run test on lima",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-07-29T16:57:30Z",
+        "completed_at": "2026-07-29T17:18:15Z"
+      },
+      {
+        "job_id": 90647416963,
+        "number": 5,
+        "name": "Upload journal as artifact",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T17:18:15Z",
+        "completed_at": "2026-07-29T17:18:16Z"
+      },
+      {
+        "job_id": 90647416963,
+        "number": 10,
+        "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T17:18:16Z",
+        "completed_at": "2026-07-29T17:18:17Z"
+      },
+      {
+        "job_id": 90647416963,
+        "number": 11,
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T17:18:17Z",
+        "completed_at": "2026-07-29T17:18:17Z"
+      }
+    ],
+    "step_count": 7
+  },
+  "failing_step": {
+    "found": true,
+    "steps": [
+      {
+        "number": 4,
+        "name": "Run test on lima",
+        "conclusion": "failure",
+        "started_at": "2026-07-29T16:57:30Z",
+        "completed_at": "2026-07-29T17:18:15Z"
+      }
+    ],
+    "first": {
+      "number": 4,
+      "name": "Run test on lima",
+      "conclusion": "failure",
+      "started_at": "2026-07-29T16:57:30Z",
+      "completed_at": "2026-07-29T17:18:15Z"
+    },
+    "note": "the step name distinguishes setup/infrastructure failures from test failures without reading any log"
+  },
+  "log_window": {
+    "available": true,
+    "reason": "sliced to the failing step's time interval; focused on 2 region(s) around 3 failure marker(s)",
+    "step": {
+      "number": 4,
+      "name": "Run test on lima",
+      "started_at": "2026-07-29T16:57:30Z",
+      "completed_at": "2026-07-29T17:18:15Z"
+    },
+    "text": "        ... 671 lines elided ...\nok 327 [702] podman artifact add --replace basic functionality in 670ms\nok 328 [702] podman artifact add --replace nonexistent artifact in 480ms\nok 329 [702] podman artifact add --replace and --append conflict in 331ms\nok 330 [702] podman artifact add --replace with existing artifact in 749ms\nok 331 [702] podman artifact volume validation at creation in 322ms\nok 332 [750] podman image trust set in 1059ms\nok 333 [760] podman system renumber - Basic test with a volume in 439ms\nok 334 [800] podman CONTAINERS_CONF - CONTAINERS_CONF in conmon in 1271ms\nok 335 [800] podman CONTAINERS_CONF - override runtime name in 1010ms\nok 336 [800] podman --module - absolute path in 705ms\nok 337 [800] podman --module - append arrays in 1018ms\nok 338 [800] podman --module - XDG_CONFIG_HOME in 1026ms\nok 339 [800] podman --module - command-line completion in 243ms\nok 340 [800] podman --module - supported fields in 1897ms\nok 341 [800] podman push CONTAINERS_CONF in 301ms\nok 342 [850] podman compose - smoke tests in 728ms\nok 343 podman --ssh test in 72ms # skip only applicable on podman-remote\nok 344 [950] podman preexec hook in 330ms\nPODMAN=/var/tmp/podman/bin/podman QUADLET=/var/tmp/podman/bin/quadlet bats -T --filter-tags ci:parallel -j $(nproc) test/system/\n1..469\nok 1 |010| podman rmi --ignore in 799ms\nok 2 |010| podman image rm --force bogus in 1985ms\nok 3 |010| podman images - commit docker with comment in 4358ms\nok 4 |010| podman images with concurrent removal in 11993ms\nok 5 |012| podman images - bare manifest list in 2734ms\nok 6 |012| podman manifest --tls-verify and --authfile in 3908ms\nok 7 |012| manifest list --add-compression with zstd:chunked in 7084ms\nok 8 |012| manifest list --add --artifact in 60892ms\nok 9 |015| podman help - basic tests in 83776ms\nok 10 |020| podman tag/untag in 4953ms\nok 11 |030| podman run - basic tests in 5939ms\nok 12 |030| podman run - global runtime option in 1788ms\nok 13 |030| podman run - containers.conf runtime options in 1487ms\nok 14 |030| podman run --memory=0 runtime option in 1862ms\nok 15 |030| podman run --preserve-fds in 1906ms\nok 16 |030| podman run --preserve-fd in 2059ms\nok 17 |030| podman run - uidmapping has no /sys/kernel mounts in 658ms # skip cannot umount as rootless\nok 18 |030| podman run --rm in 3695ms\nok 19 |030| podman run --name in 6384ms\nok 20 |030| podman run --conmon-pidfile --cidfile in 2170ms\nnot ok 21 |030| podman run docker-archive in 8852ms\n# tags: ci:parallel\n# (from function `bail-now' in file test/system/helpers.bash, line 230,\n#  from function `die' in file test/system/helpers.bash, line 958,\n#  from function `run_podman' in file test/system/helpers.bash, line 599,\n#  in test file test/system/030-run.bats, line 336)\n#   `run_podman create docker-archive:$archive' failed\n#\n# [17:13:15.584318620] $ /var/tmp/podman/bin/podman  run --name c_t21-rsi7xtnq --entrypoint=[\"/bin/echo\",\"fH7naqZ30CBupKj7KQCo\"] quay.io/libpod/testimage:20241011\n# [17:13:16.112219013] fH7naqZ30CBupKj7KQCo\n#\n# [17:13:16.128383670] $ /var/tmp/podman/bin/podman  commit c_t21-rsi7xtnq i_t21-rsi7xtnq\n# [17:13:17.395278255] Getting image source signatures\n# Copying blob sha256:b66a884aaf08f1c410c61682a7072d68a0d837ba8dc16ff13b9509bdceb32fd2\n# Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\n# Copying blob sha256:4055a8ae80b0cc69f7c6981959ce21a52a7a4aff902041a4fdd33a1d0f953eb2\n# Copying config sha256:026614852037794b456031de0775c87cad6a3237f7442e8f95934013072f699a\n# Writing manifest to image destination\n# 026614852037794b456031de0775c87cad6a3237f7442e8f95934013072f699a\n#\n# [17:13:17.404254068] $ /var/tmp/podman/bin/podman  save --quiet i_t21-rsi7xtnq -o /tmp/podman_bats.yxNIfQ/archive.tar\n#\n# [17:13:18.217157879] $ /var/tmp/podman/bin/podman  rmi i_t21-rsi7xtnq\n# [17:13:19.012443756] Untagged: localhost/i_t21-rsi7xtnq:latest\n# Deleted: 026614852037794b456031de0775c87cad6a3237f7442e8f95934013072f699a\n#\n# [17:13:19.022267530] $ /var/tmp/podman/bin/podman  rm c_t21-rsi7xtnq\n# [17:13:19.470681886] c_t21-rsi7xtnq\n#\n# [17:13:19.480879495] $ /var/tmp/podman/bin/podman  run --name c_t21-rsi7xtnq_2 docker-archive:/tmp/podman_bats.yxNIfQ/archive.tar\n# [17:13:21.150765650] Getting image source signatures\n# Copying blob sha256:4055a8ae80b0cc69f7c6981959ce21a52a7a4aff902041a4fdd33a1d0f953eb2\n# Copying blob sha256:b66a884aaf08f1c410c61682a7072d68a0d837ba8dc16ff13b9509bdceb32fd2\n# Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\n# Copying config sha256:026614852037794b456031de0775c87cad6a3237f7442e8f95934013072f699a\n# Writing manifest to image destination\n# fH7naqZ30CBupKj7KQCo\n#\n# [17:13:21.189481733] $ /var/tmp/podman/bin/podman  rm c_t21-rsi7xtnq_2\n# [17:13:21.825655409] c_t21-rsi7xtnq_2\n#\n# [17:13:21.839549006] $ /var/tmp/podman/bin/podman  rmi i_t21-rsi7xtnq\n# [17:13:22.035775123] Untagged: localhost/i_t21-rsi7xtnq:latest\n# Deleted: 026614852037794b456031de0775c87cad6a3237f7442e8f95934013072f699a\n#\n# [17:13:22.045882444] $ /var/tmp/podman/bin/podman  create docker-archive:/tmp/podman_bats.yxNIfQ/archive.tar\n# [17:13:22.468424724] Getting image source signatures\n# Copying blob sha256:4055a8ae80b0cc69f7c6981959ce21a52a7a4aff902041a4fdd33a1d0f953eb2\n# Copying blob sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef\n# Copying blob sha256:b66a884aaf08f1c410c61682a7072d68a0d837ba8dc16ff13b9509bdceb32fd2\n# Copying config sha256:026614852037794b456031de0775c87cad6a3237f7442e8f95934013072f699a\n# Writing manifest to image destination\n# Error: unable to copy from source docker-archive:/tmp/podman_bats.yxNIfQ/archive.tar: committing the finished image: creating image \"026614852037794b456031de0775c87cad6a3237f7442e8f95934013072f699a\": layer not known\n# [17:13:22.472802271] [ rc=125 (** EXPECTED 0 **) ]\n# #/vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\n# #| FAIL: exit code is 125; expected 0\n# #\\^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n# # [teardown]\nok 22 |030| podman run : user namespace preserved root ownership in 10145ms\nok 23 |030| podman run : add username to /etc/passwd if --userns=keep-id in 7023ms\nok 24 |030| podman run : --userns=keep-id: passwd file is modifiable in 3311ms\nok 25 |030| podman run --log-driver in 12322ms\nok 26 |030| podman run --log-driver journald in 2099ms\nok 27 |030| podman run --tz in 6638ms\nok 28 |030| podman run --tz with zoneinfo in 7583ms\nok 29 |030| podman run : full path to --runtime is preserved in 5932ms\nok 30 |030| podman --noout run should not print output in 1846ms\nok 31 |030| podman --noout create should not print output in 2058ms\nok 32 |030| podman --out run should save the container id in 2262ms\nok 33 |030| podman --out create should save the container id in 1613ms\nok 34 |030| podman run : look up correct image name in 3329ms\nok 35 |030| podman inspect includes image data in 2790ms\nok 36 |030| Verify /run/.containerenv exist in 6899ms\nok 37 |030| podman run with --net=host and --port prints warning in 1814ms\nok 38 |030| podman run with --net=none and --port prints warning in 1152ms\nok 39 |030| podman run with --net=container:id and --port prints warning in 3272ms\nok 40 |030| podman run - check workdir in 3348ms\nok 41 |030| podman run - do not set empty HOME in 1064ms\nok 42 |030| podman run --timeout - basic test in 3317ms\nok 43 |030| podman run no /etc/mtab  in 3278ms\nok 44 |030| podman run --hostuser tests in 6921ms\nok 45 |030| podman run --device-cgroup-rule tests in 900ms\nok 46 |030| podman run closes stdin in 1558ms\nok 47 |030| podman run defaultenv in 6387ms\nok 48 |030| podman run - no /etc/hosts in 594ms # skip Test is too dangerous to run in a non-container environment\nok 49 |030| podman run image with filesystem permission in 1680ms\nok 50 |030| podman run with log-opt option in 2168ms\nok 51 |030| podman run --kernel-memory warning in 2054ms\nok 52 |030| podman run update /etc/hosts in 1312ms\nok 53 |030| podman run doesn't override oom-score-adj in 5433ms\nok 54 |030| rootless podman clamps oom-score-adj if it is lower than the current one in 1742ms\nok 55 |030| podman top does not use nsenter from image in 5007ms\nok 56 |030| podman create --security-opt in 2532ms\nok 57 |030| podman run --device-read-bps in 1120ms # skip cannot use this flag in rootless mode\nok 58 |030| podman run failed --rm  in 2371ms\nok 59 |030| podman run --attach stdin prints container ID in 1608ms\nok 60 |030| podman run with empty --detach-keys in 1456ms\nok 61 |030| podman run --privileged as root with systemd will not mount /dev/tty in 2338ms # skip [rootless] this test only makes sense as root\nok 62 |030| podman run --privileged as rootless will not mount /dev/tty\\d+ in 3458ms\nok 63 |030| podman run --privileged as root with systemd mounts non-vt /dev/tty devices in 1474ms\nok 64 |030| podman run read-only from containers.conf in 6354ms\nok 65 |030| podman run ulimit from containers.conf in 2721ms\nok 66 |030| podman run ulimit with -1 in 2821ms\nok 67 |030| podman run - can use maximum ulimit value in 2109ms\nok 68 |030| podman run - ulimits have the correct default values in 1850ms\nok 69 |030| podman run bad --name in 1333ms\nok 70 |030| podman run --net=host --cgroupns=host with read only cgroupfs in 1361ms\nok 71 |030| podman run - idmapped mounts in 335ms # skip [rootless] idmapped mounts work only with root for now\nok 72 |030| podman run --restart=always/on-failure -- wait in 3387ms\nok 73 |030| podman run --restart preserves hooks-dir in 2819ms\nok 74 |030| podman run - custom static_dir in 1979ms\nok 75 |030| podman --authfile=nonexistent-path in 10608ms\nok 76 |030| podman --syslog and environment passed to conmon in 1524ms\nok 77 |030| podman create container with conflicting name in 3621ms\nok 78 |030| podman run - /run must not be world-writable in systemd containers in 3451ms\nok 79 |030| podman run with mounts.conf missing in 3734ms\nok 80 |030| podman run - rm pod if container creation failed with -pod new: in 2292ms\nok 81 |030| podman run - no entrypoint in 2003ms\nok 82 |030| podman run - stopping loop in 3463ms\nok 83 |030| podman run - no-hostname in 4079ms\nok 84 |030| podman inspect - Args does not duplicate Path for single command in 4286ms\nok 85 |035| podman logs - basic test in 2637ms\nok 86 |035| podman logs - tail test, journald in 2884ms\nok 87 |035| podman logs - multi journald in 3758ms\nok 88 |035| podman logs restarted journald in 3718ms\nok 89 |035| podman logs - since journald in 5165ms\nok 90 |035| podman logs - until journald in 6673ms\nok 91 |035| podman logs - --follow journald in 5347ms\nok 92 |035| podman logs - --since --follow journald in 7209ms\nok 93 |035| podman logs - --until --follow journald in 5690ms\nok 94 |045| podman start attach with created --rm container in 1933ms\nok 95 |050| podman stop - basic test in 12725ms\nok 96 |050| podman stop --ignore in 2602ms\nok 97 |050| podman stop - can trap signal in 11819ms\nok 98 |050| podman stop - unlock while waiting for timeout in 5681ms\nok 99 |050| podman stop -t 1 Generate warning in 3083ms\nok 100 |050| podman stop --noout in 1950ms\nok 101 |050| podman stop, with --rm container in 3807ms\nok 102 |055| podman rm in 4061ms\nok 103 |055| podman rm - running container, w/o and w/ force in 1793ms\nok 104 |055| podman rm container from storage in 4204ms\nok 105 |055| podman rm <-> run --rm race in 6384ms\nok 106 |055| podman rm --depend in 3097ms\nok 107 |055| podman rm -f in 3619ms\nok 108 |055| podman container rm --force bogus in 3222ms\nok 109 |055| podman container rm doesn't affect stopping containers in 8828ms\nok 110 |055| podman container rm --force doesn't leave running processes in 23407ms\nok 111 |055| podman rm after killed conmon in 2977ms\nok 112 |060| podman mount - basic test in 457ms # skip mount does not work rootless\nok 113 |060| podman run --mount ro=false  in 8563ms\nok 114 |060| podman run --mount image in 597ms # skip too hard to test rootless\nok 115 |060| podman run --mount image inspection in 716ms # skip too hard to test rootless\nok 116 |060| podman mount containers.conf in 3893ms\nok 117 |060| podman mount external container - basic test in 728ms # skip mount does not work rootless\nok 118 |060| podman volume globs in 10579ms\nok 119 |060| podman mount noswap memory mounts in 2085ms\nok 120 |060| podman mount no-dereference in 52177ms\nok 121 |065| podman cp file from host to container in 50465ms\nok 122 |065| podman cp file from host to container tmpfs mount in 6486ms\nok 123 |065| podman cp (-a=true) file from host to container and check ownership in 3557ms\nok 124 |065| podman cp (-a=false) file from host to container and check ownership in 4032ms\nok 125 |065| podman cp file from/to host while --pid=host in 2381ms\nok 126 |065| podman cp file from container to host in 17191ms\nok 127 |065| podman cp file from container to container in 77882ms\nok 128 |065| podman cp dir from host to container in 32597ms\nok 129 |065| podman cp dir from container to host in 15260ms\nok 130 |065| podman cp dir from container to container in 81451ms\nok 131 |065| podman cp symlinked directory from container in 5970ms\nok 132 |065| podman cp file from host to container volume in 6323ms\nok 133 |065| podman cp file from host to container mount in 3313ms\nok 134 |065| podman cp * - wildcard copy multiple files from container to host in 3718ms\nok 135 |065| podman cp - will not recognize symlink pointing into host space in 3621ms\nok 136 |065| podman cp - will not expand globs in host space (#3829) in 4531ms\nok 137 |065| podman cp - will not expand wildcard in 5707ms\nok 138 |065| podman cp into container: weird symlink expansion in 4636ms\nok 139 |065| podman cp into a subdirectory matching GraphRoot in 6781ms\n        ... 302 lines elided ...\nok 442 |700| podman kube play --replace external storage in 5190ms\nok 443 |700| podman kube --annotation in 2898ms\nok 444 |700| podman play Yaml deprecated --no-trunc annotation in 906ms # skip FIXME: I can't figure out what this test is supposed to do\nok 445 |700| podman kube play - default log driver in 4776ms\nok 446 |700| podman kube play - URL in 4299ms\nok 447 |700| podman play with init container in 4267ms\nok 448 |700| podman kube play - hostport in 4258ms\nok 449 |700| podman kube play - multi-pod YAML in 5308ms\nok 450 |700| podman kube generate filetype in 4761ms\nok 451 |700| podman kube play --wait with siginterrupt in 5809ms\nok 452 |700| podman kube play --wait - wait for pod to exit in 4763ms\nok 453 |700| podman kube play with configmaps in 3001ms\nok 454 |700| podman kube with --authfile=/tmp/bogus in 697ms\nok 455 |700| podman kube play with umask from containers.conf in 3832ms\nok 456 |700| podman kube generate tmpfs on /tmp in 2405ms\nok 457 |700| podman kube play - pull policy in 5780ms\nok 458 |700| podman kube play healthcheck should wait initialDelaySeconds before updating status in 25141ms\nok 459 |700| podman kube play healthcheck should wait initialDelaySeconds before executing healthcheck in 4476ms\nok 460 |700| podman play with image volume (automount annotation and OCI VolumeSource) in 20462ms\nok 461 |700| podman play with image volume pull policies in 26658ms\nok 462 |700| podman kube play - publish with default_host_ips in 3127ms\nok 463 |710| podman kube generate - usage message in 914ms\nok 464 |710| podman kube generate - container in 1491ms\nok 465 |710| podman kube generate unmasked in 4335ms\nok 466 |710| podman kube generate volumes in 1946ms\nok 467 |710| podman kube generate - pod in 4265ms\nok 468 |710| podman kube generate - deployment in 3621ms\nok 469 |710| podman kube generate - job in 2914ms\nmake: *** [Makefile:735: localsystem] Error 1\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Sending SIGKILL to the qemu driver process 3007\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Sending SIGKILL to the host agent process 2981\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing *.pid *.sock *.tmp under \\\"/home/ubuntu/.lima/podman-ci\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/ha.pid\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/ha.sock\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/qemu.pid\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/qmp.sock\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/serial.sock\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/serialv.sock\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Removing \\\"/home/ubuntu/.lima/podman-ci/ssh.sock\\\"\"\ntime=\"2026-07-29T17:18:15Z\" level=info msg=\"Deleted \\\"podman-ci\\\" (\\\"/home/ubuntu/.lima/podman-ci\\\")\"\n##[error]Process completed with exit code 2.\n##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a\nwith:\n  name: journal-sys-local-rootless-fedora-prior.log\n  path: ./hack/ci/journal.log\n  if-no-files-found: ignore\n  compression-level: 6\n  overwrite: false\n  include-hidden-files: false\n  archive: true\nenv:\n  AUTOMATION_RELEASE: 20260722t094115z\n##[endgroup]\nWith the provided path, there will be 1 file uploaded\nArtifact name is valid!\nRoot directory input is valid!\nUploading artifact: journal-sys-local-rootless-fedora-prior.log.zip\nBeginning upload of artifact content to blob storage\nUploaded bytes 708737\nFinished uploading artifact content to blob storage!\nSHA256 digest of uploaded artifact is 290d5adcdac489c2a86aec556e3102a30afed86de89ee32072ec865b7e1711b4\nFinalizing artifact upload\nArtifact journal-sys-local-rootless-fedora-prior.log successfully finalized. Artifact ID 8733102448\nArtifact journal-sys-local-rootless-fedora-prior.log has been successfully uploaded! Final size is 708737 bytes. Artifact ID is 8733102448\nArtifact download URL: https://github.com/podman-container-tools/podman/actions/runs/30472261386/artifacts/8733102448\n        ... 16 lines elided ...",
+    "line_count": 284,
+    "source_line_count": 1580,
+    "reduction_pct": 82.0,
+    "est_tokens": 4466,
+    "failure_markers": 3,
+    "failing_tests": [
+      {
+        "kind": "bats",
+        "name": "podman run docker-archive",
+        "raw": "not ok 21 |030| podman run docker-archive in 8852ms"
+      }
+    ]
+  },
+  "run": {
+    "id": 30472261386,
+    "run_number": 1142,
+    "run_attempt": 1,
+    "head_sha": "6984b8bbca61916c3113ea06736371d560f9ea25",
+    "head_branch": "main",
+    "event": "push",
+    "conclusion": "failure",
+    "pr_number": 29335,
+    "created_at": "2026-07-29T16:46:12Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30472261386",
+    "workflow_name": "ci",
+    "path": ".github/workflows/ci.yml",
+    "run_started_at": "2026-07-29T16:46:12Z",
+    "updated_at": "2026-07-29T17:41:34Z",
+    "actor_login": "mheon",
+    "previous_attempt_url": null,
+    "display_title": "Merge pull request #29335 from podman-container-tools/renovate/github\u2026"
+  },
+  "pull_request": {
+    "number": 29335,
+    "present": true,
+    "files_fetched": true,
+    "file_count": 7,
+    "files": [
+      {
+        "pr_number": 29335,
+        "filename": "go.mod",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1
+      },
+      {
+        "pr_number": 29335,
+        "filename": "go.sum",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 2
+      },
+      {
+        "pr_number": 29335,
+        "filename": "vendor/github.com/mattn/go-sqlite3/callback.go",
+        "status": "modified",
+        "additions": 21,
+        "deletions": 0
+      },
+      {
+        "pr_number": 29335,
+        "filename": "vendor/github.com/mattn/go-sqlite3/sqlite3-binding.c",
+        "status": "modified",
+        "additions": 88,
+        "deletions": 52
+      },
+      {
+        "pr_number": 29335,
+        "filename": "vendor/github.com/mattn/go-sqlite3/sqlite3-binding.h",
+        "status": "modified",
+        "additions": 5,
+        "deletions": 5
+      },
+      {
+        "pr_number": 29335,
+        "filename": "vendor/github.com/mattn/go-sqlite3/sqlite3_opt_vtable.go",
+        "status": "modified",
+        "additions": 50,
+        "deletions": 6
+      },
+      {
+        "pr_number": 29335,
+        "filename": "vendor/modules.txt",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1
+      }
+    ],
+    "additions": 168,
+    "deletions": 67,
+    "all_paths_inert": true,
+    "inert_file_count": 7,
+    "note": "all changed paths are vendored/docs/dependency files"
+  },
+  "siblings": {
+    "total": 55,
+    "failed": 2,
+    "failed_jobs": [
+      {
+        "id": 90659361181,
+        "name": "Total Success",
+        "conclusion": "failure",
+        "runner_name": "GitHub Actions 1063278668",
+        "started_at": "2026-07-29T17:41:30Z",
+        "completed_at": "2026-07-29T17:41:33Z"
+      },
+      {
+        "id": 90647414655,
+        "name": "macos machine libkrun",
+        "conclusion": "failure",
+        "runner_name": "MacM1-4",
+        "started_at": "2026-07-29T16:55:05Z",
+        "completed_at": "2026-07-29T17:13:13Z"
+      }
+    ],
+    "conclusions": {
+      "failure": 3,
+      "success": 53
+    }
+  },
+  "history": {
+    "observations": 376,
+    "failures": 15,
+    "failure_rate": 0.04,
+    "by_conclusion": {
+      "cancelled": 1,
+      "failure": 15,
+      "skipped": 55,
+      "success": 305
+    },
+    "failures_by_runner": {
+      "cncf-ubuntu-8-32-x86-7vx47-runner-5jrbh": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-6zgjh": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-9hqhl": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-jwjvp": 1,
+      "cncf-ubuntu-8-32-x86-7vx47-runner-vxhqd": 1,
+      "cncf-ubuntu-8-32-x86-bjzkg-runner-jfxfw": 1,
+      "cncf-ubuntu-8-32-x86-stc5t-runner-6pf2z": 1,
+      "cncf-ubuntu-8-32-x86-stc5t-runner-6wpbh": 1,
+      "cncf-ubuntu-8-32-x86-stc5t-runner-9fchc": 1,
+      "cncf-ubuntu-8-32-x86-stc5t-runner-n7rrp": 1,
+      "cncf-ubuntu-8-32-x86-stc5t-runner-tndsl": 1,
+      "cncf-ubuntu-8-32-x86-stc5t-runner-zrmll": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-7wbsc": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-trl4b": 1,
+      "cncf-ubuntu-8-32-x86-thtdq-runner-z5l5f": 1
+    },
+    "recent": [
+      {
+        "id": 90946827224,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-dtgsf",
+        "head_sha": "6f815007601625696627e9f9b11c84167259e86f",
+        "head_branch": "composefs-handle-ETXTBSY",
+        "created_at": "2026-07-30T16:59:58Z"
+      },
+      {
+        "id": 90896286278,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-b9nl2",
+        "head_sha": "231a4df20d585474ebafd9e469f0730b480b7219",
+        "head_branch": "main",
+        "created_at": "2026-07-30T13:58:24Z"
+      },
+      {
+        "id": 90832605059,
+        "conclusion": "skipped",
+        "runner_name": null,
+        "head_sha": "444021f9f9975996f35ca3540fc5c80a82ae7910",
+        "head_branch": "contributing",
+        "created_at": "2026-07-30T09:19:24Z"
+      },
+      {
+        "id": 90673665883,
+        "conclusion": "skipped",
+        "runner_name": null,
+        "head_sha": "5d041e7b4741166ff432ca524d5850bbb2c232d1",
+        "head_branch": "contributing",
+        "created_at": "2026-07-29T18:25:44Z"
+      },
+      {
+        "id": 90647416963,
+        "conclusion": "failure",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-jfxfw",
+        "head_sha": "6984b8bbca61916c3113ea06736371d560f9ea25",
+        "head_branch": "main",
+        "created_at": "2026-07-29T16:46:12Z"
+      },
+      {
+        "id": 90631043350,
+        "conclusion": "skipped",
+        "runner_name": null,
+        "head_sha": "fd414fe5b6deea3c3818bebdc0548453dc07ace1",
+        "head_branch": "fix/healthcheck-flake-2",
+        "created_at": "2026-07-29T14:49:46Z"
+      },
+      {
+        "id": 90610702176,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-klprj",
+        "head_sha": "4c03666782a077edafa2bff3266697eaa1d50750",
+        "head_branch": "renovate/golang.org-x-net-0.x",
+        "created_at": "2026-07-29T14:31:20Z"
+      },
+      {
+        "id": 90609856590,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-rcwsc",
+        "head_sha": "30234265b2357764d5029445f7e87cc4f93a927b",
+        "head_branch": "main",
+        "created_at": "2026-07-29T14:29:45Z"
+      },
+      {
+        "id": 90591407872,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-rc7x7",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90629993484,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-rc7x7",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90590630370,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-m6895",
+        "head_sha": "784f70980d70f190039c39a03d94de5f839aacd0",
+        "head_branch": "logformatter",
+        "created_at": "2026-07-29T13:18:02Z"
+      },
+      {
+        "id": 90583475083,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-j2t8j",
+        "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+        "head_branch": "ci-desired-runtime-storage",
+        "created_at": "2026-07-29T12:52:57Z"
+      },
+      {
+        "id": 90566731193,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-hdsts",
+        "head_sha": "58ccc45398ad543143c527177df9580f0b11adc0",
+        "head_branch": "main",
+        "created_at": "2026-07-29T11:42:25Z"
+      },
+      {
+        "id": 90550745183,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-lpl6p",
+        "head_sha": "54ed0966b004e78cf454982904819906e8d9e953",
+        "head_branch": "fix-conmon-context-leak",
+        "created_at": "2026-07-29T10:21:10Z"
+      },
+      {
+        "id": 90539505340,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-pv94b",
+        "head_sha": "956e77bc395417b0f69526a17a0549928357dcce",
+        "head_branch": "main",
+        "created_at": "2026-07-29T09:30:31Z"
+      },
+      {
+        "id": 90533768156,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-km89m",
+        "head_sha": "9b5e0f358f38abb96dbdc623c1b1d1fe57f45c70",
+        "head_branch": "renovate/github.com-mattn-go-sqlite3-1.x",
+        "created_at": "2026-07-29T09:07:44Z"
+      },
+      {
+        "id": 90632547457,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-km89m",
+        "head_sha": "9b5e0f358f38abb96dbdc623c1b1d1fe57f45c70",
+        "head_branch": "renovate/github.com-mattn-go-sqlite3-1.x",
+        "created_at": "2026-07-29T09:07:44Z"
+      },
+      {
+        "id": 90531424876,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-l9hnk",
+        "head_sha": "6d5ef8a83dca95be770d787c5d80dace2d864647",
+        "head_branch": "ci-runner",
+        "created_at": "2026-07-29T08:58:42Z"
+      },
+      {
+        "id": 90544547802,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-l9hnk",
+        "head_sha": "6d5ef8a83dca95be770d787c5d80dace2d864647",
+        "head_branch": "ci-runner",
+        "created_at": "2026-07-29T08:58:42Z"
+      },
+      {
+        "id": 90515679372,
+        "conclusion": "success",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-rvlnk",
+        "head_sha": "79ce28aef18029010f1be8bb61ff3c8b6796df8c",
+        "head_branch": "fix-inspect-docker-transport-error",
+        "created_at": "2026-07-29T07:45:27Z"
+      }
+    ],
+    "note": "computed only over runs stored locally, not all of CI history"
+  },
+  "attempts": {
+    "runs_on_this_commit": 1,
+    "max_attempt": 1,
+    "job_outcomes_on_this_commit": [
+      "failure"
+    ],
+    "disagreement": false,
+    "runs": [
+      {
+        "id": 30472261386,
+        "run_attempt": 1,
+        "conclusion": "failure",
+        "created_at": "2026-07-29T16:46:12Z"
+      }
+    ],
+    "jobs": [
+      {
+        "id": 90647416963,
+        "run_id": 30472261386,
+        "run_attempt": 1,
+        "conclusion": "failure"
+      }
+    ],
+    "note": "disagreement=true means this exact commit both passed and failed this job -- the code cannot be the difference"
+  },
+  "related_issues": {
+    "candidates": [],
+    "matched_against": [
+      "podman run docker-archive"
+    ],
+    "match_source": "test",
+    "note": "lexical overlap with the failing test's name; a starting point, not a duplicate determination"
+  },
+  "known_fixes": {
+    "issues": [],
+    "note": "no related issues to look up"
+  },
+  "provenance": {
+    "log_fetched_at": "2026-07-30T18:54:14+00:00",
+    "log_bytes_raw": 152380,
+    "log_sha256": "a481cbb83c9e37dd4eac95b34c1fbb83e2d39ee4234146e7b574e67fe5d031e1",
+    "note": "every field is fetched from the GitHub API or counted from stored rows; nothing is inferred, scored, or classified"
+  }
+}

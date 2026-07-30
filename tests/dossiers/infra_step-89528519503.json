@@ -1,0 +1,1899 @@
+{
+  "schema_version": 1,
+  "job": {
+    "id": 89528519503,
+    "run_id": 30107532084,
+    "name": "windows installer wsl",
+    "conclusion": "failure",
+    "test": null,
+    "mode": null,
+    "priv": null,
+    "distro": null,
+    "started_at": "2026-07-24T15:59:05Z",
+    "completed_at": "2026-07-24T16:04:09Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30107532084/job/89528519503",
+    "run_attempt": 1,
+    "runner_name": "GitHub Actions 1062351314",
+    "runner_id": 1062351314,
+    "labels": [
+      "windows-2025-vs2026"
+    ],
+    "workflow_name": "ci",
+    "head_sha": "e36e1a41c69ea9f6096ed628a71920f315f34514",
+    "check_run_url": "https://api.github.com/repos/podman-container-tools/podman/check-runs/89528519503",
+    "status": "completed",
+    "created_at": "2026-07-24T15:58:52Z",
+    "steps": [
+      {
+        "job_id": 89528519503,
+        "number": 1,
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T15:59:05Z",
+        "completed_at": "2026-07-24T15:59:07Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 2,
+        "name": "Configure git line endings",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T15:59:07Z",
+        "completed_at": "2026-07-24T15:59:19Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 3,
+        "name": "Checkout",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T15:59:19Z",
+        "completed_at": "2026-07-24T15:59:30Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 4,
+        "name": "Set up Go",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T15:59:30Z",
+        "completed_at": "2026-07-24T16:00:16Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 5,
+        "name": "Install build dependencies",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:00:16Z",
+        "completed_at": "2026-07-24T16:01:25Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 6,
+        "name": "Build podman",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:01:25Z",
+        "completed_at": "2026-07-24T16:01:53Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 7,
+        "name": "Fetch gvproxy",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:01:53Z",
+        "completed_at": "2026-07-24T16:01:54Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 8,
+        "name": "Build docs",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:01:54Z",
+        "completed_at": "2026-07-24T16:02:36Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 9,
+        "name": "Build MSI (current version)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:02:36Z",
+        "completed_at": "2026-07-24T16:03:20Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 10,
+        "name": "Build MSI (next version 9.9.9)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:03:20Z",
+        "completed_at": "2026-07-24T16:03:48Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 11,
+        "name": "Run installer test",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-07-24T16:03:48Z",
+        "completed_at": "2026-07-24T16:04:03Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 12,
+        "name": "Upload artifacts",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:04:03Z",
+        "completed_at": "2026-07-24T16:04:06Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 23,
+        "name": "Post Set up Go",
+        "status": "completed",
+        "conclusion": "skipped",
+        "started_at": "2026-07-24T16:04:06Z",
+        "completed_at": "2026-07-24T16:04:06Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 24,
+        "name": "Post Checkout",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:04:06Z",
+        "completed_at": "2026-07-24T16:04:08Z"
+      },
+      {
+        "job_id": 89528519503,
+        "number": 25,
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-24T16:04:08Z",
+        "completed_at": "2026-07-24T16:04:08Z"
+      }
+    ],
+    "step_count": 15
+  },
+  "failing_step": {
+    "found": true,
+    "steps": [
+      {
+        "number": 11,
+        "name": "Run installer test",
+        "conclusion": "failure",
+        "started_at": "2026-07-24T16:03:48Z",
+        "completed_at": "2026-07-24T16:04:03Z"
+      }
+    ],
+    "first": {
+      "number": 11,
+      "name": "Run installer test",
+      "conclusion": "failure",
+      "started_at": "2026-07-24T16:03:48Z",
+      "completed_at": "2026-07-24T16:04:03Z"
+    },
+    "note": "the step name distinguishes setup/infrastructure failures from test failures without reading any log"
+  },
+  "log_window": {
+    "available": true,
+    "reason": "sliced to the failing step's time interval; focused on 1 region(s) around 1 failure marker(s)",
+    "step": {
+      "number": 11,
+      "name": "Run installer test",
+      "started_at": "2026-07-24T16:03:48Z",
+      "completed_at": "2026-07-24T16:04:03Z"
+    },
+    "text": "  podman -> D:\\a\\podman\\podman\\contrib\\win-installer\\podman-9.9.9.msi\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:22.70\nSkipping signing (no config)\nComplete\n\n    Directory: D:\\a\\podman\\podman\\contrib\\win-installer\n\n\u001b[32;1mMode   \u001b[0m\u001b[32;1m              LastWriteTime\u001b[0m\u001b[32;1m         Length\u001b[0m\u001b[32;1m Name\u001b[0m\n\u001b[32;1m----   \u001b[0m \u001b[32;1m             -------------\u001b[0m \u001b[32;1m        ------\u001b[0m \u001b[32;1m----\u001b[0m\n-a---           7/24/2026  4:03 PM       27409769 podman-9.9.9.msi\n\n##[group]Run .\\winmake.ps1 installertest $env:PROVIDER\n\u001b[36;1m.\\winmake.ps1 installertest $env:PROVIDER\u001b[0m\nshell: C:\\Program Files\\PowerShell\\7\\pwsh.EXE -command \". '{0}'\"\nenv:\n  PROVIDER: wsl\n  GOTOOLCHAIN: local\n  GITHUB_TOKEN: ***\n##[endgroup]\ngo build --o \"D:\\a\\podman\\podman\\test\\version\\version.exe\" \"D:\\a\\podman\\podman\\test\\version\\\"\nD:\\a\\podman\\podman\\contrib\\win-installer\\test.ps1 -scenario all -provider wsl -msiPath D:\\a\\podman\\podman\\contrib\\win-installer\\podman-6.1.0.msi -nextMsiPath D:\\a\\podman\\podman\\contrib\\win-installer\\podman-9.9.9.msi\nDownloading the amd64 v5.8.3 Podman windows setup from GitHub...\nLooking for an asset named \"podman-installer-windows-amd64.exe\"\nDownloading URL: https://github.com/podman-container-tools/podman/releases/download/v5.8.3/podman-installer-windows-amd64.exe\nDestination Path: D:\\a\\podman\\podman\\contrib\\win-installer\\podman-v5.8.3-setup.exe\n\u001b[31;1mInvoke-WebRequest: \u001b[0mD:\\a\\podman\\podman\\contrib\\win-installer\\utils.ps1:41\u001b[0m\n\u001b[31;1m\u001b[0m\u001b[36;1mLine |\u001b[0m\n\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m  41 | \u001b[0m     \u001b[36;1mInvoke-WebRequest -Uri $downloadUrl -OutFile $destinationPath\u001b[0m\n\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m     | \u001b[31;1m     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n\u001b[31;1m\u001b[0m\u001b[36;1m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[0m\u001b[36;1m\u001b[31;1m\u001b[31;1m\u001b[36;1m     | \u001b[31;1m504 Gateway Time-out The server didn't respond in time.  \u001b[0m\n##[error]Process completed with exit code 1.\n##[group]Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a\nwith:\n  name: windows-installer-wsl-diag\n  path: contrib/win-installer/*.msi\n  if-no-files-found: warn\n  compression-level: 6\n  overwrite: false\n  include-hidden-files: false\n  archive: true\nenv:\n  PROVIDER: wsl\n  GOTOOLCHAIN: local\n##[endgroup]\nWith the provided path, there will be 2 files uploaded\nArtifact name is valid!\nRoot directory input is valid!\nUploading artifact: windows-installer-wsl-diag.zip\nBeginning upload of artifact content to blob storage\nUploaded bytes 8388608\nUploaded bytes 16777216\nUploaded bytes 25165824\nUploaded bytes 33554432\nUploaded bytes 41943040\nUploaded bytes 50331648\nUploaded bytes 54161997\nFinished uploading artifact content to blob storage!\nSHA256 digest of uploaded artifact is 6b98c16d1594a7f9b2af78233634b7e79cae857416271208b1c2a7a4d2263126\nFinalizing artifact upload\nArtifact windows-installer-wsl-diag successfully finalized. Artifact ID 8602332245\nArtifact windows-installer-wsl-diag has been successfully uploaded! Final size is 54161997 bytes. Artifact ID is 8602332245\nArtifact download URL: https://github.com/podman-container-tools/podman/actions/runs/30107532084/artifacts/8602332245\n        ... 17 lines elided ...",
+    "line_count": 68,
+    "source_line_count": 5998,
+    "reduction_pct": 98.9,
+    "est_tokens": 800,
+    "failure_markers": 1,
+    "failing_tests": []
+  },
+  "run": {
+    "id": 30107532084,
+    "run_number": 990,
+    "run_attempt": 1,
+    "head_sha": "e36e1a41c69ea9f6096ed628a71920f315f34514",
+    "head_branch": "main",
+    "event": "push",
+    "conclusion": "failure",
+    "pr_number": 28809,
+    "created_at": "2026-07-24T15:58:51Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30107532084",
+    "workflow_name": "ci",
+    "path": ".github/workflows/ci.yml",
+    "run_started_at": "2026-07-24T15:58:51Z",
+    "updated_at": "2026-07-24T16:10:42Z",
+    "actor_login": "Luap99",
+    "previous_attempt_url": null,
+    "display_title": "Merge pull request #28809 from podman-container-tools/renovate/github\u2026"
+  },
+  "pull_request": {
+    "number": 28809,
+    "present": true,
+    "files_fetched": true,
+    "file_count": 300,
+    "files": [
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/go.mod",
+        "status": "modified",
+        "additions": 41,
+        "deletions": 39
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/go.sum",
+        "status": "modified",
+        "additions": 98,
+        "deletions": 88
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/Masterminds/semver/v3/.gitignore",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/Masterminds/semver/v3/.golangci.yml",
+        "status": "modified",
+        "additions": 35,
+        "deletions": 20
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/Masterminds/semver/v3/constraints.go",
+        "status": "modified",
+        "additions": 58,
+        "deletions": 36
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/Masterminds/semver/v3/version.go",
+        "status": "modified",
+        "additions": 38,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/.gitattributes",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/.gitignore",
+        "status": "added",
+        "additions": 21,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/CODE_OF_CONDUCT.md",
+        "status": "added",
+        "additions": 76,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/CONTRIBUTING.md",
+        "status": "added",
+        "additions": 19,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/LICENSE",
+        "status": "renamed",
+        "additions": 1,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/README.md",
+        "status": "added",
+        "additions": 124,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/buffer.go",
+        "status": "added",
+        "additions": 20,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/doc.go",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/handler.go",
+        "status": "added",
+        "additions": 179,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/options.go",
+        "status": "added",
+        "additions": 69,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/prefix.go",
+        "status": "added",
+        "additions": 16,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/screenshot.png",
+        "status": "added",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/sourceFileMode.go",
+        "status": "added",
+        "additions": 14,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/SladkyCitron/slogcolor/stripansi.go",
+        "status": "added",
+        "additions": 17,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fatih/color/LICENSE.md",
+        "status": "added",
+        "additions": 20,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fatih/color/README.md",
+        "status": "added",
+        "additions": 176,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fatih/color/color.go",
+        "status": "added",
+        "additions": 650,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fatih/color/color_windows.go",
+        "status": "added",
+        "additions": 19,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fatih/color/doc.go",
+        "status": "added",
+        "additions": 134,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/.cirrus.yml",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 14
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/CHANGELOG.md",
+        "status": "modified",
+        "additions": 49,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/CONTRIBUTING.md",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/README.md",
+        "status": "modified",
+        "additions": 44,
+        "deletions": 12
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/backend_fen.go",
+        "status": "modified",
+        "additions": 3,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/backend_inotify.go",
+        "status": "modified",
+        "additions": 49,
+        "deletions": 35
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/backend_kqueue.go",
+        "status": "modified",
+        "additions": 49,
+        "deletions": 19
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/backend_windows.go",
+        "status": "modified",
+        "additions": 50,
+        "deletions": 28
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/fsnotify.go",
+        "status": "modified",
+        "additions": 51,
+        "deletions": 21
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/darwin.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 19
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/debug_darwin.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 42
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/debug_dragonfly.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 18
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/debug_freebsd.go",
+        "status": "modified",
+        "additions": 6,
+        "deletions": 28
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/debug_kqueue.go",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/debug_netbsd.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 10
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/debug_openbsd.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 12
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/freebsd.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 11
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/unix.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 11
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/unix2.go",
+        "status": "modified",
+        "additions": 18,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/fsnotify/fsnotify/internal/windows.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/.codecov.yml",
+        "status": "modified",
+        "additions": 4,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/.gitignore",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/.golangci.yml",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/CONTRIBUTORS.md",
+        "status": "modified",
+        "additions": 19,
+        "deletions": 12
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/README.md",
+        "status": "modified",
+        "additions": 3,
+        "deletions": 2
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/analyzer.go",
+        "status": "modified",
+        "additions": 24,
+        "deletions": 17
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/array_diff.go",
+        "status": "renamed",
+        "additions": 8,
+        "deletions": 8
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/checks.go",
+        "status": "renamed",
+        "additions": 84,
+        "deletions": 52
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/compatibility.go",
+        "status": "renamed",
+        "additions": 2,
+        "deletions": 2
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/difference_location.go",
+        "status": "renamed",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/difftypes.go",
+        "status": "renamed",
+        "additions": 16,
+        "deletions": 16
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/errors.go",
+        "status": "added",
+        "additions": 11,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/node.go",
+        "status": "renamed",
+        "additions": 1,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/reporting.go",
+        "status": "renamed",
+        "additions": 4,
+        "deletions": 4
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/schema.go",
+        "status": "renamed",
+        "additions": 4,
+        "deletions": 4
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/spec_analyser.go",
+        "status": "renamed",
+        "additions": 6,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/spec_difference.go",
+        "status": "renamed",
+        "additions": 8,
+        "deletions": 6
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/diff/type_adapters.go",
+        "status": "renamed",
+        "additions": 4,
+        "deletions": 4
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/flatten.go",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/flatten_name.go",
+        "status": "modified",
+        "additions": 2,
+        "deletions": 2
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/flatten_options.go",
+        "status": "modified",
+        "additions": 8,
+        "deletions": 6
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/go.work",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/go.work.sum",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 29
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/mixin.go",
+        "status": "modified",
+        "additions": 50,
+        "deletions": 21
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/analysis/options.go",
+        "status": "added",
+        "additions": 21,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/.codecov.yml",
+        "status": "added",
+        "additions": 8,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/.editorconfig",
+        "status": "renamed",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/.gitattributes",
+        "status": "added",
+        "additions": 6,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/.gitignore",
+        "status": "added",
+        "additions": 31,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/.golangci.yml",
+        "status": "renamed",
+        "additions": 20,
+        "deletions": 21
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/.mockery.yml",
+        "status": "renamed",
+        "additions": 2,
+        "deletions": 11
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/CODE_OF_CONDUCT.md",
+        "status": "renamed",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/CONTRIBUTORS.md",
+        "status": "added",
+        "additions": 69,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/LICENSE",
+        "status": "renamed",
+        "additions": 0,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/README.md",
+        "status": "added",
+        "additions": 108,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/SECURITY.md",
+        "status": "added",
+        "additions": 37,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/api.go",
+        "status": "added",
+        "additions": 48,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/diagnostics.go",
+        "status": "added",
+        "additions": 35,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/doc.go",
+        "status": "renamed",
+        "additions": 3,
+        "deletions": 1
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/errors.go",
+        "status": "added",
+        "additions": 15,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/common/README.md",
+        "status": "added",
+        "additions": 160,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/common/builder.go",
+        "status": "added",
+        "additions": 211,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/common/embed.go",
+        "status": "added",
+        "additions": 96,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/handlers/README.md",
+        "status": "added",
+        "additions": 178,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/handlers/dispatch_schema.go",
+        "status": "added",
+        "additions": 562,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/handlers/dispatch_simple.go",
+        "status": "added",
+        "additions": 181,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/handlers/handlers.go",
+        "status": "added",
+        "additions": 309,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/handlers/keywords.go",
+        "status": "added",
+        "additions": 52,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/operations/README.md",
+        "status": "added",
+        "additions": 102,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/operations/errors.go",
+        "status": "added",
+        "additions": 9,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/operations/operations.go",
+        "status": "added",
+        "additions": 132,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/operations/walker.go",
+        "status": "added",
+        "additions": 79,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/parameters/README.md",
+        "status": "added",
+        "additions": 284,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/parameters/doc_signals.go",
+        "status": "added",
+        "additions": 94,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/parameters/errors.go",
+        "status": "added",
+        "additions": 17,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/parameters/parameters.go",
+        "status": "added",
+        "additions": 613,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/parameters/typable.go",
+        "status": "added",
+        "additions": 90,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/parameters/walker.go",
+        "status": "added",
+        "additions": 91,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/resolvers/assertions.go",
+        "status": "added",
+        "additions": 148,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/resolvers/deprecated.go",
+        "status": "added",
+        "additions": 25,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/resolvers/enum_desc.go",
+        "status": "added",
+        "additions": 54,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/resolvers/errors.go",
+        "status": "added",
+        "additions": 9,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/resolvers/items_adapters.go",
+        "status": "added",
+        "additions": 119,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/resolvers/resolvers.go",
+        "status": "added",
+        "additions": 252,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/responses/README.md",
+        "status": "added",
+        "additions": 313,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/responses/doc_signals.go",
+        "status": "added",
+        "additions": 90,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/responses/errors.go",
+        "status": "added",
+        "additions": 17,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/responses/responses.go",
+        "status": "added",
+        "additions": 649,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/responses/typable.go",
+        "status": "added",
+        "additions": 126,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/responses/walker.go",
+        "status": "added",
+        "additions": 95,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/routes/README.md",
+        "status": "added",
+        "additions": 226,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/routes/errors.go",
+        "status": "added",
+        "additions": 9,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/routes/routes.go",
+        "status": "added",
+        "additions": 77,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/routes/walker.go",
+        "status": "added",
+        "additions": 673,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/README.md",
+        "status": "added",
+        "additions": 1635,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/additional_properties.go",
+        "status": "added",
+        "additions": 135,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/allof.go",
+        "status": "added",
+        "additions": 202,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/embedded.go",
+        "status": "added",
+        "additions": 171,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/errors.go",
+        "status": "added",
+        "additions": 17,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/fields.go",
+        "status": "added",
+        "additions": 364,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/interface.go",
+        "status": "added",
+        "additions": 166,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/options.go",
+        "status": "added",
+        "additions": 101,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/parsing_stuff.go",
+        "status": "added",
+        "additions": 61,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/pattern_properties.go",
+        "status": "added",
+        "additions": 155,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/ref.go",
+        "status": "added",
+        "additions": 37,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/schema.go",
+        "status": "added",
+        "additions": 659,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/simpleschema.go",
+        "status": "added",
+        "additions": 105,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/special_types.go",
+        "status": "added",
+        "additions": 136,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/struct.go",
+        "status": "added",
+        "additions": 82,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/typable.go",
+        "status": "added",
+        "additions": 100,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/type_override.go",
+        "status": "added",
+        "additions": 227,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/walker.go",
+        "status": "added",
+        "additions": 491,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/schema/walker_classifiers.go",
+        "status": "added",
+        "additions": 382,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/spec/reduce.go",
+        "status": "added",
+        "additions": 634,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/spec/spec.go",
+        "status": "added",
+        "additions": 522,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/spec/walker.go",
+        "status": "added",
+        "additions": 217,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/validations/README.md",
+        "status": "added",
+        "additions": 251,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/validations/coerce.go",
+        "status": "added",
+        "additions": 205,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/validations/format.go",
+        "status": "added",
+        "additions": 70,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/builders/validations/shape.go",
+        "status": "added",
+        "additions": 70,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/ifaces/ifaces.go",
+        "status": "added",
+        "additions": 105,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/README.md",
+        "status": "added",
+        "additions": 1122,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/annotations.go",
+        "status": "added",
+        "additions": 188,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/ast.go",
+        "status": "added",
+        "additions": 577,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/deprecated.go",
+        "status": "added",
+        "additions": 38,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/diagnostic.go",
+        "status": "added",
+        "additions": 212,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/disambiguate.go",
+        "status": "added",
+        "additions": 214,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/doc.go",
+        "status": "added",
+        "additions": 35,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/in_normalize.go",
+        "status": "added",
+        "additions": 60,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/keywords.go",
+        "status": "added",
+        "additions": 485,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/lexer.go",
+        "status": "added",
+        "additions": 1310,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/meta_info.go",
+        "status": "added",
+        "additions": 99,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/parser.go",
+        "status": "added",
+        "additions": 976,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/preprocess.go",
+        "status": "added",
+        "additions": 197,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/synthetic.go",
+        "status": "added",
+        "additions": 33,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/token.go",
+        "status": "added",
+        "additions": 156,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/grammar/walker.go",
+        "status": "added",
+        "additions": 142,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/matchers.go",
+        "status": "added",
+        "additions": 135,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/parsed_path_content.go",
+        "status": "added",
+        "additions": 223,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/regexprs.go",
+        "status": "added",
+        "additions": 83,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/routebody/README.md",
+        "status": "added",
+        "additions": 168,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/routebody/diag.go",
+        "status": "added",
+        "additions": 45,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/routebody/doc.go",
+        "status": "added",
+        "additions": 22,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/routebody/parameters.go",
+        "status": "added",
+        "additions": 280,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/routebody/responses.go",
+        "status": "added",
+        "additions": 187,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/security/security.go",
+        "status": "added",
+        "additions": 177,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/yaml/README.md",
+        "status": "added",
+        "additions": 185,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/yaml/dedent.go",
+        "status": "added",
+        "additions": 138,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/yaml/dedupe.go",
+        "status": "added",
+        "additions": 105,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/yaml/operation.go",
+        "status": "added",
+        "additions": 81,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/parsers/yaml/yaml.go",
+        "status": "added",
+        "additions": 168,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/README.md",
+        "status": "added",
+        "additions": 189,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/classify/extension.go",
+        "status": "added",
+        "additions": 22,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/declaration.go",
+        "status": "added",
+        "additions": 180,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/enum_value.go",
+        "status": "added",
+        "additions": 34,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/errors.go",
+        "status": "added",
+        "additions": 9,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/index.go",
+        "status": "added",
+        "additions": 446,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/options.go",
+        "status": "added",
+        "additions": 215,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/provenance.go",
+        "status": "added",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/codescan/internal/scanner/scan_context.go",
+        "status": "added",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/errors/.gitignore",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/errors/CONTRIBUTORS.md",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/errors/README.md",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/inflect/.cliff.toml",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/inflect/.gitignore",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/inflect/CONTRIBUTORS.md",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/inflect/README.md",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/inflect/SECURITY.md",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/jsonpointer/.cliff.toml",
+        "status": "removed",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/jsonpointer/.gitignore",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/jsonpointer/CONTRIBUTORS.md",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/jsonpointer/NOTICE",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/jsonpointer/README.md",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/jsonpointer/errors.go",
+        "status": "modified",
+        "additions": 0,
+        "deletions": 0
+      },
+      {
+        "pr_number": 28809,
+        "filename": "test/tools/vendor/github.com/go-openapi/jsonpointer/ifaces.go",
+        "status": "added",
+        "additions": 0,
+        "deletions": 0
+      }
+    ],
+    "additions": 27898,
+    "deletions": 6721,
+    "all_paths_inert": false,
+    "inert_file_count": 298,
+    "note": "the diff touches non-vendored source"
+  },
+  "siblings": {
+    "total": 17,
+    "failed": 4,
+    "failed_jobs": [
+      {
+        "id": 89530645199,
+        "name": "Total Success",
+        "conclusion": "failure",
+        "runner_name": "GitHub Actions 1062353634",
+        "started_at": "2026-07-24T16:10:37Z",
+        "completed_at": "2026-07-24T16:10:40Z"
+      },
+      {
+        "id": 89528519365,
+        "name": "build fedora-rawhide / lima",
+        "conclusion": "failure",
+        "runner_name": "cncf-ubuntu-8-32-x86-stc5t-runner-6bbb8",
+        "started_at": "2026-07-24T16:02:09Z",
+        "completed_at": "2026-07-24T16:03:22Z"
+      },
+      {
+        "id": 89528519000,
+        "name": "macos installer",
+        "conclusion": "failure",
+        "runner_name": "GitHub Actions 1062351303",
+        "started_at": "2026-07-24T15:58:54Z",
+        "completed_at": "2026-07-24T16:01:35Z"
+      },
+      {
+        "id": 89528519106,
+        "name": "windows installer hyperv",
+        "conclusion": "failure",
+        "runner_name": "GitHub Actions 1062351313",
+        "started_at": "2026-07-24T15:58:55Z",
+        "completed_at": "2026-07-24T16:01:18Z"
+      }
+    ],
+    "conclusions": {
+      "failure": 5,
+      "skipped": 7,
+      "success": 6
+    }
+  },
+  "history": {
+    "observations": 457,
+    "failures": 5,
+    "failure_rate": 0.011,
+    "by_conclusion": {
+      "failure": 5,
+      "success": 452
+    },
+    "failures_by_runner": {
+      "GitHub Actions 1057575847": 1,
+      "GitHub Actions 1060100177": 1,
+      "GitHub Actions 1060722269": 1,
+      "GitHub Actions 1061182288": 1,
+      "GitHub Actions 1062351314": 1
+    },
+    "recent": [
+      {
+        "id": 90943849596,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063505155",
+        "head_sha": "6f815007601625696627e9f9b11c84167259e86f",
+        "head_branch": "composefs-handle-ETXTBSY",
+        "created_at": "2026-07-30T16:59:58Z"
+      },
+      {
+        "id": 90923711146,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063486021",
+        "head_sha": "e4468b129a96d351e7e7d39e74b3c1c7b8254a59",
+        "head_branch": "RUN-3314-compat-dnsnames",
+        "created_at": "2026-07-30T15:43:38Z"
+      },
+      {
+        "id": 90915916329,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063479494",
+        "head_sha": "edeab2991a45687af466f97e78fa220b0179e7cf",
+        "head_branch": "RUN-3314-compat-dnsnames",
+        "created_at": "2026-07-30T15:16:07Z"
+      },
+      {
+        "id": 90893928125,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063459120",
+        "head_sha": "231a4df20d585474ebafd9e469f0730b480b7219",
+        "head_branch": "main",
+        "created_at": "2026-07-30T13:58:24Z"
+      },
+      {
+        "id": 90830537014,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063413968",
+        "head_sha": "444021f9f9975996f35ca3540fc5c80a82ae7910",
+        "head_branch": "contributing",
+        "created_at": "2026-07-30T09:19:24Z"
+      },
+      {
+        "id": 90670825543,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063292906",
+        "head_sha": "5d041e7b4741166ff432ca524d5850bbb2c232d1",
+        "head_branch": "contributing",
+        "created_at": "2026-07-29T18:25:44Z"
+      },
+      {
+        "id": 90649483610,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063270393",
+        "head_sha": "7c42b90285df2d70a6369554fe8c54a5c5558160",
+        "head_branch": "fix-apple-leak-clean",
+        "created_at": "2026-07-29T17:02:58Z"
+      },
+      {
+        "id": 90645270372,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063267068",
+        "head_sha": "6984b8bbca61916c3113ea06736371d560f9ea25",
+        "head_branch": "main",
+        "created_at": "2026-07-29T16:46:12Z"
+      },
+      {
+        "id": 90615769637,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063242747",
+        "head_sha": "95020c575da9e5d32c2a100c5e522d8d22c85ab8",
+        "head_branch": "fix-prune-build-race",
+        "created_at": "2026-07-29T14:59:18Z"
+      },
+      {
+        "id": 90628189664,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063253127",
+        "head_sha": "fd414fe5b6deea3c3818bebdc0548453dc07ace1",
+        "head_branch": "fix/healthcheck-flake-2",
+        "created_at": "2026-07-29T14:49:46Z"
+      },
+      {
+        "id": 90607684302,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063236617",
+        "head_sha": "4c03666782a077edafa2bff3266697eaa1d50750",
+        "head_branch": "renovate/golang.org-x-net-0.x",
+        "created_at": "2026-07-29T14:31:20Z"
+      },
+      {
+        "id": 90607370213,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063236353",
+        "head_sha": "30234265b2357764d5029445f7e87cc4f93a927b",
+        "head_branch": "main",
+        "created_at": "2026-07-29T14:29:45Z"
+      },
+      {
+        "id": 90588803757,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063218460",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90630030420,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063218460",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90587473405,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063217761",
+        "head_sha": "784f70980d70f190039c39a03d94de5f839aacd0",
+        "head_branch": "logformatter",
+        "created_at": "2026-07-29T13:18:02Z"
+      },
+      {
+        "id": 90581094126,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063213920",
+        "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+        "head_branch": "ci-desired-runtime-storage",
+        "created_at": "2026-07-29T12:52:57Z"
+      },
+      {
+        "id": 90564933335,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063201655",
+        "head_sha": "58ccc45398ad543143c527177df9580f0b11adc0",
+        "head_branch": "main",
+        "created_at": "2026-07-29T11:42:25Z"
+      },
+      {
+        "id": 90548565509,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063190236",
+        "head_sha": "54ed0966b004e78cf454982904819906e8d9e953",
+        "head_branch": "fix-conmon-context-leak",
+        "created_at": "2026-07-29T10:21:10Z"
+      },
+      {
+        "id": 90539186182,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063181838",
+        "head_sha": "bb032067f61f12b112b03e5fc14e7e1f154d9091",
+        "head_branch": "fix-prune-build-race",
+        "created_at": "2026-07-29T09:42:45Z"
+      },
+      {
+        "id": 90536604329,
+        "conclusion": "success",
+        "runner_name": "GitHub Actions 1063180399",
+        "head_sha": "956e77bc395417b0f69526a17a0549928357dcce",
+        "head_branch": "main",
+        "created_at": "2026-07-29T09:30:31Z"
+      }
+    ],
+    "note": "computed only over runs stored locally, not all of CI history"
+  },
+  "attempts": {
+    "runs_on_this_commit": 1,
+    "max_attempt": 1,
+    "job_outcomes_on_this_commit": [
+      "failure"
+    ],
+    "disagreement": false,
+    "runs": [
+      {
+        "id": 30107532084,
+        "run_attempt": 1,
+        "conclusion": "failure",
+        "created_at": "2026-07-24T15:58:51Z"
+      }
+    ],
+    "jobs": [
+      {
+        "id": 89528519503,
+        "run_id": 30107532084,
+        "run_attempt": 1,
+        "conclusion": "failure"
+      }
+    ],
+    "note": "disagreement=true means this exact commit both passed and failed this job -- the code cannot be the difference"
+  },
+  "related_issues": {
+    "candidates": [],
+    "matched_against": [
+      "windows installer wsl"
+    ],
+    "match_source": "job",
+    "note": "lexical overlap with the failing test's name; a starting point, not a duplicate determination"
+  },
+  "known_fixes": {
+    "issues": [],
+    "note": "no related issues to look up"
+  },
+  "provenance": {
+    "log_fetched_at": "2026-07-30T19:01:20+00:00",
+    "log_bytes_raw": 445801,
+    "log_sha256": "709eec25ead7d64255c76642fc14a37864fd0804ce252f000d69cddd687b42fa",
+    "note": "every field is fetched from the GitHub API or counted from stored rows; nothing is inferred, scored, or classified"
+  }
+}

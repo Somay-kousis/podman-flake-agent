@@ -1,0 +1,579 @@
+{
+  "schema_version": 1,
+  "job": {
+    "id": 90583474003,
+    "run_id": 30453491397,
+    "name": "macos machine applehv",
+    "conclusion": "failure",
+    "test": "machine",
+    "mode": null,
+    "priv": null,
+    "distro": null,
+    "started_at": "2026-07-29T13:02:19Z",
+    "completed_at": "2026-07-29T13:32:24Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30453491397/job/90583474003",
+    "run_attempt": 1,
+    "runner_name": "MacM1-3",
+    "runner_id": 29,
+    "labels": [],
+    "workflow_name": "ci",
+    "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+    "check_run_url": "https://api.github.com/repos/podman-container-tools/podman/check-runs/90583474003",
+    "status": "completed",
+    "created_at": "2026-07-29T13:02:18Z",
+    "steps": [
+      {
+        "job_id": 90583474003,
+        "number": 1,
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:02:20Z",
+        "completed_at": "2026-07-29T13:02:21Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 2,
+        "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:02:21Z",
+        "completed_at": "2026-07-29T13:02:25Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 3,
+        "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:02:25Z",
+        "completed_at": "2026-07-29T13:02:31Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 4,
+        "name": "Pre-clean machine state",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:02:31Z",
+        "completed_at": "2026-07-29T13:02:32Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 5,
+        "name": "Download test binaries",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:02:32Z",
+        "completed_at": "2026-07-29T13:02:33Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 6,
+        "name": "Restore executable bits",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:02:33Z",
+        "completed_at": "2026-07-29T13:02:33Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 7,
+        "name": "Run machine e2e",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-07-29T13:02:33Z",
+        "completed_at": "2026-07-29T13:32:21Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 8,
+        "name": "Post-run cleanup",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:32:21Z",
+        "completed_at": "2026-07-29T13:32:21Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 14,
+        "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+        "status": "completed",
+        "conclusion": "skipped",
+        "started_at": "2026-07-29T13:32:21Z",
+        "completed_at": "2026-07-29T13:32:21Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 15,
+        "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:32:21Z",
+        "completed_at": "2026-07-29T13:32:21Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 16,
+        "name": "Complete runner",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:32:21Z",
+        "completed_at": "2026-07-29T13:32:24Z"
+      },
+      {
+        "job_id": 90583474003,
+        "number": 17,
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-07-29T13:32:24Z",
+        "completed_at": "2026-07-29T13:32:24Z"
+      }
+    ],
+    "step_count": 12
+  },
+  "failing_step": {
+    "found": true,
+    "steps": [
+      {
+        "number": 7,
+        "name": "Run machine e2e",
+        "conclusion": "failure",
+        "started_at": "2026-07-29T13:02:33Z",
+        "completed_at": "2026-07-29T13:32:21Z"
+      }
+    ],
+    "first": {
+      "number": 7,
+      "name": "Run machine e2e",
+      "conclusion": "failure",
+      "started_at": "2026-07-29T13:02:33Z",
+      "completed_at": "2026-07-29T13:32:21Z"
+    },
+    "note": "the step name distinguishes setup/infrastructure failures from test failures without reading any log"
+  },
+  "log_window": {
+    "available": true,
+    "reason": "sliced to the failing step's time interval; focused on 2 region(s) around 5 failure marker(s)",
+    "step": {
+      "number": 7,
+      "name": "Run machine e2e",
+      "started_at": "2026-07-29T13:02:33Z",
+      "completed_at": "2026-07-29T13:32:21Z"
+    },
+    "text": "        ... 2203 lines elided ...\n  \t/Users/runner/work/podman/podman/pkg/machine/apple/apple.go:295 +0xf8 fp=0x14000080fd0 sp=0x14000080ed0 pc=0x105689c88\n  runtime.goexit({})\n  \t/Users/runner/hostedtoolcache/go/1.25.9/arm64/src/runtime/asm_arm64.s:1268 +0x4 fp=0x14000080fd0 sp=0x14000080fd0 pc=0x104d83154\n  created by go.podman.io/podman/v6/pkg/machine/apple.StartGenericAppleVM.func3 in goroutine 1\n  \t/Users/runner/work/podman/podman/pkg/machine/apple/apple.go:286 +0xe8\n\n  r0      0x4\n  r1      0x0\n  r2      0x0\n  r3      0x16b0f9610\n  r4      0x40\n  r5      0x16b0f95d8\n  r6      0x2d064a6614ec\n  r7      0x0\n  r8      0x10671ddc0\n  r9      0x2\n  r10     0x8\n  r11     0x2\n  r12     0x0\n  r13     0x16b0f9510\n  r14     0x0\n  r15     0x0\n  r16     0x16b\n  r17     0x189e00f28\n  r18     0x0\n  r19     0x16b0f9db8\n  r20     0x16b0f9580\n  r21     0x3\n  r22     0x16\n  r23     0x3cb9d69707\n  r24     0xc4793a4f875d164a\n  r25     0x140000654b0\n  r26     0x105db3ce0\n  r27     0x106641000\n  r28     0x10671b0e0\n  r29     0x16b0f94f8\n  lr      0x104d84318\n  sp      0x16b0f9500\n  pc      0x189e00f30\n  fault   0x189e00f30\n  [FAILED] Timed out after 600.000s.\n  command timed out after 600.000000s: [/Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine init --disk-size 11 --image /private/tmp/ci/podman-machine.aarch64.applehv.raw --volume /private/tmp/ci/3774710269:/very-long-test-mount-dir-path-more-than-thirty-six-bytes --volume /private/tmp/ci/with spaces2004034667:/host folder --now 8d15e46c925c]\n  Expected process to exit.  It did not.\n  In [It] at: /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_test.go:59 @ 07/29/26 13:19:20.151\n\n  Full Stack Trace\n    go.podman.io/podman/v6/pkg/machine/e2e_test.(*machineSession).waitWithTimeout(0x140000f4200, 0x8bb2c97000)\n    \t/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_test.go:59 +0x148\n    go.podman.io/podman/v6/pkg/machine/e2e_test.runWrapper({0x140003c4500, 0x38}, {0x14000264300, 0xc, 0x10}, {0x0, 0x0}, 0x8bb2c97000, 0x1)\n    \t/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_test.go:199 +0x30c\n    go.podman.io/podman/v6/pkg/machine/e2e_test.(*machineTestBuilder).run(...)\n    \t/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_test.go:178\n    go.podman.io/podman/v6/pkg/machine/e2e_test.init.func13.9()\n    \t/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:376 +0x4c4\n  < Exit [It] machine init with volume - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:356 @ 07/29/26 13:19:20.151 (10m1.01s)\n  > Enter [AfterEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:87 @ 07/29/26 13:19:20.151\n  < Exit [AfterEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:87 @ 07/29/26 13:19:20.152 (0s)\n  > Enter [DeferCleanup (Each)] podman machine init - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_init_test.go:95 @ 07/29/26 13:19:20.152\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine rm --force 8d15e46c925c\n  time=\"2026-07-29T13:20:50Z\" level=warning msg=\"Failed to gracefully stop machine, performing hard stop\"\n  < Exit [DeferCleanup (Each)] podman machine init - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_init_test.go:95 @ 07/29/26 13:20:52.779 (1m32.628s)\n  > Enter [DeferCleanup (Each)] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:220 @ 07/29/26 13:20:52.78\n  < Exit [DeferCleanup (Each)] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:220 @ 07/29/26 13:20:52.783 (4ms)\n\u2022 [FAILED] [693.643 seconds]\npodman machine init\n/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:25\n  [It] machine init with volume\n  /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:356\n------------------------------\npodman machine init\n/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:25\n  machine init with ignition path\n  /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:392\n  > Enter [BeforeEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:218 @ 07/29/26 13:20:52.783\n  < Exit [BeforeEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:218 @ 07/29/26 13:20:52.784 (1ms)\n  > Enter [It] machine init with ignition path - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:392 @ 07/29/26 13:20:52.784\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine init --disk-size 11 --ignition-path /private/tmp/ci/3348572253/test-ignition-676370344.ign --image /dev/null ae1aadf21e82\n  An ignition path was provided.  No SSH connection was added to Podman\n  Machine init complete\n  To start your machine run:\n\n  \tpodman machine start ae1aadf21e82\n\n  < Exit [It] machine init with ignition path - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:392 @ 07/29/26 13:20:52.831 (47ms)\n  > Enter [AfterEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:87 @ 07/29/26 13:20:52.831\n  < Exit [AfterEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:87 @ 07/29/26 13:20:52.831 (0s)\n  > Enter [DeferCleanup (Each)] podman machine init - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_init_test.go:95 @ 07/29/26 13:20:52.831\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine rm --force ae1aadf21e82\n  Error: failed to remove machines files: unable to find connection named \"ae1aadf21e82\"\n  < Exit [DeferCleanup (Each)] podman machine init - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_init_test.go:95 @ 07/29/26 13:20:52.854 (23ms)\n  > Enter [DeferCleanup (Each)] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:220 @ 07/29/26 13:20:52.854\n  < Exit [DeferCleanup (Each)] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:220 @ 07/29/26 13:20:52.855 (2ms)\n\u2022 [0.072 seconds]\n------------------------------\npodman machine init\n/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:25\n  machine init rootless docker.sock check\n  /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:436\n  > Enter [BeforeEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:218 @ 07/29/26 13:20:52.855\n  < Exit [BeforeEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:218 @ 07/29/26 13:20:52.856 (0s)\n  > Enter [It] machine init rootless docker.sock check - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:436 @ 07/29/26 13:20:52.856\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine init --disk-size 11 --image /private/tmp/ci/podman-machine.aarch64.applehv.raw ceafdaff8183\n  Machine init complete\n  To start your machine run:\n\n  \tpodman machine start ceafdaff8183\n\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine start ceafdaff8183\n  Starting machine \"ceafdaff8183\"\n\n  This machine is currently configured in rootless mode. If your containers\n  require root permissions (e.g. ports < 1024), or if you run into compatibility\n  issues with non-podman clients, you can switch using the following command:\n\n  \tpodman machine set --rootful ceafdaff8183\n\n  API forwarding listening on: /private/tmp/ci/podman/ceafdaff8183-api.sock\n\n  The system helper service is not installed; the default Docker API socket\n  address can't be used by podman. If you would like to install it, run the following commands:\n\n          sudo /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman-mac-helper install\n          podman machine stop ceafdaff8183; podman machine start ceafdaff8183\n\n  You can still connect Docker API clients by setting DOCKER_HOST using the\n  following command in your terminal session:\n\n          export DOCKER_HOST='unix:///private/tmp/ci/podman/ceafdaff8183-api.sock'\n\n  Machine \"ceafdaff8183\" started successfully\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine ssh ceafdaff8183 readlink /var/run/docker.sock\n  /run/user/502/podman/podman.sock\n  < Exit [It] machine init rootless docker.sock check - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:436 @ 07/29/26 13:21:12.591 (19.736s)\n  > Enter [AfterEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:87 @ 07/29/26 13:21:12.591\n  < Exit [AfterEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:87 @ 07/29/26 13:21:12.591 (0s)\n  > Enter [DeferCleanup (Each)] podman machine init - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_init_test.go:95 @ 07/29/26 13:21:12.591\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine rm --force ceafdaff8183\n  < Exit [DeferCleanup (Each)] podman machine init - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_init_test.go:95 @ 07/29/26 13:21:13.706 (1.114s)\n  > Enter [DeferCleanup (Each)] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:220 @ 07/29/26 13:21:13.706\n  < Exit [DeferCleanup (Each)] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:220 @ 07/29/26 13:21:13.711 (5ms)\n\u2022 [20.855 seconds]\n------------------------------\npodman machine init\n/Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:25\n  machine init rootful with docker.sock check\n  /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:458\n  > Enter [BeforeEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:218 @ 07/29/26 13:21:13.711\n  < Exit [BeforeEach] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:218 @ 07/29/26 13:21:13.711 (1ms)\n  > Enter [It] machine init rootful with docker.sock check - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/init_test.go:458 @ 07/29/26 13:21:13.711\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine init --disk-size 11 --image /private/tmp/ci/podman-machine.aarch64.applehv.raw --rootful bcdb73c92f74\n  Machine init complete\n  To start your machine run:\n\n  \tpodman machine start bcdb73c92f74\n\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine start bcdb73c92f74\n  Starting machine \"bcdb73c92f74\"\n  API forwarding listening on: /private/tmp/ci/podman/bcdb73c92f74-api.sock\n\n  The system helper service is not installed; the default Docker API socket\n  address can't be used by podman. If you would like to install it, run the following commands:\n\n          sudo /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman-mac-helper install\n          podman machine stop bcdb73c92f74; podman machine start bcdb73c92f74\n\n  You can still connect Docker API clients by setting DOCKER_HOST using the\n  following command in your terminal session:\n\n          export DOCKER_HOST='unix:///private/tmp/ci/podman/bcdb73c92f74-api.sock'\n\n  Machine \"bcdb73c92f74\" started successfully\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine inspect --format {{.Rootful}} bcdb73c92f74\n  true\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman machine ssh bcdb73c92f74 readlink /var/run/docker.sock\n  /run/podman/podman.sock\n  /Users/MacM1-3-worker/ci/podman/podman/bin/darwin/podman -r info\n  Client:\n    APIVersion: 6.1.0-dev\n    Built: 1785329608\n    BuiltTime: Wed Jul 29 12:53:28 2026\n    GitCommit: 52d4bd6fdc18f79eb10c792590dd5c845fffcc95\n    GoVersion: go1.25.9\n    Os: darwin\n    OsArch: darwin/arm64\n        ... 2574 lines elided ...\n  podman machine init machine init with rosetta=false\t\t19.898885 seconds\n  podman machine start start only starts specified machine\t\t20.507654 seconds\n  podman machine init machine init rootful with docker.sock check\t\t20.566008 seconds\n  podman machine rm Remove running machine\t\t20.622421 seconds\n  run podman API test calls client connect to machine socket\t\t20.751849 seconds\n  podman machine init machine init with swap\t\t20.892757 seconds\n  podman machine rm Remove machine sharing ssh key with another machine\t\t21.040910 seconds\n  podman machine init simple init with start\t\t21.120423 seconds\n  podman machine start machine init --now with --import-native-ca with mounted data folder\t\t21.172603 seconds\n  podman machine set set rootful with docker sock change\t\t21.191168 seconds\n  podman machine compose compose test environment variable setup\t\t21.350118 seconds\n  podman machine set no settings should change if no flags\t\t21.410777 seconds\n  podman machine init simple init with username\t\t21.444780 seconds\n  podman machine stop Stop running machine\t\t21.519774 seconds\n  podman machine reset reset with running machine and other machines idle \t\t21.543485 seconds\n  podman machine set set machine cpus, disk, memory\t\t21.618700 seconds\n  podman machine init machine init with cpus, disk size, memory, timezone\t\t21.974262 seconds\n  podman machine start machine init --now with --import-native-ca with SCP file transfer\t\t22.027542 seconds\n  run basic podman commands Basic ops\t\t22.104115 seconds\n  run basic podman commands podman build contexts\t\t22.294067 seconds\n  podman machine init run playbook\t\t22.370601 seconds\n  run cp commands podman machine cp\t\t22.760627 seconds\n  run basic podman commands Volume ops\t\t22.834251 seconds\n  podman machine list list machine: check if running while starting\t\t23.119422 seconds\n  run cp commands podman cp\t\t23.481039 seconds\n  run basic podman commands Podman ops with port forwarding and gvproxy\t\t23.752868 seconds\n  podman machine start start interrupted by SIGTERM while waiting for VM start\t\t25.777944 seconds\n  podman machine start start two machines in parallel\t\t27.342847 seconds\n  podman machine restart should restart a running machine\t\t31.420687 seconds\n  podman machine ssh verify machine rootfulness\t\t31.685861 seconds\n  podman machine start machine start with --update-connection\t\t32.757085 seconds\n  podman machine proxy settings propagation ssh to running machine and check proxy settings\t\t32.988304 seconds\n  podman machine start machine init --now with --update-connection\t\t41.910007 seconds\n  podman machine start start simple machine\t\t43.307589 seconds\n  podman machine init machine init with volume\t\t601.010597 seconds\nRunning platform specific cleanup\n  < Exit [SynchronizedAfterSuite] TOP-LEVEL - /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/machine_test.go:95 @ 07/29/26 13:32:21.013 (0s)\n[SynchronizedAfterSuite] PASSED [0.000 seconds]\n------------------------------\n\nSummarizing 1 Failure:\n  [FAIL] podman machine init [It] machine init with volume\n  /Users/MacM1-3-worker/ci/podman/podman/pkg/machine/e2e/config_test.go:59\n\nRan 79 of 84 Specs in 1771.531 seconds\nFAIL! -- 78 Passed | 1 Failed | 0 Pending | 5 Skipped\n--- FAIL: TestMachine (1771.53s)\nFAIL\nmake[1]: *** [ginkgo-run] Error 1\nmake: *** [localmachine] Error 2\n\nGinkgo ran 1 suite in 29m42.877153083s\n\nTest Suite Failed\n##[error]Process completed with exit code 2.\n##[group]Run ./hack/ci/gha_mac_cleanup.sh\n\u001b[36;1m./hack/ci/gha_mac_cleanup.sh\u001b[0m\nshell: /bin/bash -e {0}",
+    "line_count": 244,
+    "source_line_count": 5330,
+    "reduction_pct": 95.4,
+    "est_tokens": 3799,
+    "failure_markers": 5,
+    "failing_tests": [
+      {
+        "kind": "ginkgo",
+        "name": "podman machine init machine init with volume",
+        "raw": "[FAIL] podman machine init [It] machine init with volume"
+      }
+    ]
+  },
+  "run": {
+    "id": 30453491397,
+    "run_number": 1128,
+    "run_attempt": 1,
+    "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+    "head_branch": "ci-desired-runtime-storage",
+    "event": "pull_request",
+    "conclusion": "failure",
+    "pr_number": null,
+    "created_at": "2026-07-29T12:52:57Z",
+    "html_url": "https://github.com/podman-container-tools/podman/actions/runs/30453491397",
+    "workflow_name": "ci",
+    "path": ".github/workflows/ci.yml",
+    "run_started_at": "2026-07-29T12:52:57Z",
+    "updated_at": "2026-07-29T13:49:48Z",
+    "actor_login": "vtushar06",
+    "previous_attempt_url": null,
+    "display_title": "hack/ci: rename STORAGE_FS to CI_DESIRED_STORAGE and add PODMAN_CI"
+  },
+  "pull_request": {
+    "present": false,
+    "note": "run was not from a pull request"
+  },
+  "siblings": {
+    "total": 55,
+    "failed": 2,
+    "failed_jobs": [
+      {
+        "id": 90595889445,
+        "name": "Total Success",
+        "conclusion": "failure",
+        "runner_name": "GitHub Actions 1063225518",
+        "started_at": "2026-07-29T13:49:43Z",
+        "completed_at": "2026-07-29T13:49:46Z"
+      },
+      {
+        "id": 90583475284,
+        "name": "int local rootless fedora-current / lima",
+        "conclusion": "failure",
+        "runner_name": "cncf-ubuntu-8-32-x86-bjzkg-runner-5f6fm",
+        "started_at": "2026-07-29T13:04:07Z",
+        "completed_at": "2026-07-29T13:15:39Z"
+      }
+    ],
+    "conclusions": {
+      "failure": 3,
+      "success": 53
+    }
+  },
+  "history": {
+    "observations": 235,
+    "failures": 43,
+    "failure_rate": 0.183,
+    "by_conclusion": {
+      "cancelled": 3,
+      "failure": 43,
+      "success": 189
+    },
+    "failures_by_runner": {
+      "MacM1-1": 15,
+      "MacM1-2": 7,
+      "MacM1-3": 13,
+      "MacM1-4": 8
+    },
+    "recent": [
+      {
+        "id": 90946825052,
+        "conclusion": "success",
+        "runner_name": "MacM1-2",
+        "head_sha": "6f815007601625696627e9f9b11c84167259e86f",
+        "head_branch": "composefs-handle-ETXTBSY",
+        "created_at": "2026-07-30T16:59:58Z"
+      },
+      {
+        "id": 90896283356,
+        "conclusion": "failure",
+        "runner_name": "MacM1-1",
+        "head_sha": "231a4df20d585474ebafd9e469f0730b480b7219",
+        "head_branch": "main",
+        "created_at": "2026-07-30T13:58:24Z"
+      },
+      {
+        "id": 90647414670,
+        "conclusion": "success",
+        "runner_name": "MacM1-3",
+        "head_sha": "6984b8bbca61916c3113ea06736371d560f9ea25",
+        "head_branch": "main",
+        "created_at": "2026-07-29T16:46:12Z"
+      },
+      {
+        "id": 90610700672,
+        "conclusion": "success",
+        "runner_name": "MacM1-3",
+        "head_sha": "4c03666782a077edafa2bff3266697eaa1d50750",
+        "head_branch": "renovate/golang.org-x-net-0.x",
+        "created_at": "2026-07-29T14:31:20Z"
+      },
+      {
+        "id": 90609854364,
+        "conclusion": "success",
+        "runner_name": "MacM1-1",
+        "head_sha": "30234265b2357764d5029445f7e87cc4f93a927b",
+        "head_branch": "main",
+        "created_at": "2026-07-29T14:29:45Z"
+      },
+      {
+        "id": 90591406588,
+        "conclusion": "success",
+        "runner_name": "MacM1-3",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90629990986,
+        "conclusion": "success",
+        "runner_name": "MacM1-3",
+        "head_sha": "c6fe5d36fe38af81cefac1b28efe0e4733ea7e3d",
+        "head_branch": "fix-skips-eol-regex",
+        "created_at": "2026-07-29T13:23:14Z"
+      },
+      {
+        "id": 90590628888,
+        "conclusion": "success",
+        "runner_name": "MacM1-4",
+        "head_sha": "784f70980d70f190039c39a03d94de5f839aacd0",
+        "head_branch": "logformatter",
+        "created_at": "2026-07-29T13:18:02Z"
+      },
+      {
+        "id": 90583474003,
+        "conclusion": "failure",
+        "runner_name": "MacM1-3",
+        "head_sha": "344d79131a2b926303632202c5935fc6a3c4f4f5",
+        "head_branch": "ci-desired-runtime-storage",
+        "created_at": "2026-07-29T12:52:57Z"
+      },
+      {
+        "id": 90566730005,
+        "conclusion": "success",
+        "runner_name": "MacM1-1",
+        "head_sha": "58ccc45398ad543143c527177df9580f0b11adc0",
+        "head_branch": "main",
+        "created_at": "2026-07-29T11:42:25Z"
+      },
+      {
+        "id": 90539504273,
+        "conclusion": "failure",
+        "runner_name": "MacM1-3",
+        "head_sha": "956e77bc395417b0f69526a17a0549928357dcce",
+        "head_branch": "main",
+        "created_at": "2026-07-29T09:30:31Z"
+      },
+      {
+        "id": 90533766436,
+        "conclusion": "success",
+        "runner_name": "MacM1-1",
+        "head_sha": "9b5e0f358f38abb96dbdc623c1b1d1fe57f45c70",
+        "head_branch": "renovate/github.com-mattn-go-sqlite3-1.x",
+        "created_at": "2026-07-29T09:07:44Z"
+      },
+      {
+        "id": 90632546201,
+        "conclusion": "success",
+        "runner_name": "MacM1-1",
+        "head_sha": "9b5e0f358f38abb96dbdc623c1b1d1fe57f45c70",
+        "head_branch": "renovate/github.com-mattn-go-sqlite3-1.x",
+        "created_at": "2026-07-29T09:07:44Z"
+      },
+      {
+        "id": 90531422472,
+        "conclusion": "success",
+        "runner_name": "MacM1-1",
+        "head_sha": "6d5ef8a83dca95be770d787c5d80dace2d864647",
+        "head_branch": "ci-runner",
+        "created_at": "2026-07-29T08:58:42Z"
+      },
+      {
+        "id": 90544545762,
+        "conclusion": "success",
+        "runner_name": "MacM1-1",
+        "head_sha": "6d5ef8a83dca95be770d787c5d80dace2d864647",
+        "head_branch": "ci-runner",
+        "created_at": "2026-07-29T08:58:42Z"
+      },
+      {
+        "id": 90430322362,
+        "conclusion": "success",
+        "runner_name": "MacM1-2",
+        "head_sha": "4722d53c15e2d03cf8902951fdf078490db545c1",
+        "head_branch": "main",
+        "created_at": "2026-07-28T22:33:59Z"
+      },
+      {
+        "id": 90349634859,
+        "conclusion": "failure",
+        "runner_name": "MacM1-4",
+        "head_sha": "2b5572b0a6918698ef320d82bebc0443e936f785",
+        "head_branch": "pesto-addtional-tests",
+        "created_at": "2026-07-28T16:52:44Z"
+      },
+      {
+        "id": 90366444887,
+        "conclusion": "success",
+        "runner_name": "MacM1-4",
+        "head_sha": "2b5572b0a6918698ef320d82bebc0443e936f785",
+        "head_branch": "pesto-addtional-tests",
+        "created_at": "2026-07-28T16:52:44Z"
+      },
+      {
+        "id": 90337840645,
+        "conclusion": "success",
+        "runner_name": "MacM1-3",
+        "head_sha": "08501bd909aa0f88dcdbd8b0a7e7abb9f1bb57c2",
+        "head_branch": "ci-runner",
+        "created_at": "2026-07-28T16:11:14Z"
+      },
+      {
+        "id": 90332532382,
+        "conclusion": "failure",
+        "runner_name": "MacM1-4",
+        "head_sha": "f74c2d95e5c323a45edaa9fde392d1569b272606",
+        "head_branch": "main",
+        "created_at": "2026-07-28T15:51:20Z"
+      }
+    ],
+    "note": "computed only over runs stored locally, not all of CI history"
+  },
+  "attempts": {
+    "runs_on_this_commit": 1,
+    "max_attempt": 1,
+    "job_outcomes_on_this_commit": [
+      "failure"
+    ],
+    "disagreement": false,
+    "runs": [
+      {
+        "id": 30453491397,
+        "run_attempt": 1,
+        "conclusion": "failure",
+        "created_at": "2026-07-29T12:52:57Z"
+      }
+    ],
+    "jobs": [
+      {
+        "id": 90583474003,
+        "run_id": 30453491397,
+        "run_attempt": 1,
+        "conclusion": "failure"
+      }
+    ],
+    "note": "disagreement=true means this exact commit both passed and failed this job -- the code cannot be the difference"
+  },
+  "related_issues": {
+    "candidates": [
+      {
+        "number": 23281,
+        "title": "podman machine init: panic: nil pointer dereference",
+        "state": "closed",
+        "shared_terms": [
+          "init",
+          "machine"
+        ],
+        "matched_on": "podman machine init machine init with volume",
+        "match_source": "test"
+      },
+      {
+        "number": 22569,
+        "title": "machine: Volume ops test: statfs /private/tmp/ci/ginkgoNNN: no such file or directory",
+        "state": "closed",
+        "shared_terms": [
+          "machine",
+          "volume"
+        ],
+        "matched_on": "podman machine init machine init with volume",
+        "match_source": "test"
+      }
+    ],
+    "matched_against": [
+      "podman machine init machine init with volume"
+    ],
+    "match_source": "test",
+    "note": "lexical overlap with the failing test's name; a starting point, not a duplicate determination"
+  },
+  "known_fixes": {
+    "issues": [
+      {
+        "number": 23281,
+        "title": "podman machine init: panic: nil pointer dereference",
+        "state": "closed",
+        "closed_by": {
+          "actor": "openshift-merge-bot[bot]",
+          "created_at": "2024-07-18T17:51:12Z"
+        },
+        "fix_commits": [
+          {
+            "sha": "600483e197300b4d6fc199f79eee1cce545277d6",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "edsantiago",
+            "committed_at": "2024-07-18T17:19:40Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "9e764e3f619425e2bb5ba592b0ddba06c44a7537",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "edsantiago",
+            "committed_at": "2024-07-18T16:01:32Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "66e4d0f6387fb320e7a2ab6abd7feb833966c6fb",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "edsantiago",
+            "committed_at": "2024-07-18T11:33:34Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "f630eebcfac11887cc9e6f5b10360c1436407442",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "Luap99",
+            "committed_at": "2024-07-18T11:23:19Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "796e19ab005b4769dc4362c34588fbeb3fef95f6",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "Luap99",
+            "committed_at": "2024-07-18T11:22:17Z",
+            "source": "timeline"
+          }
+        ],
+        "has_identified_fix": true
+      },
+      {
+        "number": 22569,
+        "title": "machine: Volume ops test: statfs /private/tmp/ci/ginkgoNNN: no such file or directory",
+        "state": "closed",
+        "closed_by": {
+          "actor": "openshift-merge-bot[bot]",
+          "created_at": "2024-06-27T15:41:57Z"
+        },
+        "fix_commits": [
+          {
+            "sha": "f160e6bec3ef19b18de7acf1dff2910079ce2be1",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "edsantiago",
+            "committed_at": "2024-07-11T20:21:44Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "d9c8ac25d8400f29ba642d53d7bc2acedb345191",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "edsantiago",
+            "committed_at": "2024-07-11T12:43:58Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "94f3d78a317b30a6983811576d0c80d2e717abba",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "mheon",
+            "committed_at": "2024-07-10T12:07:17Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "dbc81dcbf04015372be6d63981309b4612f7e52f",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "mheon",
+            "committed_at": "2024-07-09T17:54:20Z",
+            "source": "timeline"
+          },
+          {
+            "sha": "98f4bbd9ccb13d3132197c458ab734d83b01eebb",
+            "pr_number": null,
+            "message": "referenced",
+            "author": "edsantiago",
+            "committed_at": "2024-07-08T16:08:38Z",
+            "source": "timeline"
+          }
+        ],
+        "has_identified_fix": true
+      }
+    ],
+    "with_identified_fix": 2,
+    "note": "the fix commit states what was actually wrong; it is evidence from a maintainer, not a classification by this tool"
+  },
+  "provenance": {
+    "log_fetched_at": "2026-07-30T18:54:54+00:00",
+    "log_bytes_raw": 514980,
+    "log_sha256": "5f198c87b146801b3c67d0df182fff522bdee97dd5e1322fe9b5efaa76495a7b",
+    "note": "every field is fetched from the GitHub API or counted from stored rows; nothing is inferred, scored, or classified"
+  }
+}
