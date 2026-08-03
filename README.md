@@ -260,7 +260,12 @@ flag.
 
 ## What this does *not* do
 
-- **No model accuracy number yet.** The gold set now exists --
+- **Measured, and the result is negative.** See
+  [`docs/RESULTS.md`](docs/RESULTS.md): `gpt-oss-120b` scored **29%** and
+  `gpt-oss-20b` **19%**, against a constant-answer baseline of **85%**. Every
+  verdict either model gave at confidence >= 0.9 was wrong (0/7 and 0/9). Both
+  collapse onto `real_bug` because, blinded, a flake and a bug look identical in a
+  single log window. The gold set exists --
   [`tests/gold_labels.json`](tests/gold_labels.json), 39 failed jobs labelled from the
   maintainer's own issue title and fix commit, never from the log window, so the
   labels stay independent of what the classifier is shown. But it is **heavily

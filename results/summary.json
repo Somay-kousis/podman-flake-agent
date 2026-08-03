@@ -1,0 +1,25 @@
+{
+  "_gold_set": "tests/gold_labels.json (39 jobs, 85% race_condition)",
+  "_baseline": {
+    "strategy": "always answer race_condition",
+    "accuracy": "33/39 = 85%"
+  },
+  "runs": {
+    "openai/gpt-oss-120b": {
+      "completed": "38/39",
+      "accuracy_overall": "11/38",
+      "accuracy_when_decided": "11/35",
+      "predicted_real_bug": "23/38",
+      "correct_at_confidence_ge_0.9": "0/7",
+      "evidence_lines_verified": "142/162"
+    },
+    "openai/gpt-oss-20b": {
+      "completed": "26/39",
+      "accuracy_overall": "5/26",
+      "accuracy_when_decided": "5/22",
+      "predicted_real_bug": "17/26",
+      "correct_at_confidence_ge_0.9": "0/9",
+      "evidence_lines_verified": "104/107"
+    }
+  }
+}
