@@ -26,6 +26,8 @@ Every fetcher is idempotent and resumable: interrupt any of them and re-run.
 import argparse
 import gzip
 import hashlib
+import json
+import os
 import re
 import sys
 import time
@@ -569,6 +571,33 @@ def fetch_timeline(gh, conn, args):
     print(f"\n{events} timeline events, {linked} fix candidates. {gh.stats()}")
 
 
+# Written into fix_commits.message when GitHub says the SHA is not in this
+# repository. Not a message, and shaped so it can never be read as one.
+UNREACHABLE = "<commit not in this repository>"
+
+
+def _dossier_issue_numbers(paths):
+    """Issue numbers any dossier points at, from `known_fixes` or `related_issues`."""
+    import glob as _glob
+    nums = set()
+    for p in paths:
+        files = (sorted(_glob.glob(os.path.join(p, "*.json")))
+                 if os.path.isdir(p) else [p])
+        for f in files:
+            try:
+                with open(f) as fh:
+                    d = json.load(fh)
+            except (OSError, ValueError):
+                continue
+            for i in (d.get("known_fixes") or {}).get("issues") or []:
+                if i.get("number"):
+                    nums.add(int(i["number"]))
+            for c in (d.get("related_issues") or {}).get("candidates") or []:
+                if c.get("number"):
+                    nums.add(int(c["number"]))
+    return nums
+
+
 def fetch_backfill_fixes(gh, conn, args):
     """Fill in commit messages for fix links that only ever stored a SHA.
 
@@ -585,17 +614,34 @@ def fetch_backfill_fixes(gh, conn, args):
     flake" is transcription, not opinion, and it is the only kind of label that
     stays meaningful when the thing being scored also reads the log.
     """
+    missing_sql = ("length(sha) = 40 AND "
+                   "(message IS NULL OR message = '' OR message = 'referenced') "
+                   f"AND COALESCE(message,'') != '{UNREACHABLE}'")
+
+    scope = ""
+    if args.scope == "dossiers":
+        # The 400 dossiers reference only 56 distinct issues between them, and
+        # those are the only fixes that can inform a label. Backfilling every
+        # SHA in the table is ~5x the requests for no extra labelling value, so
+        # this is the default: do the useful fifth first.
+        issues = _dossier_issue_numbers(args.dossiers)
+        if not issues:
+            print(f"no dossiers found in {args.dossiers}; use --scope all")
+            return
+        scope = " AND issue_number IN (%s)" % ",".join(str(int(i)) for i in issues)
+        print(f"scope: {len(issues)} issues referenced by dossiers in {args.dossiers}")
+
     rows = conn.execute(
-        """SELECT DISTINCT sha FROM fix_commits
-           WHERE length(sha) = 40
-             AND (message IS NULL OR message = '' OR message = 'referenced')
-           LIMIT ?""",
+        f"SELECT DISTINCT sha FROM fix_commits WHERE {missing_sql}{scope} LIMIT ?",
         (args.limit,)).fetchall()
     if not rows:
         print("no fix commits are missing a message")
         return
 
-    print(f"{len(rows)} commit messages to backfill")
+    total_missing = conn.execute(
+        f"SELECT COUNT(DISTINCT sha) n FROM fix_commits WHERE {missing_sql}").fetchone()["n"]
+    print(f"{len(rows)} commit messages to backfill "
+          f"({total_missing} missing overall)")
     filled = missing = 0
     for i, row in enumerate(rows, 1):
         sha = row["sha"]
@@ -605,6 +651,17 @@ def fetch_backfill_fixes(gh, conn, args):
             conn.commit()
             raise
         except Exception as e:
+            # 422 means the SHA is not in this repository -- a fork commit, or
+            # history that moved. That is permanent, and roughly three quarters
+            # of these links are it. Record the fact so the next run does not
+            # spend a request rediscovering it. The marker is deliberately not
+            # a plausible commit message: it must never be mistaken for one the
+            # way "referenced" was.
+            if "422" in str(e) or "404" in str(e):
+                conn.execute(
+                    "UPDATE fix_commits SET message=? WHERE sha=?",
+                    (UNREACHABLE, sha))
+                conn.commit()
             print(f"  ! {sha[:9]}: {e}", file=sys.stderr)
             missing += 1
             continue
@@ -614,6 +671,7 @@ def fetch_backfill_fixes(gh, conn, args):
         if not message:
             missing += 1
             continue
+
 
         conn.execute(
             """UPDATE fix_commits SET message = ?, author = COALESCE(author, ?),
@@ -795,6 +853,11 @@ def main(argv=None):
                     help="artifacts: total download cap (default 500M)")
     ap.add_argument("--pattern", help="artifacts: only download names matching this regex")
     ap.add_argument("--limit", type=int, default=500, help="max rows to process")
+    ap.add_argument("--scope", choices=["dossiers", "all"], default="dossiers",
+                    help="backfill-fixes: restrict to issues the dossiers "
+                         "reference (default) or every fix link in the table")
+    ap.add_argument("--dossiers", nargs="+", default=["data/dossiers"],
+                    help="backfill-fixes: where to read issue numbers from")
     ap.add_argument("--max-pages", type=int, default=10)
     ap.add_argument("--reserve", type=int, default=100,
                     help="stop with this much API quota still unspent")
