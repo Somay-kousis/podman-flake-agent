@@ -174,7 +174,7 @@ def main(argv=None):
     ap.add_argument("--dossiers", nargs="+", default=["data/dossiers"],
                     help="dossier directories or files (default: data/dossiers)")
     ap.add_argument("--limit", type=int)
-    ap.add_argument("--backend", choices=["ollama", "api"], default="ollama")
+    ap.add_argument("--backend", choices=["ollama", "api", "groq"], default="ollama")
     ap.add_argument("--model")
     ap.add_argument("--no-blind", action="store_true",
                     help="show the labeller's evidence too; scores from this are "
@@ -184,17 +184,31 @@ def main(argv=None):
     ap.add_argument("--out", default="data/preds.json")
     ap.add_argument("--verdicts", default="data/verdicts.json")
     ap.add_argument("--db")
+    ap.add_argument("--only-labelled", action="store_true",
+                    help="restrict to dossiers that have a gold label -- the only "
+                         "ones eval.py can score")
     args = ap.parse_args(argv)
 
-    files = load(args.dossiers, args.limit)
+    files = load(args.dossiers, None)
+    if args.only_labelled:
+        conn = store.connect(args.db)
+        keep = {r["fkey"].split(":", 1)[1] for r in
+                conn.execute("SELECT fkey FROM gold_labels WHERE fkey LIKE 'job:%'")}
+        files = [f for f in files
+                 if str(json.load(open(f)).get("job", {}).get("id")) in keep]
+    if args.limit:
+        files = files[:args.limit]
     if not files:
         sys.exit(f"no dossiers found in {args.dossiers}; run `flakeagent.dossier` first")
 
     backend = None
     if not args.dry_run:
-        from .classify import MODEL_API, MODEL_OLLAMA, AnthropicBackend, OllamaBackend
+        from .classify import (MODEL_API, MODEL_GROQ, MODEL_OLLAMA,
+                               AnthropicBackend, GroqBackend, OllamaBackend)
         if args.backend == "ollama":
             backend = OllamaBackend(args.model or MODEL_OLLAMA)
+        elif args.backend == "groq":
+            backend = GroqBackend(args.model or MODEL_GROQ)
         else:
             backend = AnthropicBackend(store.connect(args.db), args.model or MODEL_API)
 

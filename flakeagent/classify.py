@@ -25,7 +25,10 @@ issue title pre-stuffed into the prompt.
 
 import argparse
 import json
+import re
 import sys
+import time
+import urllib.error
 import urllib.request
 
 from . import store
@@ -33,6 +36,7 @@ from .taxonomy import CATEGORIES, SCHEMA, SYSTEM  # noqa: F401  (re-exported)
 
 MODEL_API = "claude-opus-5"
 MODEL_OLLAMA = "llama3.1"
+MODEL_GROQ = "openai/gpt-oss-120b"
 
 
 def build_prompt(failure, evidence_rows):
@@ -88,6 +92,111 @@ class OllamaBackend:
             payload.get("prompt_eval_count"),
             payload.get("eval_count"),
         )
+
+
+class GroqBackend:
+    """Groq's OpenAI-compatible endpoint. Standard library only, like the rest.
+
+    Two things had to be discovered by running it rather than by reading docs:
+
+    1. Groq sits behind Cloudflare, which rejects Python's default
+       `Python-urllib/3.x` User-Agent with HTTP 403 and body `error code: 1010`.
+       That reads exactly like an auth failure and sends you hunting for a bad
+       key. An explicit User-Agent is mandatory, not cosmetic.
+
+    2. Only the `openai/gpt-oss-*` models accept a real `json_schema` response
+       format; `llama-3.3-70b-versatile` and `llama-3.1-8b-instant` 400 on it and
+       offer only `json_object` (free-form JSON, no enforcement), and
+       `qwen/qwen3.6-27b` rejects both. Schema enforcement is not a nicety here:
+       it is what keeps `unknown` reachable and stops off-vocabulary categories
+       reaching `eval.py`, which joins to gold labels by string equality.
+
+    Keys rotate round-robin. The free tier limits per key per minute, so three
+    keys is three times the headroom; on a 429 the caller is asked to slow down
+    rather than the request being silently dropped.
+    """
+
+    ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
+    UA = "podman-flake-agent/0.1 (+https://github.com/Somay-kousis/podman-flake-agent)"
+    SCHEMA_MODELS = ("openai/gpt-oss",)
+
+    def __init__(self, model=MODEL_GROQ, keys=None, max_tokens=1200):
+        from .gh import read_env_file
+        if not keys:
+            env = read_env_file()
+            keys = [env[k] for k in sorted(env) if k.startswith("GROQ_API_KEY")]
+        if not keys:
+            sys.exit("no GROQ_API_KEY* found in .env")
+        self.keys = keys
+        self._i = 0
+        self.model = model
+        self.name = f"groq:{model}"
+        self.schema_capable = model.startswith(self.SCHEMA_MODELS)
+        # Groq's free tier bills prompt + max_tokens against an 8,000 tokens-per-
+        # minute ceiling, so an over-generous reservation fails the request
+        # outright with HTTP 413 before the model ever runs. The verdict JSON is
+        # a few hundred tokens; reserving 4k spent a third of the budget on
+        # headroom that was never used.
+        self.max_tokens = max_tokens
+
+    def _key(self):
+        k = self.keys[self._i % len(self.keys)]
+        self._i += 1
+        return k
+
+    def classify(self, prompt):
+        body = {
+            "model": self.model,
+            "temperature": 0,
+            "max_tokens": self.max_tokens,
+            "messages": [{"role": "system", "content": SYSTEM},
+                         {"role": "user", "content": prompt}],
+        }
+        if self.schema_capable:
+            body["response_format"] = {
+                "type": "json_schema",
+                "json_schema": {"name": "verdict", "schema": SCHEMA, "strict": True},
+            }
+        else:
+            # No enforcement available -- ask for JSON and validate on the way out.
+            body["response_format"] = {"type": "json_object"}
+
+        last = None
+        for attempt in range(len(self.keys) * 4):
+            req = urllib.request.Request(
+                self.ENDPOINT, data=json.dumps(body).encode(),
+                headers={"Authorization": f"Bearer {self._key()}",
+                         "Content-Type": "application/json",
+                         "User-Agent": self.UA})
+            try:
+                with urllib.request.urlopen(req, timeout=180) as resp:
+                    d = json.load(resp)
+                break
+            except urllib.error.HTTPError as e:
+                last = f"HTTP {e.code}: {e.read().decode()[:200]}"
+                if e.code == 429:
+                    # TPM is a rolling per-minute window, so the useful wait is
+                    # tens of seconds, not two. Try each key first -- they are
+                    # separate orgs with separate budgets -- then wait out the
+                    # window rather than hammering it.
+                    m = re.search(r"try again in ([0-9.]+)s", last)
+                    if attempt < len(self.keys) - 1:
+                        time.sleep(1)
+                    else:
+                        time.sleep(min(65.0, float(m.group(1)) + 1 if m else 20.0))
+                    continue
+                if e.code == 413:
+                    # Per-request size, not a rate limit -- another key has the
+                    # same ceiling, so retrying anywhere is wasted.
+                    raise RuntimeError(last + "  [shrink the prompt or max_tokens]") from e
+                raise RuntimeError(last) from e
+        else:
+            raise RuntimeError(f"all keys rate-limited: {last}")
+
+        msg = d["choices"][0]["message"]
+        verdict = json.loads(msg["content"])
+        usage = d.get("usage") or {}
+        return verdict, usage.get("prompt_tokens"), usage.get("completion_tokens")
 
 
 class AnthropicBackend:
