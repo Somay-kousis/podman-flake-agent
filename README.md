@@ -260,9 +260,15 @@ flag.
 
 ## What this does *not* do
 
-- **No accuracy numbers.** The eval harness runs, but the gold set has to be
-  labelled first. Every number in this README is a size or reduction
-  measurement, never classification accuracy.
+- **No model accuracy number yet.** The gold set now exists --
+  [`tests/gold_labels.json`](tests/gold_labels.json), 39 failed jobs labelled from the
+  maintainer's own issue title and fix commit, never from the log window, so the
+  labels stay independent of what the classifier is shown. But it is **heavily
+  imbalanced: always answering `race_condition` scores 85%**, which is the bar any
+  model has to beat. `infra_blip` has zero examples and structurally cannot get any
+  from this evidence stream, because infrastructure blips are not fixed by commits.
+  Report per-class precision and recall, not overall accuracy. Every other number in
+  this README is a size or reduction measurement.
 - **Fork PRs have no diff context** — GitHub omits the PR association for them,
   and that is ~160 of 184 runs. See [`docs/FETCH_AUDIT.md`](docs/FETCH_AUDIT.md).
 - **Ginkgo HTML parsing is 0%** on the real corpus. Step-window slicing routes

@@ -1,0 +1,212 @@
+{
+  "_readme": "Gold labels for scoring flake classification. Each key is a failed-job id.",
+  "_provenance": "Derived from the maintainer's own issue title and fix commit message ONLY. The log window was never read while labelling, so these stay independent of what the classifier is shown (dossier.blind() withholds known_fixes/related_issues/attempts/history). Assigned by Claude (Opus 5) under the author's direction; every note names the issue and the reasoning so any label can be checked or overruled.",
+  "_caveats": [
+    "Heavily imbalanced: always answering race_condition scores 85% accuracy on this set. Report per-class precision/recall, not overall accuracy.",
+    "infra_blip has zero examples and cannot get any from this evidence stream -- infrastructure blips are not fixed by commits, so they never appear in fix_commits.",
+    "network_timeout and resource_exhaustion also have zero examples here.",
+    "Matches are lexical overlap between the failing test name and the issue title; 7 issues were deliberately skipped because the fix message stated no mechanism.",
+    "39 items is above eval.py's 30-item warning threshold but still small."
+  ],
+  "_distribution": {
+    "race_condition": 33,
+    "real_bug": 6
+  },
+  "labels": {
+    "89155733896": {
+      "category": "race_condition",
+      "issue": 18659,
+      "why": "from maintainer fix on #18659: issue 'seems racy'; fix stops removing concurrently with builds [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89433447482": {
+      "category": "real_bug",
+      "issue": 23281,
+      "why": "from maintainer fix on #23281: 'panic: nil pointer dereference'; fix guards an empty file in pkg/machine/compression [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89433448002": {
+      "category": "race_condition",
+      "issue": 12306,
+      "why": "from maintainer fix on #12306: bridge addr already taken; fix isolates netns per libpod tmp dir [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89433448116": {
+      "category": "race_condition",
+      "issue": 12306,
+      "why": "from maintainer fix on #12306: bridge addr already taken; fix isolates netns per libpod tmp dir [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89433448151": {
+      "category": "race_condition",
+      "issue": 12306,
+      "why": "from maintainer fix on #12306: bridge addr already taken; fix isolates netns per libpod tmp dir [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89433448197": {
+      "category": "race_condition",
+      "issue": 7583,
+      "why": "from maintainer fix on #7583: fix adds cleanup to networking tests -> cleanup racing next test [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89433671431": {
+      "category": "race_condition",
+      "issue": 25614,
+      "why": "from maintainer fix on #25614: DeferCleanup callback races teardown; fix titled 'Fix flake' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89433672650": {
+      "category": "race_condition",
+      "issue": 11856,
+      "why": "from maintainer fix on #11856: fix: 'libpod: fix race when closing STDIN' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89478955107": {
+      "category": "race_condition",
+      "issue": 25614,
+      "why": "from maintainer fix on #25614: DeferCleanup callback races teardown; fix titled 'Fix flake' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589219": {
+      "category": "race_condition",
+      "issue": 23634,
+      "why": "from maintainer fix on #23634: events arriving out of sequence; fix is an ordering workaround [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589423": {
+      "category": "race_condition",
+      "issue": 11248,
+      "why": "from maintainer fix on #11248: rootlessport helper not ready; fix titled 'fix rootlessport flake' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589434": {
+      "category": "race_condition",
+      "issue": 11248,
+      "why": "from maintainer fix on #11248: rootlessport helper not ready; fix titled 'fix rootlessport flake' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589437": {
+      "category": "race_condition",
+      "issue": 11248,
+      "why": "from maintainer fix on #11248: rootlessport helper not ready; fix titled 'fix rootlessport flake' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589439": {
+      "category": "race_condition",
+      "issue": 10052,
+      "why": "from maintainer fix on #10052: rootlesskit port forwarder not set up yet when the test ran [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589444": {
+      "category": "race_condition",
+      "issue": 22760,
+      "why": "from maintainer fix on #22760: fix waits another interval for healthcheck -> timing dependency [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589448": {
+      "category": "race_condition",
+      "issue": 23634,
+      "why": "from maintainer fix on #23634: events arriving out of sequence; fix is an ordering workaround [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589489": {
+      "category": "race_condition",
+      "issue": 23634,
+      "why": "from maintainer fix on #23634: events arriving out of sequence; fix is an ordering workaround [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589496": {
+      "category": "race_condition",
+      "issue": 22760,
+      "why": "from maintainer fix on #22760: fix waits another interval for healthcheck -> timing dependency [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589502": {
+      "category": "race_condition",
+      "issue": 22760,
+      "why": "from maintainer fix on #22760: fix waits another interval for healthcheck -> timing dependency [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589574": {
+      "category": "race_condition",
+      "issue": 23637,
+      "why": "from maintainer fix on #23637: maintainer: 'another mount race' -> fix 'podman mount: fix storage/libpod ctr race' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589575": {
+      "category": "race_condition",
+      "issue": 10052,
+      "why": "from maintainer fix on #10052: rootlesskit port forwarder not set up yet when the test ran [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589664": {
+      "category": "race_condition",
+      "issue": 10052,
+      "why": "from maintainer fix on #10052: rootlesskit port forwarder not set up yet when the test ran [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589696": {
+      "category": "race_condition",
+      "issue": 23637,
+      "why": "from maintainer fix on #23637: maintainer: 'another mount race' -> fix 'podman mount: fix storage/libpod ctr race' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89516589832": {
+      "category": "race_condition",
+      "issue": 23637,
+      "why": "from maintainer fix on #23637: maintainer: 'another mount race' -> fix 'podman mount: fix storage/libpod ctr race' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89653650219": {
+      "category": "race_condition",
+      "issue": 23292,
+      "why": "from maintainer fix on #23292: issue: 'kube play, in parallel, leaves stray untagged pause images' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89653650440": {
+      "category": "race_condition",
+      "issue": 23292,
+      "why": "from maintainer fix on #23292: issue: 'kube play, in parallel, leaves stray untagged pause images' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89653650491": {
+      "category": "race_condition",
+      "issue": 23292,
+      "why": "from maintainer fix on #23292: issue: 'kube play, in parallel, leaves stray untagged pause images' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "89713123661": {
+      "category": "real_bug",
+      "issue": 23281,
+      "why": "from maintainer fix on #23281: 'panic: nil pointer dereference'; fix guards an empty file in pkg/machine/compression [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90001229148": {
+      "category": "race_condition",
+      "issue": 16076,
+      "why": "from maintainer fix on #16076: proxies died before the service did; fix ties them to its lifespan [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90003883094": {
+      "category": "race_condition",
+      "issue": 23909,
+      "why": "from maintainer fix on #23909: issue title literally prefixed 'race:' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90059474856": {
+      "category": "race_condition",
+      "issue": 25614,
+      "why": "from maintainer fix on #25614: DeferCleanup callback races teardown; fix titled 'Fix flake' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90105252085": {
+      "category": "real_bug",
+      "issue": 23281,
+      "why": "from maintainer fix on #23281: 'panic: nil pointer dereference'; fix guards an empty file in pkg/machine/compression [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90117734345": {
+      "category": "race_condition",
+      "issue": 28868,
+      "why": "from maintainer fix on #28868: fix: prune must not fail when build container is already gone (TOCTOU) [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90179307687": {
+      "category": "real_bug",
+      "issue": 23281,
+      "why": "from maintainer fix on #23281: 'panic: nil pointer dereference'; fix guards an empty file in pkg/machine/compression [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90286320550": {
+      "category": "race_condition",
+      "issue": 18659,
+      "why": "from maintainer fix on #18659: issue 'seems racy'; fix stops removing concurrently with builds [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90349634859": {
+      "category": "real_bug",
+      "issue": 23281,
+      "why": "from maintainer fix on #23281: 'panic: nil pointer dereference'; fix guards an empty file in pkg/machine/compression [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90539504273": {
+      "category": "real_bug",
+      "issue": 23281,
+      "why": "from maintainer fix on #23281: 'panic: nil pointer dereference'; fix guards an empty file in pkg/machine/compression [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90583474003": {
+      "category": "race_condition",
+      "issue": 22569,
+      "why": "from maintainer fix on #22569: fix: 'apple virtiofs: fix racy mount setup' [derived by Claude from issue title + fix commit only; log window not read]"
+    },
+    "90583475284": {
+      "category": "race_condition",
+      "issue": 18659,
+      "why": "from maintainer fix on #18659: issue 'seems racy'; fix stops removing concurrently with builds [derived by Claude from issue title + fix commit only; log window not read]"
+    }
+  }
+}
