@@ -543,9 +543,17 @@ def fetch_timeline(gh, conn, args):
                 src = ((ev.get("source") or {}).get("issue") or {})
                 pr = src.get("number") if src.get("pull_request") else None
                 if sha or pr:
+                    # `source.issue.title` exists only on `cross-referenced`
+                    # events. A `referenced` event -- a commit mentioning the
+                    # issue, which is the fix-commit case and the majority --
+                    # has no source, and falling back to `ev["event"]` stored
+                    # the literal string "referenced" as the commit message for
+                    # 1,593 of 1,928 rows. Leave it NULL instead: an absent
+                    # message is honest and `backfill-fixes` can find it by SHA,
+                    # whereas a placeholder is indistinguishable from a real one.
                     store.add_fix_commit(
                         conn, sha or f"pr-{pr}", n, "timeline", pr_number=pr,
-                        message=(src.get("title") or ev.get("event") or ""),
+                        message=src.get("title"),
                         author=(ev.get("actor") or {}).get("login"),
                         committed_at=ev.get("created_at"))
                     linked += 1
@@ -559,6 +567,69 @@ def fetch_timeline(gh, conn, args):
             print(f"  ...{i}/{len(rows)} issues, {events} events, {linked} links")
 
     print(f"\n{events} timeline events, {linked} fix candidates. {gh.stats()}")
+
+
+def fetch_backfill_fixes(gh, conn, args):
+    """Fill in commit messages for fix links that only ever stored a SHA.
+
+    `fetch timeline` recorded the *event type* where the commit message belonged
+    (see the note in `fetch_timeline`), so most fix links carry the placeholder
+    "referenced" or nothing at all. The SHA was always stored correctly, so the
+    message is one `/commits/{sha}` call away -- and those responses are cached
+    and ETag-revalidated like everything else, so re-running costs almost
+    nothing.
+
+    This matters more than its size suggests. The maintainer's own fix is the
+    strongest independent evidence the dossier can carry: labelling `resource
+    _exhaustion` because a maintainer wrote "increase nproc ulimit to avoid
+    flake" is transcription, not opinion, and it is the only kind of label that
+    stays meaningful when the thing being scored also reads the log.
+    """
+    rows = conn.execute(
+        """SELECT DISTINCT sha FROM fix_commits
+           WHERE length(sha) = 40
+             AND (message IS NULL OR message = '' OR message = 'referenced')
+           LIMIT ?""",
+        (args.limit,)).fetchall()
+    if not rows:
+        print("no fix commits are missing a message")
+        return
+
+    print(f"{len(rows)} commit messages to backfill")
+    filled = missing = 0
+    for i, row in enumerate(rows, 1):
+        sha = row["sha"]
+        try:
+            commit = gh.get(f"/repos/{REPO}/commits/{sha}")
+        except RateLimited:
+            conn.commit()
+            raise
+        except Exception as e:
+            print(f"  ! {sha[:9]}: {e}", file=sys.stderr)
+            missing += 1
+            continue
+
+        info = commit.get("commit") or {}
+        message = (info.get("message") or "").strip()
+        if not message:
+            missing += 1
+            continue
+
+        conn.execute(
+            """UPDATE fix_commits SET message = ?, author = COALESCE(author, ?),
+                      committed_at = COALESCE(committed_at, ?)
+               WHERE sha = ?""",
+            (message[:4000],
+             ((info.get("author") or {}).get("name")
+              or (commit.get("author") or {}).get("login")),
+             (info.get("author") or {}).get("date"),
+             sha))
+        filled += 1
+        conn.commit()
+        if i % 50 == 0:
+            print(f"  ...{i}/{len(rows)}, {filled} filled")
+
+    print(f"\n{filled} messages backfilled, {missing} unavailable. {gh.stats()}")
 
 
 def fetch_fixes(gh, conn, args):
@@ -695,7 +766,8 @@ COMMANDS = {
     "prfiles": fetch_prfiles, "artifacts": fetch_artifacts,
     "annotations": fetch_annotations, "issues": fetch_issues,
     "comments": fetch_comments, "timeline": fetch_timeline,
-    "fixes": fetch_fixes, "all": fetch_all, "status": fetch_status,
+    "fixes": fetch_fixes, "backfill-fixes": fetch_backfill_fixes,
+    "all": fetch_all, "status": fetch_status,
 }
 
 
