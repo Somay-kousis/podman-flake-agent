@@ -9,6 +9,12 @@ skipped is the most useful part.
 
 *Last updated after the dataset and labelling layer landed (`c8156d9`).*
 
+> **This file stopped being current on 2026-08-03.** It still ranks more fetch
+> and parsing work highly, which the replan that day reversed. It is kept as the
+> record of *how* decisions were reached — the wrong turns in §2 are the useful
+> part and do not expire. For what is done and what is next, read
+> [`ROADMAP.md`](ROADMAP.md), which supersedes §4 and §5 below.
+
 ---
 
 ## 1. The route so far

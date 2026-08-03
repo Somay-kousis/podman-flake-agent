@@ -289,7 +289,7 @@ flag.
 | `flakeagent/agent.py` | dossier → prompt → verdict → `preds.json` |
 | `flakeagent/eval.py` | scores `preds.json` against the gold labels |
 | `flakeagent/classify.py`, `report.py` | earlier prototype, pre-dossier |
-| `docs/` | **[handbook](docs/HANDBOOK.md)** · [dossier schema](docs/DOSSIER.md) · [fetch audit](docs/FETCH_AUDIT.md) · [log anatomy](docs/LOG_ANATOMY.md) · [decision map](docs/MAP.md) · [plans](docs/plans/) |
+| `docs/` | **[handbook](docs/HANDBOOK.md)** · [roadmap](docs/ROADMAP.md) · [dossier schema](docs/DOSSIER.md) · [fetch audit](docs/FETCH_AUDIT.md) · [log anatomy](docs/LOG_ANATOMY.md) · [decision map](docs/MAP.md) · [plans](docs/plans/) |
 | `tests/dossiers/` | committed real failures for offline development |
 
 Licensed Apache-2.0, matching Podman.
