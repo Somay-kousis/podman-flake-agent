@@ -663,11 +663,13 @@ Genuinely unresolved, and worth your judgement rather than mine:
 
 | Order | Doc | For |
 |---|---|---|
+| 0 | [`GLOSSARY.md`](GLOSSARY.md) | every term in plain language — start here if `flake`, `dossier` or `blinding` are new |
 | 1 | this file | orientation |
 | 2 | [`LOG_ANATOMY.md`](LOG_ANATOMY.md) | what CI output really looks like, with real before/after |
 | 3 | [`DOSSIER.md`](DOSSIER.md) | the JSON contract, field by field |
 | 4 | [`FETCH_AUDIT.md`](FETCH_AUDIT.md) | the API surface and every hard limit |
 | 5 | [`MAP.md`](MAP.md) | how the project got here, including the wrong turns |
 | 6 | [`plans/`](plans/) | the four approved plans, in sequence |
+| 7 | [`ROADMAP.md`](ROADMAP.md) | what is done and what is next, as diagrams |
 
 Licensed Apache-2.0, matching Podman.

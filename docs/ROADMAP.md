@@ -3,168 +3,235 @@
 One sequence, start to finish: what shipped, where the project stands today, and
 what remains between here and the last day of the mentorship term.
 
-`MAP.md` is the companion to this file and answers a different question. It
-records *how* decisions were reached, including the wrong turns, as graphs.
-This file is the flat timeline and the forward plan.
+New to the vocabulary? **[`GLOSSARY.md`](GLOSSARY.md)** explains every term used
+here — flake, dossier, blinding, gold label, and the rest — in plain language.
 
-*State as of 2026-08-03. The `Done` dates are commit dates; the `Ahead` dates are
-LFX's published term calendar.*
+`MAP.md` is the companion to this file and answers a different question: *how*
+decisions were reached, including the wrong turns. This file is the timeline and
+the forward plan.
 
----
-
-## 1. Done
-
-### Phase 0 — framing (Jul 30)
-
-Started as "how do I become a Podman contributor", corrected to "this is a
-specific AI/agent mentorship slot". Everything downstream follows from that
-correction. Research established the premise the project rests on: Podman left
-Cirrus in May 2026 (`3743b9f806`, *"Goodbye Cirrus"*), which orphaned
-`hack/ci/logformatter` — 38 KB of Perl keyed to `CIRRUS_TASK_ID`, invoked by
-nothing, with one stale reference left at `Makefile:726`. Flake triage reverted
-to a human reading a bar graph (`CONTRIBUTING.md:355`).
-
-### Phase 1 — prototype (Jul 30)
-
-`parse / store / classify / eval / report`. The first parser nested on the DOM
-and failed: `div.tt` opens once around the *whole* processed output, not per
-test, and in ginkgo the failure summary sits outside the timeline divs. Rebuilt
-line-oriented, which is what yields per-test granularity. **76–93% reduction**
-against Podman's own logformatter fixtures.
-
-### Phase 2 — corpus (Jul 30)
-
-372 `flakes` issues harvested, 359 samples. The reality check mattered more than
-the corpus: only three GHA-era samples, median 8 lines, and parser coverage split
-**bats 96% / ginkgo 0%**.
-
-### Phase 3 — fetch layer (Jul 30)
-
-Read-only GitHub client — one GET path, no method argument, ETag-revalidated,
-rate-limit aware. Then the first live run, which found three bugs in under an
-hour: a cross-host redirect leaking the token to Azure, PR attribution wrong in
-both directions, and step-slicing alone giving 24.8% rather than the "few KB"
-a written plan had claimed. Two-stage narrowing landed at **95.1%**.
-
-### Phase 4 — dataset and labelling (Jul 31)
-
-One database: **492 runs, 22,335 jobs, 153,425 steps, 225 job logs, 372 issues**.
-400 dossiers generated, 5 committed as offline fixtures. Three bugs caught here
-too — `related_issues` matched the job name so `known_fixes` was permanently
-empty; log windows bounded by lines not characters reached 41,191 tokens; and
-labelling, scoring and dossiers used three incompatible identities, so nothing
-could ever have been scored. The fix that shaped everything after: **label from
-evidence the classifier cannot see, then blind it.**
-
-### Phase 5 — upstream contact (Aug 1–2)
-
-| PR | State | |
-|---|---|---|
-| [#29370](https://github.com/podman-container-tools/podman/pull/29370) restore the `CI_DESIRED_RUNTIME` check | closed by author | withdrawn on finding #29301 was further along and used the better marker |
-| [#29376](https://github.com/podman-container-tools/podman/pull/29376) run logformatter on the windows jobs again | **open, 14/14 green** | self-contained; sets `PODMAN_CI` on four Windows jobs, consumes it in `win-lib.ps1` |
-
-**1 of the 2 permitted open PRs is in use.**
-
-### Phase 6 — published, and the agentic path (Aug 3)
-
-- Repo public at `Somay-kousis/podman-flake-agent`, 16 commits.
-- **History loss and rebuild.** An accidental clone over the working tree
-  destroyed the original `.git`. Files survived, objects did not. The history was
-  rebuilt from the recorded log: messages and dates are the originals, trees are
-  reconstructed, and the short SHAs cited in `plans/README.md` and `MAP.md` no
-  longer resolve. Stated in `plans/README.md` rather than papered over.
-- `taxonomy.py` — categories, schema and system prompt single-sourced. They had
-  been duplicated in `classify.py` and `labels.py`; they agreed, but nothing
-  enforced it, and `eval.py` joins on string equality, so a drift would have
-  scored as wrong rather than raised.
-- `agent.py` — **the dossier → prediction path, which did not previously exist.**
-  `classify.py` read the pre-dossier `test_failures` table. Blinded by default,
-  evidence substring-checked against the log the model was shown, output split
-  into a diffable `preds.json` and a full `verdicts.json`. Prompt is a **median
-  1,678 chars (~419 tokens)** across all 400 dossiers, max 13,080.
-- `fetch.py:548` fixed — it stored `ev["event"]`, the literal string
-  `"referenced"`, where the commit message belonged, on exactly the event type
-  that carries fix commits. **1,593 of 1,928 rows were placeholder.**
-  `backfill-fixes` refills by SHA, scoped by default to the 56 issues the
-  dossiers actually reference.
+*State as of 2026-08-03. `Done` dates are commit dates; term dates are LFX's
+published calendar.*
 
 ---
 
-## 2. Where it stands
+## 1. The whole thing at a glance
+
+```mermaid
+%%{init: {"flowchart": {"curve": "basis"}}}%%
+flowchart TD
+    START(["Jul 30 — read the repo"])
+
+    subgraph BUILT["Built — Jul 30 to Aug 3"]
+        P1["Prototype<br/>parse the CI logs<br/>76-93% smaller"]
+        P2["Corpus<br/>372 flake reports<br/>read from GitHub"]
+        P3["Fetch layer<br/>read-only client<br/>logs down 95%"]
+        P4["Dataset<br/>400 dossiers<br/>one per failed job"]
+        P5["Agent<br/>dossier in,<br/>verdict out"]
+    end
+
+    subgraph UPSTREAM["Sent to Podman — Aug 1 to 2"]
+        U1["PR 29376 open<br/>all checks green"]
+        U2["PR 29370 withdrawn<br/>someone was ahead"]
+    end
+
+    NOW(["Aug 3 — we are here"])
+
+    subgraph GAP["The one thing missing"]
+        G1["0 gold labels<br/>so nothing can be<br/>marked right or wrong"]
+    end
+
+    subgraph TODO["Before Aug 18"]
+        T1["Label 30-50 by hand"]
+        T2["Run the agent, score it"]
+        T3["Review Luap99's PR 29091"]
+        T4["Write the cover letter"]
+        T5["Submit Aug 16"]
+    end
+
+    TERM(["Sep 7 to Nov 27<br/>the term, if selected"])
+
+    START --> P1 --> P2 --> P3 --> P4 --> P5 --> NOW
+    P3 --> U1
+    P3 --> U2
+    U1 --> NOW
+    U2 --> NOW
+    NOW --> G1 --> T1 --> T2 --> T4
+    NOW --> T3 --> T4
+    T4 --> T5 --> TERM
+
+    classDef done  fill:#dfe7ef,stroke:#5d6d7e,color:#34495e
+    classDef now   fill:#fff0d9,stroke:#e67e22,color:#7e4a11
+    classDef block fill:#fde8e8,stroke:#c0392b,color:#7b241c
+    classDef next  fill:#e6f4ea,stroke:#1e8449,color:#145a32
+
+    class P1,P2,P3,P4,P5,U1,U2 done
+    class START,NOW,TERM now
+    class G1 block
+    class T1,T2,T3,T4,T5 next
+```
+
+**Grey** = shipped · **red** = the blocker · **green** = what's next · **amber** = milestones.
+
+---
+
+## 2. What each phase actually produced
+
+```mermaid
+flowchart LR
+    subgraph IN["What goes in"]
+        A1["A GitHub Actions run<br/>that failed"]
+    end
+    subgraph MID["What this project does to it"]
+        B1["Find which STEP failed<br/>no log reading needed"]
+        B2["Cut the 500 KB log<br/>down to the failure<br/>~95% smaller"]
+        B3["Gather evidence<br/>the log cannot show<br/>reruns, history, the diff"]
+        B4["Write it as one<br/>JSON file: a DOSSIER"]
+    end
+    subgraph OUT["What comes out"]
+        C1["Hide the evidence<br/>a human labels from<br/>= BLINDING"]
+        C2["Ask a model:<br/>why did this fail?"]
+        C3["Check its quotes<br/>are really in the log"]
+        C4["Score it against<br/>hand-made GOLD LABELS"]
+    end
+
+    A1 --> B1 --> B2 --> B3 --> B4 --> C1 --> C2 --> C3 --> C4
+
+    classDef done fill:#dfe7ef,stroke:#5d6d7e,color:#34495e
+    classDef gap  fill:#fde8e8,stroke:#c0392b,color:#7b241c
+    class A1,B1,B2,B3,B4,C1,C2,C3 done
+    class C4 gap
+```
+
+Everything grey is built and runs today. **Only the last box is missing**, and it
+is missing because it needs human judgement, not more code.
+
+| Phase | Date | What shipped | What broke, and was fixed |
+|---|---|---|---|
+| 0 · framing | Jul 30 | Established the premise: Podman left Cirrus CI in May 2026, orphaning `logformatter`, so flake triage reverted to a human reading a bar graph | Started as "become a Podman contributor", corrected to "this is an AI/agent slot" |
+| 1 · prototype | Jul 30 | `parse / store / classify / eval / report`; **76–93%** log reduction | First parser nested on the DOM. `div.tt` opens once around the *whole* output, not per test. Rebuilt line-oriented |
+| 2 · corpus | Jul 30 | 372 flake reports, 359 samples | Only 3 modern samples; parser coverage split **bats 96% / ginkgo 0%** |
+| 3 · fetch | Jul 30 | Read-only client, ETag-cached; two-stage narrowing to **95.1%** | First live run found 3 bugs in an hour, incl. a redirect leaking the token to Azure |
+| 4 · dataset | Jul 31 | 492 runs · 22,335 jobs · 153,425 steps · 400 dossiers | Issue matching used the *job* name, so the fix field was always empty; labels and scores used 3 incompatible IDs — nothing could ever have been scored |
+| 5 · upstream | Aug 1–2 | PR #29376 open and green; #29370 withdrawn as a duplicate | — |
+| 6 · agent | Aug 3 | `taxonomy.py`, `agent.py`, published repo | `fetch.py:548` stored the word `"referenced"` where the commit message belonged — **1,593 of 1,928 rows** |
+
+---
+
+## 3. Where it stands
 
 | | |
 |---|---|
 | Code / docs | 4,699 lines across 15 modules · 2,622 lines of docs |
 | Data | 492 runs · 22,335 jobs · 153,425 steps · 225 job logs · 372 issues |
-| Dossiers | 400 generated · 5 committed as fixtures |
+| Dossiers | 400 generated · 5 committed as offline fixtures |
 | Offline tests | `test_parse`, `test_steps`, `test_agent` — all passing, no token needed |
+| Upstream | 1 of 2 permitted open PRs in use |
 | **Gold labels** | **0** |
 | **Accuracy** | **still none measured** |
 
-**Labelable without reading a log — 139 of 400:**
+**139 of 400 dossiers can be labelled without reading a log:**
 
-| Evidence | Dossiers |
-|---|---|
-| maintainer stated the cause (readable fix commit) | 60 |
-| rerun disagreement — same commit passed *and* failed | 82 |
-| both | 3 |
+```mermaid
+flowchart TD
+    ALL["400 dossiers"]
+    E1["60<br/>a maintainer said<br/>what caused it"]
+    E2["82<br/>same commit both<br/>passed and failed"]
+    E3["3<br/>both"]
+    E4["261<br/>log only<br/>weak eval cases"]
 
-The backfill moved the first row from 45 to 60. Worth stating plainly: three
-quarters of the fix SHAs return HTTP 422 — fork commits, or history that moved —
-so 60 of 400 is what the linkage actually supports. It is not a solved
-labelling problem.
+    ALL --> E1
+    ALL --> E2
+    ALL --> E3
+    ALL --> E4
+
+    classDef strong fill:#e6f4ea,stroke:#1e8449,color:#145a32
+    classDef weak   fill:#eef1f5,stroke:#7f8c9b,color:#2c3e50
+    class E1,E2,E3 strong
+    class ALL,E4 weak
+```
+
+The backfill moved the first group from 45 to 60. Worth stating plainly: three
+quarters of the fix commit IDs return HTTP 422 — they belong to forks, or to
+history that moved — so **60 of 400 is what the linkage actually supports.** Not
+a solved labelling problem.
 
 **The one blocker.** Everything else is built. `gold_labels` is empty, so nothing
-the agent produces can be scored, and every number in the README remains a size
-or reduction measurement rather than a classification claim.
+the agent produces can be scored, and every number in the README is still a size
+measurement rather than a claim about being right.
 
 ---
 
-## 3. Ahead — to the application (Aug 3 → Aug 18)
+## 4. Ahead — to the application, Aug 3 → Aug 18
 
 Podman weights this differently from most projects, per
 [@Luap99 on #29265](https://github.com/podman-container-tools/podman/issues/29265):
-contributions are **not required**, the LFX resume and cover letter are what get
+contributions are **not required**, the cover letter and resume are what get
 read, *"that can also be some personal project"*, and there is a hard cap of two
-open PRs. So the repo is the artifact, and more PRs are not the lever.
+open PRs. **So this repo is the artifact, and more PRs are not the lever.**
+
+```mermaid
+flowchart TD
+    N(["Aug 3"])
+    L1["Label 30-50 dossiers<br/>start with the 139<br/>that have real evidence"]
+    L2["Run the agent<br/>preds.json"]
+    L3["Score it<br/>first accuracy number"]
+    L4["Put the number<br/>in the README"]
+    R1["Review PR 29091<br/>does NOT use a PR slot<br/>expires when it merges"]
+    R2["Report the title= gotcha<br/>also free"]
+    W1["Cover letter<br/>lead with the repo<br/>and the number"]
+    S(["Submit Aug 16<br/>48h early"])
+
+    H1["Add a LICENSE file"]
+    H2["Set the repo description"]
+
+    N --> L1 --> L2 --> L3 --> L4 --> W1
+    N --> R1 --> W1
+    N --> R2
+    N --> H1
+    N --> H2
+    W1 --> S
+
+    classDef must  fill:#e6f4ea,stroke:#1e8449,color:#145a32
+    classDef clock fill:#fff0d9,stroke:#e67e22,color:#7e4a11
+    classDef small fill:#eef1f5,stroke:#7f8c9b,color:#2c3e50
+    class L1,L2,L3,L4,W1 must
+    class N,S,R1 clock
+    class R2,H1,H2 small
+```
 
 1. **Label 30–50 dossiers.** The only thing between here and an accuracy number.
-   Start with the 139 that carry independent evidence; `labels show --dossier`
-   leads with it and puts the log last. Decide from the top — if the log is
-   needed to decide, that is a weak eval case.
+   `labels show --dossier` leads with the independent evidence and puts the log
+   last. Decide from the top — if you need the log to decide, it is a weak case.
 2. **Run and score.** `agent.py` → `preds.json` → `eval.py dossiers`. Report
-   abstention beside accuracy; the scorer already warns below 30 items. Replace
-   the README's *"No accuracy numbers"* bullet with the result, keeping the
-   statement of what it does and does not cover.
-3. **E1 — review [PR #29091](https://github.com/podman-container-tools/podman/pull/29091)**
-   having run it. Reviews do not consume the 2-PR budget. The findings here are
-   not available to anyone who has not parsed real output: `div.tt` opening once,
-   and the ginkgo failure summary sitting outside the timeline blocks. **Only item
-   with an external clock — it expires on merge.**
-4. **E3 — report the multi-line `title=` gotcha.** logformatter folds the podman
-   command line into a `title` attribute containing newlines, so one tag spans
-   many source lines; cost ~11% of the ginkgo reduction until fixed.
-5. **Cover letter, submitted Aug 16** — 48h early, not Aug 18. Lead with the
-   repo and the accuracy number. The strongest material is the judgement record,
-   not the feature list.
+   abstention beside accuracy. Replace the README's *"No accuracy numbers"*
+   bullet, keeping the statement of what it does and does not cover.
+3. **Review [PR #29091](https://github.com/podman-container-tools/podman/pull/29091)**
+   having run it. Reviews do not consume the 2-PR budget. Your findings here are
+   not available to anyone who has not parsed real output. **The only item with
+   an external clock — it expires on merge.**
+4. **Report the multi-line `title=` gotcha** — logformatter folds the podman
+   command line into an HTML attribute containing newlines, so one tag spans many
+   lines. Cost ~11% of the ginkgo reduction until fixed.
+5. **Cover letter, submitted Aug 16.**
 
-### Housekeeping, small and visible
+### Small and visible
 
 - **No `LICENSE` file.** `README.md:295` and `HANDBOOK.md:673` both say
-  Apache-2.0, but there is no file, so GitHub shows the repo as unlicensed.
+  Apache-2.0, but the file does not exist, so GitHub shows the repo as
+  unlicensed.
 - **No repository description** set on GitHub.
-- `HANDBOOK.md` §11 and `MAP.md` §5 still rank more fetch/parse work highly.
-  Both predate the Aug 3 replan and now contradict this file.
+- `HANDBOOK.md` §11 and `MAP.md` §5 still rank more fetch work highly. Both
+  predate the Aug 3 replan and now contradict this file.
 
 ### Not doing before Aug 18
 
-Tracks A, B and C from `MAP.md` — including A2 (fork-PR diff context, ~80% of PR
-runs). A2 is load-bearing for the *tool*, not the *application*. Resume after
-selection.
+Tracks A, B and C from `MAP.md`, including A2 (fork-PR diff context, ~80% of PR
+runs). A2 is load-bearing for the *tool*, not the *application*.
 
 ---
 
-## 4. Ahead — the term (if selected)
+## 5. Ahead — the term, if selected
 
 | Date | |
 |---|---|
@@ -177,19 +244,18 @@ selection.
 
 Work that becomes worth doing once there is a mentor to agree the shape with:
 
-- **A2 — fork-PR diff resolution.** Diff relevance is among the strongest flake
-  signals, and it is missing for ~80% of PR runs because `/commits/{sha}/pulls`
-  returns empty when the head commit is not in the base repo.
-- **The remaining 1,196 placeholder fix links**, plus a better issue↔test join
-  than lexical overlap — the dossier itself calls the current one *"a starting
+- **Fork-PR diff resolution.** Whether the code change could even have caused the
+  failure is among the strongest signals, and it is missing for ~80% of PR runs
+  because GitHub does not report the PR for commits that live in a fork.
+- **The remaining 1,196 placeholder fix links**, and a better issue-to-test match
+  than word overlap — the dossier itself calls the current one *"a starting
   point, not a duplicate determination"*, and 24 of 89 matches are on the job
   name, the path `MAP.md` already identified as broken.
 - **Local-model results.** `--backend ollama` exists and is untested against the
   gold set; issue #29265 names local AI as a plus.
 - **Sit downstream of #29091 for real**, once it merges, rather than alongside it.
 - **The write path.** Nothing in this package can post to GitHub — one GET path,
-  no `--post` flag. Filing or commenting is a deliberate, mentor-agreed step, not
-  a default.
+  no `--post` flag. Filing or commenting is a deliberate, mentor-agreed step.
 
 ⚠️ The LFX listing read *"This program is pending approval!"* and could not be
 confirmed programmatically. If the project does not run, the repo still stands on
