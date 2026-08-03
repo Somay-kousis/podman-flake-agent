@@ -29,68 +29,10 @@ import sys
 import urllib.request
 
 from . import store
+from .taxonomy import CATEGORIES, SCHEMA, SYSTEM  # noqa: F401  (re-exported)
 
 MODEL_API = "claude-opus-5"
 MODEL_OLLAMA = "llama3.1"
-
-CATEGORIES = [
-    "infra_blip",
-    "race_condition",
-    "network_timeout",
-    "resource_exhaustion",
-    "real_bug",
-    "unknown",
-]
-
-SCHEMA = {
-    "type": "object",
-    "properties": {
-        "category": {"type": "string", "enum": CATEGORIES},
-        "confidence": {"type": "number"},
-        "reasoning": {"type": "string"},
-        "evidence": {
-            "type": "array",
-            "items": {"type": "string"},
-            "description": "Verbatim log lines supporting the verdict.",
-        },
-        "suggested_action": {"type": "string"},
-        "duplicate_of": {
-            "type": ["integer", "null"],
-            "description": "Existing `flakes` issue number, or null.",
-        },
-    },
-    "required": [
-        "category", "confidence", "reasoning", "evidence",
-        "suggested_action", "duplicate_of",
-    ],
-    "additionalProperties": False,
-}
-
-SYSTEM = """You triage failing CI tests for Podman (containers/podman), whose \
-suites are Ginkgo (Go), bats (shell), and Python unittest.
-
-Decide why THIS test failed. The categories:
-
-- infra_blip: registry/mirror unavailable, DNS failure, package install failure,
-  runner died. External to the code under test.
-- network_timeout: a network operation exceeded its deadline. Distinguish from
-  infra_blip: the endpoint was reachable but slow.
-- race_condition: ordering/timing dependency in the test or the code. Signals
-  include journald timeliness, missing-but-later-present logs, concurrent
-  container/pod operations, cleanup racing startup.
-- resource_exhaustion: out of disk, memory, inodes, PIDs, ports.
-- real_bug: the diff under test broke this. Choose this when the failure is
-  specific and deterministic rather than timing-dependent.
-- unknown: the evidence does not distinguish between the above.
-
-Rules:
-- Prefer `unknown` over a confident guess. A wrong confident verdict is worse
-  than an abstention, because maintainers act on it.
-- `evidence` must quote lines that actually appear in the log. Do not paraphrase
-  and do not invent line numbers.
-- Podman flakes are frequently journald timeliness issues; the log's own
-  comments often say so. Weigh that, but do not assume it.
-"""
 
 
 def build_prompt(failure, evidence_rows):

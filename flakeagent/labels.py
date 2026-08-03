@@ -32,24 +32,7 @@ import json
 import sys
 
 from . import store
-
-CATEGORIES = [
-    "infra_blip",
-    "race_condition",
-    "network_timeout",
-    "resource_exhaustion",
-    "real_bug",
-    "unknown",
-]
-
-HINTS = {
-    "infra_blip": "registry/mirror down, DNS, package install failed, runner died",
-    "race_condition": "ordering/timing dependency; journald timeliness; concurrent ops",
-    "network_timeout": "reachable but too slow; a deadline was exceeded",
-    "resource_exhaustion": "out of disk, memory, inodes, PIDs, ports, ulimits",
-    "real_bug": "deterministic; the change under test broke it",
-    "unknown": "the evidence does not distinguish -- a valid and useful answer",
-}
+from .taxonomy import CATEGORIES, HINTS  # noqa: F401  (re-exported)
 
 
 def _fixes(conn, number):

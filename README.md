@@ -130,7 +130,9 @@ Everything here works from a fresh clone with nothing configured:
 ```bash
 python3 tests/test_parse.py                       # parser vs real logformatter fixtures
 python3 tests/test_steps.py                       # step attribution
+python3 tests/test_agent.py                       # dossier -> prediction, stub model
 python3 examples/read_dossier.py tests/dossiers/*.json | head -40
+python3 -m flakeagent.agent --dossiers tests/dossiers --dry-run
 ```
 
 `tests/dossiers/` holds real committed failures. **This is what agent
@@ -215,12 +217,44 @@ you both identically.
 abstention beside accuracy, names real bugs predicted as re-runnable, and warns
 below 30 items that a percentage is not an accuracy claim.
 
-### Classification (earlier prototype)
+### Running a model over the dossiers
 
-`classify.py`, `eval.py` and `report.py` predate the fetch layer and still read
-the older `test_failures` path rather than dossiers. `--backend ollama` runs a
-local model with no API key; `report.py` is dry-run only and has no `--post`
-flag. Treat them as a sketch of the shape, not the current interface.
+`agent.py` is the dossier → prediction path. It blinds each dossier, builds a
+prompt, calls a backend, and writes the `{job_id: category}` file `eval.py`
+scores:
+
+```bash
+python3 -m flakeagent.agent --dossiers data/dossiers --dry-run      # no model called
+python3 -m flakeagent.agent --dossiers data/dossiers --limit 30 --backend ollama
+python3 -m flakeagent.eval  dossiers --predictions data/preds.json
+```
+
+Measured over the 400 generated dossiers, the prompt is a **median 1,678
+characters (~419 tokens)**, max 13,080.
+
+Three things it does deliberately:
+
+- **Blinded by default.** The evidence a human labels from is withheld from the
+  model. `--no-blind` exists to quantify the gap, but you have to ask, and the
+  mode is recorded in every verdict.
+- **Evidence is checked, not trusted.** The schema asks for verbatim log lines;
+  nothing in a schema can make them real. Every quote is matched against the log
+  the model was shown, and the hit rate is reported per verdict and summarised
+  as `UNVERIFIED n` at the end. It never edits the category — it reports.
+- **`--dry-run` is the way in.** Every prompt built and counted, no model, no
+  key. Three of the worst bugs in this repo's history shipped in code that had
+  been written and reviewed but never run.
+
+Output is split on purpose: `preds.json` is only `{job_id: category}` so it
+stays diffable, and `verdicts.json` carries reasoning, evidence, verification
+counts and token usage.
+
+### Earlier prototype
+
+`classify.py` still reads the older `test_failures` path rather than dossiers;
+`agent.py` supersedes it for dossier work but reuses its two backends and the
+`search_flake_issues` tool. `report.py` is dry-run only and has no `--post`
+flag.
 
 ---
 
@@ -251,7 +285,10 @@ flag. Treat them as a sketch of the shape, not the current interface.
 | `flakeagent/store.py` | SQLite persistence + migrations |
 | `flakeagent/schema.sql` | the data model |
 | `flakeagent/parse.py` | logformatter HTML → failures (earlier path) |
-| `flakeagent/classify.py`, `eval.py`, `report.py` | earlier prototype, pre-dossier |
+| `flakeagent/taxonomy.py` | the categories, schema and system prompt — defined once |
+| `flakeagent/agent.py` | dossier → prompt → verdict → `preds.json` |
+| `flakeagent/eval.py` | scores `preds.json` against the gold labels |
+| `flakeagent/classify.py`, `report.py` | earlier prototype, pre-dossier |
 | `docs/` | **[handbook](docs/HANDBOOK.md)** · [dossier schema](docs/DOSSIER.md) · [fetch audit](docs/FETCH_AUDIT.md) · [log anatomy](docs/LOG_ANATOMY.md) · [decision map](docs/MAP.md) · [plans](docs/plans/) |
 | `tests/dossiers/` | committed real failures for offline development |
 
