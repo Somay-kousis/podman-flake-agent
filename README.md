@@ -260,20 +260,28 @@ flag.
 
 ## What this does *not* do
 
-- **Measured, and the result is negative.** See
-  [`docs/RESULTS.md`](docs/RESULTS.md): `gpt-oss-120b` scored **29%** and
-  `gpt-oss-20b` **19%**, against a constant-answer baseline of **85%**. Every
-  verdict either model gave at confidence >= 0.9 was wrong (0/7 and 0/9). Both
-  collapse onto `real_bug` because, blinded, a flake and a bug look identical in a
-  single log window. The gold set exists --
-  [`tests/gold_labels.json`](tests/gold_labels.json), 39 failed jobs labelled from the
-  maintainer's own issue title and fix commit, never from the log window, so the
-  labels stay independent of what the classifier is shown. But it is **heavily
-  imbalanced: always answering `race_condition` scores 85%**, which is the bar any
-  model has to beat. `infra_blip` has zero examples and structurally cannot get any
-  from this evidence stream, because infrastructure blips are not fixed by commits.
-  Report per-class precision and recall, not overall accuracy. Every other number in
-  this README is a size or reduction measurement.
+- **Measured, and the result is negative — and then the gold set failed its own
+  audit.** See [`docs/RESULTS.md`](docs/RESULTS.md). `gpt-oss-120b` scored
+  **29%** and `gpt-oss-20b` **19%**; every verdict either gave at confidence
+  >= 0.9 was wrong (0/7 and 0/9). Then, preparing a second arm, an audit found
+  the gold set cannot carry the claim it was built for: **all 6 `real_bug`
+  labels come from one issue** (#23281), so the effective sample size for that
+  class is 1, and **`history.failure_rate >= 0.19` scores 92% with no model and
+  no log** — beating the 85% majority class and both models. Run it yourself:
+
+  ```bash
+  python3 -m flakeagent.eval baselines
+  ```
+
+  The gold set is real —
+  [`tests/gold_labels.json`](tests/gold_labels.json), 39 failed jobs labelled
+  from the maintainer's own issue title and fix commit, never from the log
+  window — but it is imbalanced *and* confounded, and its caveats say so at the
+  top. `infra_blip` has zero examples and structurally cannot get any from this
+  evidence stream, because infrastructure blips are not fixed by commits.
+  Report per-class precision and recall, not overall accuracy, and report
+  `baselines` beside any model number. Every other number in this README is a
+  size or reduction measurement.
 - **Fork PRs have no diff context** — GitHub omits the PR association for them,
   and that is ~160 of 184 runs. See [`docs/FETCH_AUDIT.md`](docs/FETCH_AUDIT.md).
 - **Ginkgo HTML parsing is 0%** on the real corpus. Step-window slicing routes

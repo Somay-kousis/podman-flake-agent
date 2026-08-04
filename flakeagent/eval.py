@@ -244,7 +244,15 @@ def main(argv=None):
                    help='JSON: {"<job_id>": "<category>", ...}')
     p.add_argument("--db")
 
+    sub.add_parser("baselines",
+                   help="score rules that read no log and call no model -- "
+                        "the floor any model result has to clear")
+
     args = ap.parse_args(argv)
+    if args.command == "baselines":            # owns its own connection
+        from . import baselines
+        return baselines.main()
+
     conn = store.connect(args.db)
     {"label": cmd_label, "list": cmd_list, "score": cmd_score,
      "dossiers": cmd_dossiers}[args.command](conn, args)

@@ -3,6 +3,13 @@
 Two models, 39 labelled failures, one harness. **Both models scored far below a
 constant, and every verdict either of them was most confident about was wrong.**
 
+> **Read [§6](#6-the-gold-set-cannot-support-a-real_bug-claim-at-all) first.**
+> A later audit found the `real_bug` class is six job instances of *one* issue,
+> and that a single float — `history.failure_rate >= 0.19` — scores 92% with no
+> model and no log. The model numbers below are real, but what they measure is
+> narrower than §1–§5 originally claimed, and §2's explanation is now only one
+> of two candidates.
+
 Raw outputs are in [`../results/`](../results/); the gold set and its caveats are
 in [`../tests/gold_labels.json`](../tests/gold_labels.json). Reproduce with:
 
@@ -102,6 +109,67 @@ Note the direction: the **smaller** model hallucinated less (97% vs 88%), becaus
 it quoted less (107 lines vs 162). Fluency and citation volume track each other,
 and neither tracks correctness.
 
+## 6. The gold set cannot support a `real_bug` claim at all
+
+Found while preparing a second arm, before spending the run. The plan was to
+un-blind `attempts` and `history` — legitimate, because the gold labels were
+derived from maintainer fix commits, not from rerun history. Checking what that
+would expose is what turned this up.
+
+**Every one of the six `real_bug` labels comes from a single issue, [#23281](
+https://github.com/podman-container-tools/podman/issues/23281)** — one nil
+pointer dereference, fixed by guarding an empty file in
+`pkg/machine/compression`. Six job instances of one bug, across two job names
+(`macos machine applehv`, `windows machine hyperv`).
+
+The effective sample size for `real_bug` is **1, not 6.**
+
+That confound is measurable. `flakeagent/baselines.py` scores rules that read no
+log and call no model:
+
+| rule | accuracy |
+|---|---|
+| always `race_condition` | 33/39 = 85% |
+| job name contains `machine` | 35/39 = 90% |
+| **`history.failure_rate >= 0.19`** | **36/39 = 92%** |
+
+One float beats the majority class, and beats both model arms by more than
+three times. The two classes barely overlap on it — `race_condition` spans
+0.013–0.183, `real_bug` spans 0.183–0.323 — because one persistently broken
+`podman machine` test naturally has a high historical failure rate.
+
+Two caveats on that 92%, both printed by the tool rather than left implicit: the
+threshold was **fitted on these same 39 labels**, so it is an upper bound and
+not a held-out estimate; and it separates one bug's jobs, not a concept.
+
+### What this changes
+
+- **The second arm is cancelled as designed.** Un-blinding `history` hands the
+  model the field a threshold already exploits at 92%. A jump in accuracy would
+  have measured whether a model can compare a float to a constant. Nothing about
+  triage.
+- **§2's explanation is now one of two.** The collapse onto `real_bug` may be
+  blinding removing the flake signal, as written — or it may be that the class
+  is one bug and there was never a general `real_bug` concept to predict. These
+  are not distinguishable on this gold set.
+- **§1 and §5 survive intact.** Inverted confidence and unverifiable quoting are
+  properties of the outputs, not of the label distribution.
+- **The real finding may be the inversion.** The signal that separates these
+  classes lives in `history`, a counted field — not in the log window the model
+  was given. That argues the useful design is an agent that *requests* evidence
+  rather than one that reads logs harder.
+
+### Why the gold set is like this, structurally
+
+Labels come from `flakes`-labelled issues with maintainer fix commits. That
+label selects for flakes. Real bugs are not filed as flakes, so they enter the
+set only by accident — as #23281 did, and only once.
+
+**A balanced flake-vs-bug gold set cannot be mined from the `flakes` label
+alone.** `real_bug` examples need a different source: failures on PRs whose fix
+changed the code under test. That is a separate mining path, not more labelling
+effort on the current one.
+
 ---
 
 ## What these numbers do not support
@@ -119,12 +187,19 @@ and neither tracks correctness.
 
 ## What to do next, in order
 
-1. **Test whether the taxonomy is separable by humans** before blaming the model.
-   Two readers, same dossiers, measure agreement.
-2. **Give the model the flake signal it is currently denied** — a second arm where
-   rerun history *is* included, scored against a gold set that was not derived from
-   it. That isolates how much of the 29% is missing evidence rather than missing
-   reasoning.
-3. **Do not gate anything on model confidence.** Section 1 is unambiguous.
-4. **Add a repair path for malformed structured output** before any local-model
+Reordered after §6. Fixing the gold set now gates everything downstream — no
+arm run against the current one can be interpreted.
+
+1. **Mine `real_bug` examples from a source that is not the `flakes` label.**
+   Failures on PRs whose merged fix touched the code under test. Until
+   `real_bug` spans more than one issue, no accuracy number on this set means
+   anything, and `baselines.py` will keep beating every model.
+2. **Report `baselines.py` beside every model result, permanently.** The floor
+   is 92%, not 85%, and it was invisible until something looked.
+3. **Test whether the taxonomy is separable by humans** — two readers, same
+   dossiers, measure agreement. Still unresolved, still cheap.
+4. **Then** run the evidence arm, on a gold set where `real_bug` is not one bug.
+5. **Do not gate anything on model confidence.** Section 1 is unambiguous and is
+   unaffected by the gold-set problem.
+6. **Add a repair path for malformed structured output** before any local-model
    deployment claim.

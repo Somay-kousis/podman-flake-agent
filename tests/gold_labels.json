@@ -2,6 +2,10 @@
   "_readme": "Gold labels for scoring flake classification. Each key is a failed-job id.",
   "_provenance": "Derived from the maintainer's own issue title and fix commit message ONLY. The log window was never read while labelling, so these stay independent of what the classifier is shown (dossier.blind() withholds known_fixes/related_issues/attempts/history). Assigned by Claude (Opus 5) under the author's direction; every note names the issue and the reasoning so any label can be checked or overruled.",
   "_caveats": [
+    "CRITICAL -- all 6 real_bug labels come from ONE issue (#23281, a nil pointer dereference in pkg/machine/compression). Effective sample size for real_bug is 1, not 6. No accuracy number on this set generalises to real_bug.",
+    "real_bug is confounded with job identity: all 6 sit on 2 job names (macos machine applehv, windows machine hyperv). A rule reading only the job name scores 90%.",
+    "LEAKY FEATURE -- history.failure_rate separates the two classes almost perfectly here (race_condition 0.013-0.183, real_bug 0.183-0.323). A fitted threshold at 0.19 scores 92% with no model and no log. Run `python3 -m flakeagent.eval baselines` before trusting any model result on this set.",
+    "STRUCTURAL -- labels are mined from `flakes`-labelled issues, which selects for flakes. Real bugs enter only by accident. A balanced flake-vs-bug set needs a different source: failures on PRs whose merged fix touched the code under test.",
     "Heavily imbalanced: always answering race_condition scores 85% accuracy on this set. Report per-class precision/recall, not overall accuracy.",
     "infra_blip has zero examples and cannot get any from this evidence stream -- infrastructure blips are not fixed by commits, so they never appear in fix_commits.",
     "network_timeout and resource_exhaustion also have zero examples here.",
@@ -10,7 +14,9 @@
   ],
   "_distribution": {
     "race_condition": 33,
-    "real_bug": 6
+    "real_bug": 6,
+    "real_bug_distinct_issues": 1,
+    "_note": "distinct issues is the number that matters for real_bug, not the count"
   },
   "labels": {
     "89155733896": {
