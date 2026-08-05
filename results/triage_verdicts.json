@@ -1,0 +1,1013 @@
+{
+  "89155733896": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman rmi podman image rm - concurrent with shared layers"
+    ],
+    "flags": [
+      "history: failed 26 of 382 stored runs of this job (7%)",
+      "siblings: 1 of 53 jobs in this run failed",
+      "known issue #18659: \"podman image rm - concurrent with shared layers\" seems racy"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89433447482": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine init machine init with rosetta=false"
+    ],
+    "flags": [
+      "history: failed 43 of 235 stored runs of this job (18%)",
+      "siblings: 16 of 73 jobs in this run failed",
+      "known issue #23281: podman machine init: panic: nil pointer dereference"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "89433448002": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman run networking podman run bridge container with multiple port mappings on different addresses",
+      "Podman run networking podman run bridge dual-stack same port IPv4 and IPv6 route to different containers",
+      "Podman run networking podman run bridge source IP pasta IPv6 different ports"
+    ],
+    "flags": [
+      "history: failed 23 of 376 stored runs of this job (6%)",
+      "siblings: 16 of 73 jobs in this run failed",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #12306: CNI: failed to set bridge addr: \"cni-podman1\" already has an IP address different from 10.25.31.1/24",
+      "known issue #18399: e2e: cni? create two containers with the same IP",
+      "known issue #7096: CI flake: Podman run/create two containers with the same IP",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #12459: podman network rm: ... cni plugin bridge failed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89433448116": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman run networking podman run bridge dual-stack same port IPv4 and IPv6 route to different containers",
+      "Podman events podman events --until future",
+      "Podman run networking podman run bridge container with multiple port mappings on different addresses"
+    ],
+    "flags": [
+      "history: failed 24 of 376 stored runs of this job (6%)",
+      "siblings: 16 of 73 jobs in this run failed",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #18399: e2e: cni? create two containers with the same IP",
+      "known issue #12306: CNI: failed to set bridge addr: \"cni-podman1\" already has an IP address different from 10.25.31.1/24",
+      "known issue #7096: CI flake: Podman run/create two containers with the same IP",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #12459: podman network rm: ... cni plugin bridge failed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89433448151": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman run networking podman run bridge container with multiple port mappings on different addresses",
+      "Podman run networking podman run bridge source IP pasta IPv6 explicit HostIP",
+      "Podman run networking podman run bridge source IP pasta IPv6"
+    ],
+    "flags": [
+      "history: failed 17 of 376 stored runs of this job (4%)",
+      "siblings: 16 of 73 jobs in this run failed",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #12306: CNI: failed to set bridge addr: \"cni-podman1\" already has an IP address different from 10.25.31.1/24",
+      "known issue #18269: [e2e] network bind to HostIP: unexpected source IP",
+      "known issue #18399: e2e: cni? create two containers with the same IP",
+      "known issue #7096: CI flake: Podman run/create two containers with the same IP",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89433448197": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman run networking podman run bridge different host and container ports on dual-stack network with pesto",
+      "Podman run networking podman run bridge dual-stack same port IPv4 and IPv6 route to different containers",
+      "Podman run networking podman run bridge source IP pasta IPv6 explicit HostIP"
+    ],
+    "flags": [
+      "history: failed 27 of 376 stored runs of this job (7%)",
+      "siblings: 16 of 73 jobs in this run failed",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #12459: podman network rm: ... cni plugin bridge failed",
+      "known issue #12306: CNI: failed to set bridge addr: \"cni-podman1\" already has an IP address different from 10.25.31.1/24",
+      "known issue #8972: flake: remote: podman cp dir from host to container",
+      "known issue #7583: CI flake:   podman run with new:pod and static-ip: Error adding network: failed to set bridge addr"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89433671431": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine init [DeferCleanup (Each)] simple init with start"
+    ],
+    "flags": [
+      "history: failed 24 of 235 stored runs of this job (10%)",
+      "siblings: 3 of 55 jobs in this run failed",
+      "known issue #25614: CI: podman machine DeferCleanup callback error because file is being used by another process.",
+      "known issue #23281: podman machine init: panic: nil pointer dereference",
+      "known issue #23248: machine linux: start: panic",
+      "known issue #16789: podman machine: flaky start"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "89433672650": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "[500] podman network create"
+    ],
+    "flags": [
+      "history: failed 14 of 376 stored runs of this job (4%)",
+      "siblings: 3 of 55 jobs in this run failed",
+      "known issue #16289: network create test: rootless: bind: address already in use",
+      "known issue #11871: Network create test: nslookup: timed out, no servers could be reached",
+      "known issue #11856: podman create: Unable to close conn: \\\"close unixpacket @->/proc/self/fd/11/attach: use of closed network connection",
+      "known issue #9472: podman-remote network create: race condition creating conflist file",
+      "known issue #7808: race: remote,rootless: podman network create followed by run"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89478955107": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine restart [DeferCleanup (Each)] should restart a running machine",
+      "podman machine start start interrupted by SIGTERM while waiting for VM start"
+    ],
+    "flags": [
+      "history: failed 24 of 235 stored runs of this job (10%)",
+      "siblings: 1 of 55 jobs in this run failed",
+      "known issue #25614: CI: podman machine DeferCleanup callback error because file is being used by another process.",
+      "known issue #23248: machine linux: start: panic",
+      "known issue #16789: podman machine: flaky start"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "89516589219": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman network connect",
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init"
+    ],
+    "flags": [
+      "history: failed 27 of 376 stored runs of this job (7%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589423": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "[500] podman network connect/disconnect with port forwarding - pasta forwarder"
+    ],
+    "flags": [
+      "history: failed 28 of 382 stored runs of this job (7%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #23862: system tests: start_registry: pasta: Failed to bind port 4xxxx (Address already in use)",
+      "known issue #11248: network connect/disconnect: new flake",
+      "known issue #10052: compose flake: rootlesskit port forwarder not setup correctly"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589434": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman network connect/disconnect with port forwarding"
+    ],
+    "flags": [
+      "history: failed 14 of 376 stored runs of this job (4%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #11248: network connect/disconnect: new flake"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589437": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman network connect/disconnect with port forwarding"
+    ],
+    "flags": [
+      "history: failed 12 of 376 stored runs of this job (3%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #11248: network connect/disconnect: new flake"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589439": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "[500] podman network connect/disconnect with port forwarding - pasta forwarder"
+    ],
+    "flags": [
+      "history: failed 16 of 376 stored runs of this job (4%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #23862: system tests: start_registry: pasta: Failed to bind port 4xxxx (Address already in use)",
+      "known issue #11248: network connect/disconnect: new flake",
+      "known issue #10052: compose flake: rootlesskit port forwarder not setup correctly"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589444": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init",
+      "Podman network connect and disconnect podman network connect"
+    ],
+    "flags": [
+      "history: failed 17 of 376 stored runs of this job (4%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589448": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman network connect",
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init"
+    ],
+    "flags": [
+      "history: failed 25 of 376 stored runs of this job (7%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589489": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman network connect",
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init"
+    ],
+    "flags": [
+      "history: failed 17 of 376 stored runs of this job (4%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589496": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init",
+      "Podman network connect and disconnect podman network connect"
+    ],
+    "flags": [
+      "history: failed 21 of 376 stored runs of this job (6%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589502": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init",
+      "Podman network connect and disconnect podman network connect"
+    ],
+    "flags": [
+      "history: failed 13 of 376 stored runs of this job (4%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589574": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init",
+      "Podman network connect and disconnect podman network connect"
+    ],
+    "flags": [
+      "history: failed 18 of 376 stored runs of this job (5%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589575": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "[500] podman network connect/disconnect with port forwarding - pasta forwarder"
+    ],
+    "flags": [
+      "history: failed 15 of 376 stored runs of this job (4%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #23862: system tests: start_registry: pasta: Failed to bind port 4xxxx (Address already in use)",
+      "known issue #11248: network connect/disconnect: new flake",
+      "known issue #10052: compose flake: rootlesskit port forwarder not setup correctly"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589664": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "[500] podman network connect/disconnect with port forwarding - pasta forwarder"
+    ],
+    "flags": [
+      "history: failed 26 of 376 stored runs of this job (7%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #20335: network connect/disconnect with port forwarding: curl: empty results",
+      "known issue #24272: pasta: UDP port range forwarding: hang in podman logs",
+      "known issue #17287: pasta: port range forwarding: mismatch between data sent and received",
+      "known issue #23862: system tests: start_registry: pasta: Failed to bind port 4xxxx (Address already in use)",
+      "known issue #11248: network connect/disconnect: new flake",
+      "known issue #10052: compose flake: rootlesskit port forwarder not setup correctly"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589696": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init",
+      "Podman network connect and disconnect podman network connect"
+    ],
+    "flags": [
+      "history: failed 12 of 376 stored runs of this job (3%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89516589832": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman network connect and disconnect podman connect on a container that already is connected to the network should error after init",
+      "Podman network connect and disconnect podman network connect"
+    ],
+    "flags": [
+      "history: failed 20 of 376 stored runs of this job (5%)",
+      "siblings: 24 of 53 jobs in this run failed",
+      "known issue #18325: [e2e] network connect: tearing down network namespace configuration: netavark: IO error: aardvark pid not found",
+      "known issue #23876: CI flake: network prune test: netavark: failed to get bridge interface: Netlink error: ENODEV",
+      "known issue #23637: another mount race: ctr XYZ is a libpod container: container already exists",
+      "known issue #23634: e2e: events network connection: off-by-one in \"expect network connect string\"",
+      "known issue #22760: podman healthcheck + sdnotify: Error: container is stopped",
+      "known issue #22103: podman stop: Unable to clean up network: netavark: remove aardvark entries: check aardvark-dns netns: IO error: Permission denied",
+      "known issue #20731: Rolling back transaction to validate database: sql: transaction has already been committed or rolled back\"          # Error: database graph driver \"\" does not match our graph driver \"overlay\": database configuration mismatch",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89653650219": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman kube play --validate=ignore skips unrecognized YAML fields (default)",
+      "Podman kube play --validate=ignore skips unsupported kube kinds (default)",
+      "Podman kube play --validate=strict accepts a valid manifest"
+    ],
+    "flags": [
+      "history: failed 27 of 376 stored runs of this job (7%)",
+      "siblings: 15 of 107 jobs in this run failed",
+      "known issue #17101: play kube override with {tcp,udp} should keep {other} from YAML",
+      "known issue #23470: remote: kube: publish containerPort by default",
+      "known issue #23292: kube play, in parallel, leaves stray untagged pause images",
+      "known issue #22246: e2e: kube play, huge annotation: podman rm hangs",
+      "known issue #21782: [tracker][low pri] e2e: kube play expose char device: Error descending into path /dev/foodevXXXX: ENOENT",
+      "known issue #21649: kube play URL : connection refused",
+      "known issue #21560: kube play: rootlessport conflict with ID X",
+      "known issue #21298: e2e: kube play, port conflict?"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89653650440": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman kube play --validate=ignore skips unrecognized YAML fields (default)",
+      "Podman kube play --validate=strict accepts a valid manifest",
+      "Podman kube play --validate=ignore skips unsupported kube kinds (default)"
+    ],
+    "flags": [
+      "history: failed 24 of 376 stored runs of this job (6%)",
+      "siblings: 15 of 107 jobs in this run failed",
+      "known issue #17101: play kube override with {tcp,udp} should keep {other} from YAML",
+      "known issue #23470: remote: kube: publish containerPort by default",
+      "known issue #23292: kube play, in parallel, leaves stray untagged pause images",
+      "known issue #22246: e2e: kube play, huge annotation: podman rm hangs",
+      "known issue #21782: [tracker][low pri] e2e: kube play expose char device: Error descending into path /dev/foodevXXXX: ENOENT",
+      "known issue #21649: kube play URL : connection refused",
+      "known issue #21560: kube play: rootlessport conflict with ID X",
+      "known issue #21298: e2e: kube play, port conflict?"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89653650491": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman kube play --validate=strict accepts a valid manifest",
+      "Podman kube play --validate=ignore skips unsupported kube kinds (default)",
+      "Podman kube play --validate=ignore skips unrecognized YAML fields (default)"
+    ],
+    "flags": [
+      "history: failed 17 of 376 stored runs of this job (4%)",
+      "siblings: 15 of 107 jobs in this run failed",
+      "known issue #17101: play kube override with {tcp,udp} should keep {other} from YAML",
+      "known issue #23292: kube play, in parallel, leaves stray untagged pause images",
+      "known issue #22246: e2e: kube play, huge annotation: podman rm hangs",
+      "known issue #21782: [tracker][low pri] e2e: kube play expose char device: Error descending into path /dev/foodevXXXX: ENOENT",
+      "known issue #21649: kube play URL : connection refused",
+      "known issue #21560: kube play: rootlessport conflict with ID X",
+      "known issue #21298: e2e: kube play, port conflict?",
+      "known issue #19702: podman stop, after kube play: Storage for container xxx has been removed"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "89713123661": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine init machine init with cpus, disk size, memory, timezone",
+      "run cp commands [DeferCleanup (Each)] podman cp"
+    ],
+    "flags": [
+      "history: failed 76 of 235 stored runs of this job (32%)",
+      "siblings: 3 of 55 jobs in this run failed",
+      "known issue #23281: podman machine init: panic: nil pointer dereference"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "90001229148": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman play with image volume pull policies"
+    ],
+    "flags": [
+      "history: failed 5 of 376 stored runs of this job (1%)",
+      "siblings: 1 of 55 jobs in this run failed",
+      "known issue #17956: volume create: cannot access plugin image socket",
+      "known issue #16076: sdnotify play kube policies: podman container wait, hangs"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "90003883094": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "[331] podman system check - container data modified"
+    ],
+    "flags": [
+      "rerun disagreement: this exact commit both passed and failed this job -- flaky by definition",
+      "history: failed 14 of 376 stored runs of this job (4%)",
+      "siblings: 1 of 107 jobs in this run failed",
+      "known issue #23909: race: system df: failed to get read/write size of container: /proc/something: ENOENT or EINVAL",
+      "known issue #18793: build: committing container: writing blob: bzip2 data invalid: invalid compression level"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "90059474856": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine set [DeferCleanup (Each)] no settings should change if no flags",
+      "podman machine start start interrupted by SIGTERM while waiting for VM start"
+    ],
+    "flags": [
+      "inert diff: all 1 changed paths are vendored/docs/dependency files",
+      "history: failed 24 of 235 stored runs of this job (10%)",
+      "siblings: 2 of 55 jobs in this run failed",
+      "known issue #25614: CI: podman machine DeferCleanup callback error because file is being used by another process.",
+      "known issue #23248: machine linux: start: panic",
+      "known issue #16789: podman machine: flaky start"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "90105252085": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine start machine init --now with --update-connection"
+    ],
+    "flags": [
+      "history: failed 76 of 235 stored runs of this job (32%)",
+      "siblings: 1 of 55 jobs in this run failed",
+      "known issue #23281: podman machine init: panic: nil pointer dereference",
+      "known issue #23248: machine linux: start: panic",
+      "known issue #16789: podman machine: flaky start"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "90117734345": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman prune podman system prune --build clean up after terminated build"
+    ],
+    "flags": [
+      "history: failed 12 of 376 stored runs of this job (3%)",
+      "siblings: 9 of 53 jobs in this run failed",
+      "known issue #28868: e2e: podman system prune --build clean up after terminated build flaky",
+      "known issue #27267: [It] podman system prune --build clean up after terminated build: test flaky",
+      "known issue #15990: CI Flake: podman system prune networks: expected string length 1",
+      "known issue #11946: podman system prune: error removing pod conmon cgroup: EBUSY",
+      "known issue #11921: podman system service: takes 4-6s to clean up on interrupt"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "90179307687": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine init machine init with cpus, disk size, memory, timezone"
+    ],
+    "flags": [
+      "history: failed 76 of 235 stored runs of this job (32%)",
+      "siblings: 1 of 55 jobs in this run failed",
+      "known issue #23281: podman machine init: panic: nil pointer dereference"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "90286320550": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman rmi podman image rm - concurrent with shared layers"
+    ],
+    "flags": [
+      "rerun disagreement: this exact commit both passed and failed this job -- flaky by definition",
+      "history: failed 20 of 376 stored runs of this job (5%)",
+      "siblings: 1 of 107 jobs in this run failed",
+      "known issue #18659: \"podman image rm - concurrent with shared layers\" seems racy"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  },
+  "90349634859": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine start machine init --now with --import-native-ca with mounted data folder"
+    ],
+    "flags": [
+      "rerun disagreement: this exact commit both passed and failed this job -- flaky by definition",
+      "history: failed 43 of 235 stored runs of this job (18%)",
+      "siblings: 2 of 111 jobs in this run failed",
+      "known issue #23281: podman machine init: panic: nil pointer dereference",
+      "known issue #23248: machine linux: start: panic",
+      "known issue #16789: podman machine: flaky start"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "90539504273": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine init simple init with start"
+    ],
+    "flags": [
+      "history: failed 43 of 235 stored runs of this job (18%)",
+      "siblings: 2 of 55 jobs in this run failed",
+      "known issue #23281: podman machine init: panic: nil pointer dereference",
+      "known issue #23248: machine linux: start: panic",
+      "known issue #16789: podman machine: flaky start"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "90583474003": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "podman machine init machine init with volume"
+    ],
+    "flags": [
+      "history: failed 43 of 235 stored runs of this job (18%)",
+      "siblings: 2 of 55 jobs in this run failed",
+      "known issue #23281: podman machine init: panic: nil pointer dereference",
+      "known issue #22569: machine: Volume ops test: statfs /private/tmp/ci/ginkgoNNN: no such file or directory"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run machine e2e",
+    "step_role": "test"
+  },
+  "90583475284": {
+    "blinded": true,
+    "category": "unknown",
+    "confidence": 0.0,
+    "evidence": [],
+    "evidence_quoted": 0,
+    "evidence_verified": 0,
+    "failing_tests": [
+      "Podman rmi podman image rm - concurrent with shared layers"
+    ],
+    "flags": [
+      "history: failed 26 of 382 stored runs of this job (7%)",
+      "siblings: 2 of 55 jobs in this run failed",
+      "known issue #18659: \"podman image rm - concurrent with shared layers\" seems racy"
+    ],
+    "flags_informed_category": false,
+    "reasoning": "no rule matched: the step role and the anchored error strings do not distinguish between the remaining causes",
+    "rule": null,
+    "step": "Run test on lima",
+    "step_role": "test"
+  }
+}

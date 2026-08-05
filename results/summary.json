@@ -20,6 +20,12 @@
       "predicted_real_bug": "17/26",
       "correct_at_confidence_ge_0.9": "0/9",
       "evidence_lines_verified": "104/107"
+    },
+    "rules (flakeagent.triage)": {
+      "completed": "39/39",
+      "accuracy_overall": "0/39",
+      "abstention": "39/39 = 100%",
+      "note": "not a failure of the rules: the gold set is 33 race_condition and 6 real_bug, the two categories no rule can return. Over a live two-day window the same rules resolve 4 of 23 failed jobs, and over the 400-dossier corpus 6 of 279. See docs/RESULTS.md section 7."
     }
   }
 }

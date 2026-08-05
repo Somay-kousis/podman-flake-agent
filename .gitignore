@@ -14,4 +14,6 @@ data/gold.json
 # Run outputs land in data/ by default; the copies worth keeping are in results/.
 data/preds*.json
 data/verdicts*.json
+data/triage_*.json
+data/summary.md
 .DS_Store

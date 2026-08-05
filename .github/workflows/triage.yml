@@ -1,0 +1,144 @@
+name: triage
+
+# Pull the last few days of failed jobs out of podman-container-tools/podman,
+# slice each log to its failing step, and post a rule-based triage table to the
+# job summary. No model, no key, no cost.
+#
+# The ten-minute limit is the design constraint, not a safety net. A cold run
+# over a two-day window measured 189s end to end -- 4s runs, 81s jobs, 94s logs
+# (37 of them), 9s PR files, 1s dossiers -- against a 5,000/hr token, using
+# about 80 requests. Widening `days` is what will break it first: the `jobs`
+# stage pages through every job of every run in the window, failed or not,
+# because rerun disagreement is only visible in the passes.
+#
+# A fork needs a read-only token in the PODMAN_READ_TOKEN secret. Without one
+# this still runs, against the dossiers committed in tests/ -- the workflow
+# reports which mode it took rather than failing, so a mentor can fork and get
+# output on the first push.
+#
+# Note for a fork: GitHub disables scheduled workflows in forks by default, and
+# in any repository after 60 days without activity. Use the Run workflow button.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'rolling window of runs to consider'
+        default: '2'
+      job_limit:
+        description: 'max runs to expand into jobs'
+        default: '400'
+      log_limit:
+        description: 'max job logs to download'
+        default: '60'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: triage
+  cancel-in-progress: false
+
+env:
+  DAYS: ${{ inputs.days || '2' }}
+  JOB_LIMIT: ${{ inputs.job_limit || '400' }}
+  LOG_LIMIT: ${{ inputs.log_limit || '60' }}
+  DB: data/ci.db
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # No setup-python step: the package is standard library only, so the
+      # runner's own python3 is the whole environment. See tests.yml.
+      - name: Python version in use
+        run: python3 --version
+
+      # The HTTP cache makes a re-run nearly free -- every response is stored
+      # with its ETag and revalidated, and a 304 costs no rate-limit quota. The
+      # database is carried across runs for a second reason: the `history`
+      # figures in the report are computed over locally stored runs, so they
+      # only become meaningful once this has run a few times.
+      - name: Restore fetch cache and database
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/cache
+            data/ci.db
+          key: flake-data-${{ github.run_id }}
+          restore-keys: flake-data-
+
+      - name: Check for a read token
+        id: token
+        env:
+          TOKEN: ${{ secrets.PODMAN_READ_TOKEN }}
+        run: |
+          if [ -n "$TOKEN" ]; then
+            echo "have=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "have=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::PODMAN_READ_TOKEN is not set -- triaging the committed dossiers instead of live CI"
+          fi
+
+      - name: Fetch failed jobs from podman CI
+        if: steps.token.outputs.have == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PODMAN_READ_TOKEN }}
+        run: |
+          set -euo pipefail
+          # --status all, not failure: a rerun disagreement is the strongest
+          # evidence available and it is only visible when the passing attempt
+          # of the same commit is stored too.
+          python3 -m flakeagent.fetch runs     --days "$DAYS"       --db "$DB"
+          python3 -m flakeagent.fetch jobs     --limit "$JOB_LIMIT" --db "$DB"
+          python3 -m flakeagent.fetch logs     --limit "$LOG_LIMIT" --db "$DB"
+          python3 -m flakeagent.fetch prfiles  --limit "$LOG_LIMIT" --db "$DB"
+          python3 -m flakeagent.fetch status                        --db "$DB"
+
+      # Offline: the dossier is assembled from stored rows, so it needs the
+      # database and no token at all.
+      - name: Build dossiers
+        if: steps.token.outputs.have == 'true'
+        run: |
+          python3 -m flakeagent.dossier --recent "$LOG_LIMIT" \
+            --out data/dossiers --db "$DB"
+
+      - name: Triage
+        env:
+          HAVE_TOKEN: ${{ steps.token.outputs.have }}
+        run: |
+          set -euo pipefail
+          if [ "$HAVE_TOKEN" = "true" ]; then
+            DOSSIERS=data/dossiers
+            WINDOW="podman CI, last ${DAYS} day(s), run ${{ github.run_id }}"
+          else
+            DOSSIERS=tests/dossiers
+            WINDOW="committed dossiers -- no PODMAN_READ_TOKEN secret, so nothing live was fetched"
+          fi
+          python3 -m flakeagent.triage \
+            --dossiers "$DOSSIERS" \
+            --out data/triage_preds.json \
+            --verdicts data/triage_verdicts.json \
+            --summary "$GITHUB_STEP_SUMMARY" --append \
+            --window "$WINDOW"
+
+      # The dossiers are the expensive part and the reusable part: they are what
+      # a model arm is run over offline, without spending the API budget again.
+      - name: Upload dossiers and verdicts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: triage-${{ github.run_id }}
+          path: |
+            data/dossiers
+            data/triage_preds.json
+            data/triage_verdicts.json
+          if-no-files-found: warn
+          retention-days: 14

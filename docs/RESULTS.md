@@ -172,6 +172,74 @@ effort on the current one.
 
 ---
 
+## 7. The rule layer abstains on all 39, and that is the informative part
+
+`flakeagent/triage.py` is the same task with no model: step roles plus anchored
+error strings, ~2 seconds for a day of failures, no key and no cost. It emits
+the same `{job_id: category}` file and is scored by the same harness, so it sits
+in the table above as a third arm rather than as a separate claim.
+
+```bash
+python3 -m flakeagent.triage --dossiers data/dossiers --only-labelled \
+        --out results/triage_preds.json
+python3 -m flakeagent.eval dossiers --predictions results/triage_preds.json
+```
+
+| | rules | gpt-oss-120b | constant baseline |
+|---|---|---|---|
+| Accuracy on the gold set | 0/39 = **0%** | 11/38 = 29% | 33/39 = 85% |
+| Abstention | **39/39 = 100%** | 3/38 = 8% | 0% |
+| Cost | none | per job | none |
+
+**The 0% is not a result about the rules.** The gold set is 33 `race_condition`
+and 6 `real_bug` — the two categories no rule can return, and the module says so
+in a constant (`UNREACHABLE`) rather than in a comment. A race needs the timing
+of an interleaving and a real bug needs to know what the diff did; neither is a
+string you can grep for, so a rule that claimed either would be guessing, and a
+wrong confident verdict is the one failure mode that costs a maintainer real
+time. The scored intersection between what the rules can answer and what the
+gold set contains is empty by construction.
+
+Where the rules do fire, they fire on the classes the gold set has none of:
+
+| corpus | failed jobs triaged | resolved | abstained |
+|---|---:|---:|---:|
+| live 2-day window, 2026-08-05 | 23 | 4 (`infra_blip`) | 19 = 83% |
+| the 400-dossier corpus | 279 | 6 (`infra_blip`) | 273 = 98% |
+
+All four live resolutions are the same shape and none of them needed a log to be
+read by anything: the job died inside `Run lima-vm/lima-actions/setup`, so the
+suite never started and the change under test cannot be the cause. In three of
+them the log also carries a `Failed to fetch` from an apt mirror. Aggregator
+jobs (`Total Success`, 121 of the 400) are excluded rather than classified —
+they fail because a job they gate failed, and counting them triages the same
+failure twice.
+
+### What this changes
+
+- **The agent's job is now defined by subtraction, not by ambition.** It is the
+  273 the rules abstained on, and the gold set is drawn entirely from that set.
+  Any agent evaluation is therefore already measuring the part rules cannot do,
+  which is the comparison that was missing when §1–§5 were written.
+- **`baselines.py` and this are different objects.** The 92% threshold rule wins
+  by reading `history.failure_rate`, a field `dossier.blind` withholds — it is a
+  diagnostic of the gold set's confounding. The rules here run blinded, like the
+  model, and report the withheld fields beside the verdict with
+  `flags_informed_category: false`.
+- **Reporting overall accuracy is now clearly wrong.** Three arms, three
+  disjoint answerable subsets. Per-class precision and recall, or nothing.
+
+### One design note worth keeping
+
+The first draft of the rules matched `/journald?/`, because Podman flakes really
+are often journal timeliness and the logs say so. It fired on 21 of 23 failures
+in a two-day window — every job uploads an artifact named
+`journal-<suite>-<distro>.log`, and the step name is in the log. A pattern that
+matches almost everything classifies nothing. `tests/test_triage.py` keeps that
+case as a negative test.
+
+---
+
 ## What these numbers do not support
 
 - **Any claim that one model is better.** 39 items, two classes, and 13 missing

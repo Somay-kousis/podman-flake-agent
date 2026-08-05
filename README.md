@@ -131,7 +131,7 @@ Everything here works from a fresh clone with nothing configured:
 python3 tests/test_parse.py                       # parser vs real logformatter fixtures
 python3 tests/test_steps.py                       # step attribution
 python3 tests/test_agent.py                       # dossier -> prediction, stub model
-python3 examples/read_dossier.py tests/dossiers/*.json | head -40
+python3 examples/read_dossier.py tests/dossiers/with_fix-90583474003.json
 python3 -m flakeagent.agent --dossiers tests/dossiers --dry-run
 ```
 
@@ -249,6 +249,56 @@ Output is split on purpose: `preds.json` is only `{job_id: category}` so it
 stays diffable, and `verdicts.json` carries reasoning, evidence, verification
 counts and token usage.
 
+### The rule layer, and the workflow that runs it
+
+`triage.py` is the same task with no model in it: step roles plus anchored error
+strings, ~2 seconds for a day of failures, no key and no cost. It writes the
+same `{job_id: category}` file as `agent.py` and is scored by the same
+`eval.py`, so it is a third arm in the table rather than a separate claim.
+
+```bash
+python3 -m flakeagent.triage --dossiers tests/dossiers          # offline, no token
+python3 -m flakeagent.triage --dossiers data/dossiers --summary /dev/stdout
+python3 -m flakeagent.eval   dossiers --predictions data/triage_preds.json
+```
+
+[`.github/workflows/triage.yml`](.github/workflows/triage.yml) runs the whole
+deterministic path end to end on a schedule and posts the table to the job
+summary. **Measured cold, a two-day window takes 185 seconds and about 100 API
+requests** — 4s runs, 81s jobs, 94s for 37 logs, 9s PR files, 1s dossiers, 1s
+triage — against a ten-minute limit. Widening the window is what will break that
+first: the `jobs` stage pages through every job in it, passing ones included,
+because rerun disagreement is only visible in the passes.
+
+A fork needs a read-only `PODMAN_READ_TOKEN` secret. Without one the workflow
+still runs, over the dossiers committed in `tests/`, and says which mode it took.
+
+What it does *not* do is more interesting than what it does:
+
+- **No rule can return `race_condition` or `real_bug`.** A race needs the timing
+  of an interleaving; a real bug needs to know what the diff did. Neither is a
+  string you can grep for, and a confident wrong verdict is the failure mode
+  that costs a maintainer real time. The categories are named in `UNREACHABLE`
+  so the gap is a constant in the code rather than a paragraph in a doc.
+- **So it abstains — 83% on a live two-day window, and 100% on the gold set**,
+  which is 33 `race_condition` and 6 `real_bug` and therefore contains nothing a
+  rule can reach. That abstention set is the specification for the agent: it is
+  the work that has to justify a model's cost.
+- **Blinded, like the model.** Rerun disagreement, cross-commit failure rate,
+  whether the diff was inert, the maintainer's eventual fix — the fields a human
+  labels from are withheld from the category and reported beside it as advisory
+  flags, with `flags_informed_category: false` in every verdict. A rule that read
+  `history` would score like the 92% baseline in `baselines.py` and mean as
+  little.
+
+Full numbers and the near-miss that shaped the patterns:
+[`docs/RESULTS.md` §7](docs/RESULTS.md#7-the-rule-layer-abstains-on-all-39-and-that-is-the-informative-part).
+
+[`.github/workflows/tests.yml`](.github/workflows/tests.yml) is the other half:
+every test and every CLI, from a fresh clone, with no token and no network. It
+exists to keep the zero-dependency property true — if it ever needs a
+`pip install`, that is a design change and it shows up in the diff.
+
 ### Earlier prototype
 
 `classify.py` still reads the older `test_failures` path rather than dossiers;
@@ -306,6 +356,7 @@ flag.
 | `flakeagent/parse.py` | logformatter HTML → failures (earlier path) |
 | `flakeagent/taxonomy.py` | the categories, schema and system prompt — defined once |
 | `flakeagent/agent.py` | dossier → prompt → verdict → `preds.json` |
+| `flakeagent/triage.py` | the same, with rules instead of a model — what CI runs |
 | `flakeagent/eval.py` | scores `preds.json` against the gold labels |
 | `flakeagent/classify.py`, `report.py` | earlier prototype, pre-dossier |
 | `docs/` | **[glossary](docs/GLOSSARY.md)** · **[handbook](docs/HANDBOOK.md)** · [roadmap](docs/ROADMAP.md) · [dossier schema](docs/DOSSIER.md) · [fetch audit](docs/FETCH_AUDIT.md) · [log anatomy](docs/LOG_ANATOMY.md) · [decision map](docs/MAP.md) · [plans](docs/plans/) |

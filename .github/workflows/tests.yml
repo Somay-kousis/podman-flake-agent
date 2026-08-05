@@ -1,0 +1,70 @@
+name: tests
+
+# Everything here runs from a fresh clone with no token, no key, no network and
+# no virtualenv -- the package is standard library only, so there is nothing to
+# install and nothing to pin. That is the property this workflow exists to keep
+# true: if it ever needs a `pip install`, that is a design change and it should
+# be visible in this diff.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Python version in use
+        run: python3 --version
+
+      - name: Parser vs real logformatter fixtures
+        run: python3 tests/test_parse.py
+
+      - name: Step attribution
+        run: python3 tests/test_steps.py
+
+      - name: Dossier to prediction, stub model
+        run: python3 tests/test_agent.py
+
+      - name: Triage rules
+        run: python3 tests/test_triage.py
+
+      # The CLIs, not just the functions. Three of the worst bugs in this
+      # repo's history shipped in code that had been written and reviewed but
+      # never executed, so every entry point is invoked here over the committed
+      # dossiers.
+      - name: Triage CLI over the committed dossiers
+        run: |
+          python3 -m flakeagent.triage \
+            --dossiers tests/dossiers \
+            --out data/triage_preds.json \
+            --verdicts data/triage_verdicts.json \
+            --summary "$GITHUB_STEP_SUMMARY" --append \
+            --window "committed dossiers (offline)"
+
+      - name: Agent dry run
+        run: python3 -m flakeagent.agent --dossiers tests/dossiers --dry-run
+
+      - name: Dossier reader
+        run: |
+          set -euo pipefail
+          for f in tests/dossiers/*.json; do
+            python3 examples/read_dossier.py "$f" > /dev/null
+          done
+
+      - name: Mermaid diagrams in docs
+        run: python3 hack/check_mermaid.py docs/*.md
