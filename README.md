@@ -1,21 +1,67 @@
-# podman-flake-agent
+<h1 align="center">podman-flake-agent</h1>
 
-A prototype for [LFX Mentorship: Agentic CI Flake Categorization and Analysis](https://github.com/podman-container-tools/podman/issues/29265)
-(podman-container-tools/podman #29265).
+<p align="center"><strong>Why did this CI job fail? Two arms answer, scored against
+each other and against a baseline built to embarrass both.</strong></p>
 
-Ingests failing GitHub Actions runs from Podman's CI, narrows each 500 KB log to
-the failing step, and classifies why it failed — with an evaluation harness
-measuring whether the answer is any good, and two baselines that keep it honest.
+<p align="center">
+  A prototype for <a href="https://github.com/podman-container-tools/podman/issues/29265">LFX
+  Mentorship: Agentic CI Flake Categorization and Analysis</a>. Narrows a 500KB failing-job
+  log to the failing step, then answers it two ways: rules that abstain honestly when the
+  category is structurally out of reach, and a model checked against its own quoted
+  evidence — scored by the same harness, against a baseline designed to catch either one lying.
+</p>
 
-Two arms answer the same question over the same dossiers and are scored by the
-same harness: [`triage.py`](flakeagent/triage.py), rules with no model, which
-runs [on a schedule in CI](.github/workflows/triage.yml) in under ten minutes
-for nothing; and [`agent.py`](flakeagent/agent.py), which asks a model. The
-interesting result so far is where they *don't* overlap —
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-111111?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/LLM_Evals-111111?style=flat-square" alt="LLM Evals" />
+  <img src="https://img.shields.io/badge/GitHub_Actions-111111?style=flat-square&logo=githubactions&logoColor=white" alt="GitHub Actions" />
+  <img src="https://img.shields.io/badge/Zero_Dependencies-111111?style=flat-square" alt="Zero Dependencies" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/log_reduction-76--93%25-2ea043?style=flat-square" alt="log reduction 76-93%" />
+  <img src="https://img.shields.io/badge/rule_layer-abstains_82%25_on_purpose-1f6feb?style=flat-square" alt="rule layer abstains 82% on purpose" />
+  <img src="https://img.shields.io/badge/live_CI_run-58s-1f6feb?style=flat-square" alt="live CI run 58 seconds" />
+  <img src="https://img.shields.io/badge/gold_set-audited,_not_trusted-e05d44?style=flat-square" alt="gold set audited, not trusted" />
+</p>
+
+<p align="center"><strong>Status: prototype.</strong> Written to demonstrate approach and
+judgment, not to be deployed. It files nothing and posts nothing.</p>
+
+What the scheduled workflow actually posts to a job summary, unedited:
+
+```markdown
+# CI flake triage
+
+**23 failed jobs.** Rules resolved **4**, abstained on **19**.
+
+| category | jobs |
+|---|---:|
+| `unknown` | 19 |
+| `infra_blip` | 4 |
+```
+
+---
+
+## Proof, not adjectives
+
+Every claim below is reproduced by a script or a live CI run in this repo — not asserted.
+
+- **Log reduction: 76–93%**, measured on real logformatter fixtures, before a model or a
+  rule ever sees the failure. → `python3 tests/test_parse.py`
+- **The rule layer abstains 82% of the time — on purpose.** `race_condition` and `real_bug`
+  are structurally unreachable by a rule; the gap is a named constant (`UNREACHABLE`), not
+  a paragraph in a doc. → `python3 -m flakeagent.triage --dossiers tests/dossiers`
+- **The gold set doesn't survive its own audit.** A single float beats both measured LLM
+  arms by 3x, because every `real_bug` label traces to one issue — found by auditing the
+  eval set before trusting it, not after. → `python3 -m flakeagent.eval baselines`
+- **Live in production CI, not a demo.** [`triage.yml`](.github/workflows/triage.yml)
+  triaged Podman's actual failures in 58 seconds on its first unattended run.
+- **Zero dependencies, verified on every push.** [`tests.yml`](.github/workflows/tests.yml)
+  clones fresh and runs the whole suite — no token, no key, no `pip install`.
+
+Full numbers, including where they don't hold up:
 [RESULTS.md §7](docs/RESULTS.md#7-the-rule-layer-abstains-on-all-39-and-that-is-the-informative-part).
-
-**Status: prototype.** Written to demonstrate approach and judgment, not to be
-deployed. It files nothing and posts nothing.
 
 ---
 
