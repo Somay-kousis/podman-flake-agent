@@ -257,9 +257,12 @@ curl -s https://api.mentorship.lfx.linuxfoundation.org/projects/050e89d9-aec2-47
     print(datetime.datetime.fromtimestamp(t["applicationEndDate"], datetime.timezone.utc))'
 ```
 
-As of Aug 7 both Podman projects still report `acceptApplications: false`, four
-days after the stated open date. Check the page itself before assuming the form
-is live.
+**Applications are open.** The term's `active` field reads `"open"` and Aug 7
+sits inside the window. The project object also carries `acceptApplications:
+false`, which is not about this — it sits beside `amountRaised`,
+`totalDonations` and `menteeStatus`, and the UX project reports the same value
+while accepting applications too. `programTerms[0].active` plus the date window
+is the pair to read; `acceptApplications` is a false lead.
 
 Work that becomes worth doing once there is a mentor to agree the shape with:
 
