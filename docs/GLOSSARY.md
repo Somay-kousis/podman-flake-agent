@@ -163,8 +163,32 @@ cannot see, then hide that evidence.** Only then does the score mean something.
 Implemented as `dossier.blind()`.
 
 **Gold label ★** — a hand-assigned, human-decided correct answer for one
-dossier. The yardstick everything is measured against. **There are currently
-zero, which is the project's single blocker.**
+dossier. The yardstick everything is measured against. **There are 39**, and
+they have since been audited: all 6 `real_bug` labels come from one issue, so
+the effective sample size for that class is 1. See
+[RESULTS.md §6](RESULTS.md#6-the-gold-set-cannot-support-a-real_bug-claim-at-all).
+
+**Rule layer ★** — the same triage task with no model in it: which step failed,
+plus a short list of error strings that only appear when the thing they name
+actually went wrong. `triage.py`. It exists so that a model result is never
+reported without something free beside it, and so that CI has something it can
+run every six hours for nothing.
+
+**Step role ★** — what a failing step *was for*: `setup`, `test`, `build`,
+`report`, or `aggregate`. A job that dies in a setup step never ran the tests, so
+the change under test is innocent whatever the log says. Measured over 30 days,
+this filters a quarter of failing steps away as noise and resolves 2.8% of the
+rest outright — useful, and much less than it first looks.
+
+**Abstention set ★** — the failures the rule layer answered `unknown` on: 83% of
+a live two-day window. **This is the specification for the agent.** It is the
+work that a model has to justify its cost on, and it is a set of files on disk
+rather than an opinion.
+
+**Baseline ★** — the cheapest thing that could have produced a number, reported
+next to it. Two exist: always answering the most common category (85%), and
+comparing one float to a constant (92%). Both beat every model arm measured so
+far, which is a fact about the gold set rather than about models.
 
 **Consolidation verbs ★** — `ADD` / `UPDATE` / `INVALIDATE` / `NOOP`. A flake is
 not a static fact: it appears, gets diagnosed, gets fixed, comes back. Rather
@@ -218,6 +242,9 @@ mistakes, because it is the one that actually costs somebody something.
 **Hallucination** — the model inventing something. Here, quoting a log line that
 is not in the log. `agent.py` substring-checks every quote and reports the hit
 rate, so this shows up as a number rather than having to be caught by reading.
+`triage.py` is held to the same check, even though its quotes are sliced out of
+the log and so cannot be invented -- if that check ever fails there, it is a bug
+in a rule.
 
 **Fixture** — a small piece of real data committed to the repo so tests can run
 offline, with no network and no API key.
@@ -279,4 +306,5 @@ Nothing in this package can file an issue or post a comment.
 change nothing. `--dry-run`.
 
 **Offline** — runs with no network and no API key, using committed fixtures.
-Three test suites do this.
+Four test suites do this, and `.github/workflows/tests.yml` runs all of them
+plus every command-line entry point on every push.

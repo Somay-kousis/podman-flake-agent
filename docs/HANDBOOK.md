@@ -261,22 +261,31 @@ nothing current writes to them.
 
 | Module | Lines | Responsibility |
 |---|---:|---|
-| `fetch.py` | 758 | 10 acquisition stages, idempotent and resumable |
-| `labels.py` | 460 | assign ground truth by hand, from independent evidence |
+| `fetch.py` | 893 | 12 acquisition stages, idempotent and resumable |
+| `triage.py` | 519 | rules, no model — the arm CI runs, and the abstention set |
+| `labels.py` | 443 | assign ground truth by hand, from independent evidence |
 | `dossier.py` | 430 | assemble one JSON per failed job; `--blind` |
 | `gh.py` | 387 | GET-only HTTP: caching, ETags, reserve floor, backoff |
 | `logslice.py` | 379 | narrow a log to the failing step, then to failure markers |
+| `classify.py` | 358 | *earlier prototype* — ollama/anthropic/groq backends |
 | `store.py` | 327 | SQLite persistence and schema migration |
 | `corpus.py` | 322 | harvest pasted log excerpts from issues |
-| `classify.py` | 307 | *earlier prototype* — ollama/anthropic backends |
+| `agent.py` | 288 | dossier → prompt → verdict → `preds.json` |
 | `ingest.py` | 277 | *earlier prototype* — superseded by `fetch.py` |
-| `eval.py` | 256 | scoring, including `dossiers --predictions` |
+| `eval.py` | 264 | scoring, including `dossiers --predictions` |
 | `parse.py` | 228 | *earlier* — logformatter HTML → failures |
 | `report.py` | 137 | *earlier prototype* — markdown digest, dry-run only |
+| `baselines.py` | 119 | the rules that need no model *and no log* |
+| `taxonomy.py` | 97 | categories, output schema, system prompt — defined once |
 
 The four marked *earlier* predate the fetch layer. They work, but they read the
 older `test_failures` path rather than dossiers. Treat them as a sketch of the
 shape, not the current interface.
+
+`triage.py` and `agent.py` are the same interface with and without a model:
+both read dossiers, both write `{job_id: category}`, both are scored by
+`eval.py`. That is deliberate — it is what lets the rule arm and the model arm
+appear in one table instead of being argued about separately.
 
 ### The three that matter most
 
@@ -365,8 +374,30 @@ no extra request. Across 153,425 stored steps:
 | 13 | `Set up job` | **infrastructure — tests never ran** |
 
 A job that dies in `Set up job` or `Install build dependencies` is
-infrastructure. One that dies in `Run machine e2e` is a test. That resolves a
-large share of triage before any model is involved, and it costs nothing.
+infrastructure. One that dies in `Run machine e2e` is a test.
+
+**Corrected once it was measured.** This section used to end "that resolves a
+large share of triage before any model is involved". It does not.
+`flakeagent/triage.py` assigns a role to every one of the 1,139 failing steps —
+none fall through to `unknown`, which is the check that the list above is
+complete — and the split is:
+
+| role | steps | |
+|---|---:|---:|
+| test | 752 | 66.0% |
+| aggregate | 285 | 25.0% |
+| build | 43 | 3.8% |
+| report | 35 | 3.1% |
+| setup | 24 | 2.1% |
+
+So the step name throws **a quarter** of failing steps away as noise, which is
+worth having and costs nothing, and resolves **24 of the remaining 854 = 2.8%**
+outright. Two thirds of failures are a test that genuinely failed, and for those
+the step name says nothing at all.
+
+Reproduce with `python3 -m flakeagent.triage --dossiers data/dossiers`. What
+follows from it is in
+[RESULTS.md §7](RESULTS.md#7-the-rule-layer-abstains-on-all-39-and-that-is-the-informative-part).
 
 ### The strongest flake evidence: rerun disagreement
 

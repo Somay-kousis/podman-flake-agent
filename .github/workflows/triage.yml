@@ -49,6 +49,7 @@ env:
 
 jobs:
   triage:
+    name: rules over the last ${{ inputs.days || '2' }} day(s)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -110,14 +111,20 @@ jobs:
           python3 -m flakeagent.dossier --recent "$LOG_LIMIT" \
             --out data/dossiers --db "$DB"
 
+      # Every context value this step needs arrives as an environment variable
+      # rather than as a `${{ }}` expansion inside the script: an expansion is
+      # pasted into the shell before it runs, so it is code, and zizmor's
+      # template-injection audit is right to flag it even when the value is a
+      # run id.
       - name: Triage
         env:
           HAVE_TOKEN: ${{ steps.token.outputs.have }}
+          RUN_ID: ${{ github.run_id }}
         run: |
           set -euo pipefail
           if [ "$HAVE_TOKEN" = "true" ]; then
             DOSSIERS=data/dossiers
-            WINDOW="podman CI, last ${DAYS} day(s), run ${{ github.run_id }}"
+            WINDOW="podman CI, last ${DAYS} day(s), run ${RUN_ID}"
           else
             DOSSIERS=tests/dossiers
             WINDOW="committed dossiers -- no PODMAN_READ_TOKEN secret, so nothing live was fetched"

@@ -21,6 +21,7 @@ concurrency:
 
 jobs:
   offline:
+    name: offline (no token, no network)
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -68,3 +69,25 @@ jobs:
 
       - name: Mermaid diagrams in docs
         run: python3 hack/check_mermaid.py docs/*.md
+
+  # The one job that installs anything, and it is deliberately separate from
+  # `offline` so that the zero-dependency claim above stays a property of a
+  # whole job rather than of some of its steps.
+  #
+  # zizmor is the workflow linter podman runs on its own workflows
+  # (.github/workflows/zizmor.yml upstream, 3,251 runs). Running it here is not
+  # decoration: these two files fetch from a public API with a token in the
+  # environment, and `--persona=pedantic` is what caught `${{ github.run_id }}`
+  # being pasted into a shell script in triage.yml. Version pinned so a new
+  # audit cannot fail an unrelated pull request.
+  workflows:
+    name: zizmor
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Lint the workflows
+        run: pipx run zizmor==1.29.0 --no-online-audits --persona=pedantic .github/workflows/

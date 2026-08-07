@@ -3,9 +3,16 @@
 A prototype for [LFX Mentorship: Agentic CI Flake Categorization and Analysis](https://github.com/podman-container-tools/podman/issues/29265)
 (podman-container-tools/podman #29265).
 
-Ingests failing GitHub Actions runs from Podman's CI, extracts the failing test
-from logformatter's HTML, asks a model *why* it failed, and reports the verdict —
-with an evaluation harness measuring whether the verdict is any good.
+Ingests failing GitHub Actions runs from Podman's CI, narrows each 500 KB log to
+the failing step, and classifies why it failed — with an evaluation harness
+measuring whether the answer is any good, and two baselines that keep it honest.
+
+Two arms answer the same question over the same dossiers and are scored by the
+same harness: [`triage.py`](flakeagent/triage.py), rules with no model, which
+runs [on a schedule in CI](.github/workflows/triage.yml) in under ten minutes
+for nothing; and [`agent.py`](flakeagent/agent.py), which asks a model. The
+interesting result so far is where they *don't* overlap —
+[RESULTS.md §7](docs/RESULTS.md#7-the-rule-layer-abstains-on-all-39-and-that-is-the-informative-part).
 
 **Status: prototype.** Written to demonstrate approach and judgment, not to be
 deployed. It files nothing and posts nothing.

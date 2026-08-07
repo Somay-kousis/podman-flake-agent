@@ -115,6 +115,8 @@ is missing because it needs human judgement, not more code.
 | 4 · dataset | Jul 31 | 492 runs · 22,335 jobs · 153,425 steps · 400 dossiers | Issue matching used the *job* name, so the fix field was always empty; labels and scores used 3 incompatible IDs — nothing could ever have been scored |
 | 5 · upstream | Aug 1–2 | PR #29376 open and green; #29370 withdrawn as a duplicate | — |
 | 6 · agent | Aug 3 | `taxonomy.py`, `agent.py`, published repo | `fetch.py:548` stored the word `"referenced"` where the commit message belonged — **1,593 of 1,928 rows** |
+| 7 · measured | Aug 4 | 39 gold labels, two model arms, `baselines.py`, `RESULTS.md` | The gold set failed its own audit: all 6 `real_bug` labels are one issue, and `history.failure_rate >= 0.19` scores **92%** with no model and no log |
+| 8 · rules + CI | Aug 5 | `triage.py`, both workflows, `LICENSE`; a cold 2-day run is **185s / ~100 requests**, inside a 10-minute limit | The first pattern set matched `/journald?/` and fired on **21 of 23** failures — every job uploads a `journal-*.log` artifact. And HANDBOOK's claim that step names "resolve a large share of triage" was wrong once counted: **2.8%** |
 
 ---
 
@@ -122,13 +124,14 @@ is missing because it needs human judgement, not more code.
 
 | | |
 |---|---|
-| Code / docs | 4,699 lines across 15 modules · 2,622 lines of docs |
+| Code / docs | 5,468 lines across 16 modules · 2,599 lines in `docs/` |
 | Data | 492 runs · 22,335 jobs · 153,425 steps · 225 job logs · 372 issues |
 | Dossiers | 400 generated · 5 committed as offline fixtures |
-| Offline tests | `test_parse`, `test_steps`, `test_agent` — all passing, no token needed |
+| Offline tests | `test_parse`, `test_steps`, `test_agent`, `test_triage` — all passing, no token needed |
+| CI | `tests.yml` (offline, every entry point) · `triage.yml` (scheduled, 10-minute cap) |
 | Upstream | 1 of 2 permitted open PRs in use |
-| **Gold labels** | **0** |
-| **Accuracy** | **still none measured** |
+| **Gold labels** | **39** — and [audited](RESULTS.md#6-the-gold-set-cannot-support-a-real_bug-claim-at-all): one issue supplies all 6 `real_bug` labels |
+| **Accuracy** | 29% (`gpt-oss-120b`) · 19% (`gpt-oss-20b`) · 0% + 100% abstention (rules) · **85% constant, 92% one-float baseline** |
 
 **139 of 400 dossiers can be labelled without reading a log:**
 
@@ -217,10 +220,10 @@ flowchart TD
 
 ### Small and visible
 
-- **No `LICENSE` file.** `README.md:295` and `HANDBOOK.md:673` both say
-  Apache-2.0, but the file does not exist, so GitHub shows the repo as
-  unlicensed.
-- **No repository description** set on GitHub.
+- ~~**No `LICENSE` file.**~~ Added Aug 5 — Apache-2.0, matching Podman's own.
+- **No repository description** set on GitHub. Not something a commit can fix.
+- **`PODMAN_READ_TOKEN` is not set**, so `triage.yml` runs in its offline mode
+  until a read-only token is added under Settings → Secrets → Actions.
 - `HANDBOOK.md` §11 and `MAP.md` §5 still rank more fetch work highly. Both
   predate the Aug 3 replan and now contradict this file.
 
@@ -235,12 +238,28 @@ runs). A2 is load-bearing for the *tool*, not the *application*.
 
 | Date | |
 |---|---|
-| Aug 18, 23:59 UTC | applications close |
+| **Aug 18, 00:00 UTC** | **applications close — so in practice, the end of Aug 17.** This project's `applicationEndDate` is 1787011200, not the 23:59:59 that most LFX projects use; the UX project on the same term does close at 23:59:59. Do not read one project's deadline off another's |
 | Sep 2–4 | selections announced |
 | Sep 7 | term begins |
 | Oct 20 / Oct 21 | midterm evaluation / first stipend |
 | Nov 24 / Nov 25 | final evaluation / second stipend |
 | Nov 27 | last day |
+
+The four rows below the deadline come from the LFX program-wide calendar. The
+project's own `programTerms` record disagrees with them — it gives **Sep 15 →
+Nov 15** — and the same gap exists on the UX project, so it is a property of how
+LFX stores terms rather than something specific here. Only the application
+deadline is worth treating as exact, and it was re-read from the API on Aug 7:
+
+```bash
+curl -s https://api.mentorship.lfx.linuxfoundation.org/projects/050e89d9-aec2-47ad-9113-3ba41a639d55 \
+  | python3 -c 'import sys,json,datetime; t=json.load(sys.stdin)["programTerms"][0]; \
+    print(datetime.datetime.fromtimestamp(t["applicationEndDate"], datetime.timezone.utc))'
+```
+
+As of Aug 7 both Podman projects still report `acceptApplications: false`, four
+days after the stated open date. Check the page itself before assuming the form
+is live.
 
 Work that becomes worth doing once there is a mentor to agree the shape with:
 
