@@ -71,12 +71,18 @@ jobs:
       # database is carried across runs for a second reason: the `history`
       # figures in the report are computed over locally stored runs, so they
       # only become meaningful once this has run a few times.
+      #
+      # `data/ci.db*`, not `data/ci.db`: schema.sql sets `journal_mode = WAL`, so
+      # committed rows can still be sitting in `ci.db-wal` when the job ends.
+      # Python checkpoints and removes it on a clean exit, but a job killed by
+      # the 10-minute timeout does not get one, and caching the database without
+      # its write-ahead log silently drops whatever the last run fetched.
       - name: Restore fetch cache and database
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: |
             data/cache
-            data/ci.db
+            data/ci.db*
           key: flake-data-${{ github.run_id }}
           restore-keys: flake-data-
 

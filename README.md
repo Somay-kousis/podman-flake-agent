@@ -371,7 +371,7 @@ flag.
 | `flakeagent/triage.py` | the same, with rules instead of a model — what CI runs |
 | `flakeagent/eval.py` | scores `preds.json` against the gold labels |
 | `flakeagent/classify.py`, `report.py` | earlier prototype, pre-dossier |
-| `docs/` | **[glossary](docs/GLOSSARY.md)** · **[handbook](docs/HANDBOOK.md)** · [roadmap](docs/ROADMAP.md) · [dossier schema](docs/DOSSIER.md) · [fetch audit](docs/FETCH_AUDIT.md) · [log anatomy](docs/LOG_ANATOMY.md) · [decision map](docs/MAP.md) · [plans](docs/plans/) |
+| `docs/` | **[glossary](docs/GLOSSARY.md)** · **[handbook](docs/HANDBOOK.md)** · [roadmap](docs/ROADMAP.md) · [dossier schema](docs/DOSSIER.md) · [fetch audit](docs/FETCH_AUDIT.md) · [log anatomy](docs/LOG_ANATOMY.md) · [decision map](docs/MAP.md) |
 | `tests/dossiers/` | committed real failures for offline development |
 
 Licensed Apache-2.0, matching Podman.

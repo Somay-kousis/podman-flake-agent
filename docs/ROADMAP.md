@@ -1,7 +1,7 @@
-# Roadmap — origin to project end
+# Roadmap
 
-One sequence, start to finish: what shipped, where the project stands today, and
-what remains between here and the last day of the mentorship term.
+What shipped, where the project stands, and what is worth doing next — in the
+order that unblocks the most.
 
 New to the vocabulary? **[`GLOSSARY.md`](GLOSSARY.md)** explains every term used
 here — flake, dossier, blinding, gold label, and the rest — in plain language.
@@ -10,8 +10,7 @@ here — flake, dossier, blinding, gold label, and the rest — in plain languag
 decisions were reached, including the wrong turns. This file is the timeline and
 the forward plan.
 
-*State as of 2026-08-03. `Done` dates are commit dates; term dates are LFX's
-published calendar.*
+*State as of 2026-08-07. Dates are commit dates.*
 
 ---
 
@@ -22,12 +21,13 @@ published calendar.*
 flowchart TD
     START(["Jul 30 — read the repo"])
 
-    subgraph BUILT["Built — Jul 30 to Aug 3"]
+    subgraph BUILT["Built — Jul 30 to Aug 7"]
         P1["Prototype<br/>parse the CI logs<br/>76-93% smaller"]
         P2["Corpus<br/>372 flake reports<br/>read from GitHub"]
         P3["Fetch layer<br/>read-only client<br/>logs down 95%"]
         P4["Dataset<br/>400 dossiers<br/>one per failed job"]
         P5["Agent<br/>dossier in,<br/>verdict out"]
+        P6["Rules + CI<br/>no model, no cost,<br/>runs on a schedule"]
     end
 
     subgraph UPSTREAM["Sent to Podman — Aug 1 to 2"]
@@ -35,43 +35,36 @@ flowchart TD
         U2["PR 29370 withdrawn<br/>someone was ahead"]
     end
 
-    NOW(["Aug 3 — we are here"])
+    NOW(["Aug 7 — we are here"])
 
-    subgraph GAP["The one thing missing"]
-        G1["0 gold labels<br/>so nothing can be<br/>marked right or wrong"]
+    subgraph GAP["The blocker"]
+        G1["39 gold labels, but<br/>all 6 real_bug come<br/>from ONE issue"]
     end
 
-    subgraph TODO["Before Aug 18"]
-        T1["Label 30-50 by hand"]
-        T2["Run the agent, score it"]
-        T3["Review Luap99's PR 29091"]
-        T4["Write the cover letter"]
-        T5["Submit Aug 16"]
+    subgraph TODO["Next"]
+        T1["Mine real_bug from<br/>fix commits, not the<br/>flakes label"]
+        T2["Score the agent on<br/>the abstention set,<br/>against the rule arm"]
     end
 
-    TERM(["Sep 7 to Nov 27<br/>the term, if selected"])
-
-    START --> P1 --> P2 --> P3 --> P4 --> P5 --> NOW
+    START --> P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> NOW
     P3 --> U1
     P3 --> U2
     U1 --> NOW
     U2 --> NOW
-    NOW --> G1 --> T1 --> T2 --> T4
-    NOW --> T3 --> T4
-    T4 --> T5 --> TERM
+    NOW --> G1 --> T1 --> T2
 
     classDef done  fill:#dfe7ef,stroke:#5d6d7e,color:#34495e
     classDef now   fill:#fff0d9,stroke:#e67e22,color:#7e4a11
     classDef block fill:#fde8e8,stroke:#c0392b,color:#7b241c
     classDef next  fill:#e6f4ea,stroke:#1e8449,color:#145a32
 
-    class P1,P2,P3,P4,P5,U1,U2 done
-    class START,NOW,TERM now
+    class P1,P2,P3,P4,P5,P6,U1,U2 done
+    class START,NOW now
     class G1 block
-    class T1,T2,T3,T4,T5 next
+    class T1,T2 next
 ```
 
-**Grey** = shipped · **red** = the blocker · **green** = what's next · **amber** = milestones.
+**Grey** = shipped · **red** = the blocker · **green** = what's next.
 
 ---
 
@@ -160,126 +153,61 @@ quarters of the fix commit IDs return HTTP 422 — they belong to forks, or to
 history that moved — so **60 of 400 is what the linkage actually supports.** Not
 a solved labelling problem.
 
-**The one blocker.** Everything else is built. `gold_labels` is empty, so nothing
-the agent produces can be scored, and every number in the README is still a size
-measurement rather than a claim about being right.
+**The blocker, restated after measuring.** It is no longer that labels do not
+exist — 39 do. It is that they cannot carry the weight put on them: 33
+`race_condition`, 6 `real_bug` from a single issue, and no examples at all of the
+three infrastructure classes. An accuracy number on this set describes the set.
 
 ---
 
-## 4. Ahead — to the application, Aug 3 → Aug 18
 
-Podman weights this differently from most projects, per
-[@Luap99 on #29265](https://github.com/podman-container-tools/podman/issues/29265):
-contributions are **not required**, the cover letter and resume are what get
-read, *"that can also be some personal project"*, and there is a hard cap of two
-open PRs. **So this repo is the artifact, and more PRs are not the lever.**
+## 4. What is actually next
 
-```mermaid
-flowchart TD
-    N(["Aug 3"])
-    L1["Label 30-50 dossiers<br/>start with the 139<br/>that have real evidence"]
-    L2["Run the agent<br/>preds.json"]
-    L3["Score it<br/>first accuracy number"]
-    L4["Put the number<br/>in the README"]
-    R1["Review PR 29091<br/>does NOT use a PR slot<br/>expires when it merges"]
-    R2["Report the title= gotcha<br/>also free"]
-    W1["Cover letter<br/>lead with the repo<br/>and the number"]
-    S(["Submit Aug 16<br/>48h early"])
+Ordered by what unblocks the most. Nothing here is a scheduling problem; the
+first item gates the interpretation of every number the project can produce.
 
-    H1["Add a LICENSE file"]
-    H2["Set the repo description"]
+**1. Fix the gold set, or stop quoting accuracy.**
+All six `real_bug` labels come from one issue, so the effective sample size for
+that class is 1, and a single float — `history.failure_rate >= 0.19` — scores 92%
+without a model or a log ([RESULTS.md §6](RESULTS.md#6-the-gold-set-cannot-support-a-real_bug-claim-at-all)).
+`real_bug` examples cannot be mined from the `flakes` label, because real bugs
+are not filed as flakes. They need a different source: failures on PRs whose
+merged fix touched the code under test. That is a mining path, not more
+labelling effort on the current one.
 
-    N --> L1 --> L2 --> L3 --> L4 --> W1
-    N --> R1 --> W1
-    N --> R2
-    N --> H1
-    N --> H2
-    W1 --> S
+**2. Work the abstention set, not the corpus.**
+The rule layer resolves the infrastructure classes and abstains on the rest — 82%
+of a live window ([RESULTS.md §7](RESULTS.md#7-the-rule-layer-abstains-on-all-39-and-that-is-the-informative-part)).
+Those abstentions are where a model has to earn its cost, and they are a
+directory of files rather than an opinion. Any agent work should be scored on
+that subset and against the rule arm, not against the majority class.
 
-    classDef must  fill:#e6f4ea,stroke:#1e8449,color:#145a32
-    classDef clock fill:#fff0d9,stroke:#e67e22,color:#7e4a11
-    classDef small fill:#eef1f5,stroke:#7f8c9b,color:#2c3e50
-    class L1,L2,L3,L4,W1 must
-    class N,S,R1 clock
-    class R2,H1,H2 small
-```
+**3. Fork-PR diff resolution.**
+Whether the change under test could plausibly have caused the failure is among
+the strongest signals available, and it is missing for ~80% of PR runs because
+GitHub does not report the PR association for commits living in a fork. See
+[FETCH_AUDIT.md](FETCH_AUDIT.md).
 
-1. **Label 30–50 dossiers.** The only thing between here and an accuracy number.
-   `labels show --dossier` leads with the independent evidence and puts the log
-   last. Decide from the top — if you need the log to decide, it is a weak case.
-2. **Run and score.** `agent.py` → `preds.json` → `eval.py dossiers`. Report
-   abstention beside accuracy. Replace the README's *"No accuracy numbers"*
-   bullet, keeping the statement of what it does and does not cover.
-3. **Review [PR #29091](https://github.com/podman-container-tools/podman/pull/29091)**
-   having run it. Reviews do not consume the 2-PR budget. Your findings here are
-   not available to anyone who has not parsed real output. **The only item with
-   an external clock — it expires on merge.**
-4. **Report the multi-line `title=` gotcha** — logformatter folds the podman
-   command line into an HTML attribute containing newlines, so one tag spans many
-   lines. Cost ~11% of the ginkgo reduction until fixed.
-5. **Cover letter, submitted Aug 16.**
+**4. Better issue-to-test matching.**
+The dossier calls the current lexical overlap *"a starting point, not a
+duplicate determination"*, and it means it: 24 of 89 matches are on the job name,
+a path [MAP.md](MAP.md) already identified as broken. 1,196 fix links are still
+placeholders.
 
-### Small and visible
+**5. Ginkgo.**
+HTML parsing is 0% on the real corpus. Step-window slicing routes around it
+rather than solving it, which is fine until something needs per-test structure
+inside a ginkgo run — deduplication against known flakes does.
 
-- ~~**No `LICENSE` file.**~~ Added Aug 5 — Apache-2.0, matching Podman's own.
-- **No repository description** set on GitHub. Not something a commit can fix.
-- **`PODMAN_READ_TOKEN` is not set**, so `triage.yml` runs in its offline mode
-  until a read-only token is added under Settings → Secrets → Actions.
-- `HANDBOOK.md` §11 and `MAP.md` §5 still rank more fetch work highly. Both
-  predate the Aug 3 replan and now contradict this file.
+**6. Local models.**
+`--backend ollama` exists and has never been run against the gold set.
 
-### Not doing before Aug 18
+**7. Sit downstream of [#29091](https://github.com/podman-container-tools/podman/pull/29091)**
+once it merges, rather than alongside it.
 
-Tracks A, B and C from `MAP.md`, including A2 (fork-PR diff context, ~80% of PR
-runs). A2 is load-bearing for the *tool*, not the *application*.
-
----
-
-## 5. Ahead — the term, if selected
-
-| Date | |
-|---|---|
-| **Aug 18, 00:00 UTC** | **applications close — so in practice, the end of Aug 17.** This project's `applicationEndDate` is 1787011200, not the 23:59:59 that most LFX projects use; the UX project on the same term does close at 23:59:59. Do not read one project's deadline off another's |
-| Sep 2–4 | selections announced |
-| Sep 7 | term begins |
-| Oct 20 / Oct 21 | midterm evaluation / first stipend |
-| Nov 24 / Nov 25 | final evaluation / second stipend |
-| Nov 27 | last day |
-
-The four rows below the deadline come from the LFX program-wide calendar. The
-project's own `programTerms` record disagrees with them — it gives **Sep 15 →
-Nov 15** — and the same gap exists on the UX project, so it is a property of how
-LFX stores terms rather than something specific here. Only the application
-deadline is worth treating as exact, and it was re-read from the API on Aug 7:
-
-```bash
-curl -s https://api.mentorship.lfx.linuxfoundation.org/projects/050e89d9-aec2-47ad-9113-3ba41a639d55 \
-  | python3 -c 'import sys,json,datetime; t=json.load(sys.stdin)["programTerms"][0]; \
-    print(datetime.datetime.fromtimestamp(t["applicationEndDate"], datetime.timezone.utc))'
-```
-
-**Applications are open.** The term's `active` field reads `"open"` and Aug 7
-sits inside the window. The project object also carries `acceptApplications:
-false`, which is not about this — it sits beside `amountRaised`,
-`totalDonations` and `menteeStatus`, and the UX project reports the same value
-while accepting applications too. `programTerms[0].active` plus the date window
-is the pair to read; `acceptApplications` is a false lead.
-
-Work that becomes worth doing once there is a mentor to agree the shape with:
-
-- **Fork-PR diff resolution.** Whether the code change could even have caused the
-  failure is among the strongest signals, and it is missing for ~80% of PR runs
-  because GitHub does not report the PR for commits that live in a fork.
-- **The remaining 1,196 placeholder fix links**, and a better issue-to-test match
-  than word overlap — the dossier itself calls the current one *"a starting
-  point, not a duplicate determination"*, and 24 of 89 matches are on the job
-  name, the path `MAP.md` already identified as broken.
-- **Local-model results.** `--backend ollama` exists and is untested against the
-  gold set; issue #29265 names local AI as a plus.
-- **Sit downstream of #29091 for real**, once it merges, rather than alongside it.
-- **The write path.** Nothing in this package can post to GitHub — one GET path,
-  no `--post` flag. Filing or commenting is a deliberate, mentor-agreed step.
-
-⚠️ The LFX listing read *"This program is pending approval!"* and could not be
-confirmed programmatically. If the project does not run, the repo still stands on
-its own and the two CI PRs are unaffected.
+**8. The write path — last, and only by agreement.**
+Nothing in this package can post to GitHub: one GET path, no method argument, no
+`--post` flag. Filing issues or commenting on PRs against a real repository is
+not a feature to be switched on quietly. It is the point at which a wrong verdict
+starts costing other people time, and it should be turned on deliberately, with
+whoever owns that CI, or not at all.

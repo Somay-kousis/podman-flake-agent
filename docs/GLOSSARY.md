@@ -270,22 +270,15 @@ labelling and the model.
 ## 7. The program
 
 **LFX Mentorship** — the Linux Foundation's paid, remote, 12-week open-source
-mentorship program. This project is an application to the Podman one.
+mentorship program. This repository was written as a prototype for the Podman
+project in it.
 
 **CNCF** — the Cloud Native Computing Foundation, which runs the projects LFX
 mentorships attach to.
 
-**Term** — one 12-week cycle. This is Term 3, 2026: Sep 7 – Nov 27.
-
-**Mentor** — the maintainer who supervises the mentee. Here, @Luap99,
-@timcoding1988, @mohanboddu.
-
-**Cover letter** — the written application. For Podman it is what actually gets
-read: *"contributions in Podman are not a requirement to apply… that can also be
-some personal project."*
-
-**Stipend** — the payment, region-adjusted, in two instalments after the midterm
-and final evaluations.
+**Mentor** — the maintainer who supervises the mentee. For this project, @Luap99,
+@timcoding1988 and @mohanboddu, as named in
+[issue #29265](https://github.com/podman-container-tools/podman/issues/29265).
 
 ---
 

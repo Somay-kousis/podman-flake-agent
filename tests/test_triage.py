@@ -131,6 +131,11 @@ ROLES = [
     ("Run unit tests", "test"),
     ("Upload release artifacts", "report"),
     ("Install build dependencies", "setup"),
+    # Not in the 30-day set, but this is how a pinned setup action is named and
+    # it matched nothing before -- a silent gap rather than a wrong answer.
+    ("Run actions/setup-go@b7ad1da", "setup"),
+    ("Run actions/checkout@3d3c42e", "setup"),
+    ("Set up Docker Buildx", "setup"),
 ]
 
 

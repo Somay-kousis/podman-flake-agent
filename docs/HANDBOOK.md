@@ -7,10 +7,10 @@ Other docs stay authoritative on their own topics and are linked where relevant:
 [`DOSSIER.md`](DOSSIER.md) (the JSON contract) ·
 [`FETCH_AUDIT.md`](FETCH_AUDIT.md) (API surface and limits) ·
 [`LOG_ANATOMY.md`](LOG_ANATOMY.md) (what CI output actually looks like) ·
-[`MAP.md`](MAP.md) (how the project got here) ·
-[`plans/`](plans/) (every approved plan, in order).
+[`MAP.md`](MAP.md) (how each decision was reached, including the wrong turns) ·
+[`RESULTS.md`](RESULTS.md) (every number measured, including the bad ones).
 
-*Current as of commit `8d825a8`. Every figure below was measured, not estimated.*
+*Current as of 2026-08-07. Every figure below was measured, not estimated.*
 
 ---
 
@@ -25,14 +25,16 @@ CI, built for [LFX Mentorship issue #29265](https://github.com/podman-container-
 
 It fetches everything GitHub will give you about a failed CI job, narrows a
 500 KB log to roughly a thousand tokens, and emits one self-contained JSON
-document per failure. **It does not classify anything.** That boundary is
-deliberate and is the subject of §8.
+document per failure — the dossier. Two things then classify from it: `triage.py`
+with rules and no model, and `agent.py` with a model. Both are scored by the same
+harness, and the boundary that matters is §8's: what you are allowed to conclude
+from a score.
 
 ### State at a glance
 
 | | |
 |---|---|
-| Code | 4,268 lines, 12 modules, **zero third-party dependencies** |
+| Code | 5,468 lines, 16 modules, **zero third-party dependencies** |
 | Data window | 2026-06-30 → 2026-07-30 (30 days) |
 | Runs | 492 |
 | Jobs | 22,335 |
@@ -41,8 +43,9 @@ deliberate and is the subject of §8.
 | Job logs stored | 225 (640 MB raw → 69 MB gzipped, **10.8%**) |
 | Dossiers | 400 generated · 5 committed as offline fixtures |
 | Flake issues | 372, of which **242 (65%)** have an identified fix |
-| Ground-truth labels | **0** — this is the gap |
-| Accuracy measured | **None.** By design; see §8 |
+| Ground-truth labels | **39** — and audited; see [RESULTS.md §6](RESULTS.md#6-the-gold-set-cannot-support-a-real_bug-claim-at-all) |
+| Accuracy measured | 29% / 19% (two models) · 0% + 100% abstention (rules) · **85% constant, 92% one-float baseline** |
+| CI | `tests.yml` offline on every push · `triage.yml` scheduled, 58s for a 2-day window |
 
 ### The one-paragraph version
 
@@ -51,8 +54,9 @@ bugs. Telling them apart is currently a human reading a bar graph. This project
 makes that judgement *possible to automate* by assembling the evidence — which
 step failed, what the log says, whether the same commit passed on a rerun,
 whether the diff could even have caused it, whether a maintainer already fixed
-it — into one document per failure. Whether to automate the judgement, and how,
-is the next stage and is not built here.
+it — into one document per failure. What it has learned since is that the cheap
+half of the judgement is worth having on its own, and that the expensive half
+cannot be evaluated yet on the labels that exist.
 
 ---
 
@@ -121,10 +125,10 @@ flowchart TD
     S6 --> GH
     S7 --> GH
 
-    GH --> FETCH["fetch.py<br/>10 idempotent, resumable stages"]
+    GH --> FETCH["fetch.py<br/>13 idempotent, resumable stages"]
     GH --> CORP["corpus.py<br/>log excerpts pasted<br/>into issues"]
 
-    FETCH --> DB[("SQLite<br/>15 tables")]
+    FETCH --> DB[("SQLite<br/>16 tables")]
     CORP --> DB
     FETCH --> GZ[("data/logs/*.gz<br/>225 files, 69MB")]
 
@@ -140,8 +144,10 @@ flowchart TD
     FULL --> LAB["labels.py<br/>human assigns a category"]
     LAB --> GOLD[("gold_labels")]
 
-    BLIND --> AGENT["YOUR CLASSIFIER<br/>not built here"]
-    AGENT --> PRED["predictions<br/>job id to category"]
+    BLIND --> RULES["triage.py<br/>rules, no model<br/>runs in CI"]
+    BLIND --> AGENT["agent.py<br/>prompt a model"]
+    RULES --> PRED["predictions<br/>job id to category"]
+    AGENT --> PRED
 
     GOLD --> SCORE["eval.py dossiers<br/>precision · recall · abstention"]
     PRED --> SCORE
@@ -152,12 +158,13 @@ flowchart TD
     classDef yours fill:#fde8e8,stroke:#c0392b,color:#7b241c
 
     class S1,S2,S3,S4,S5,S6,S7 ext
-    class GH,FETCH,CORP,SLICE,DOSS,LAB,SCORE core
+    class GH,FETCH,CORP,SLICE,DOSS,LAB,SCORE,RULES core
     class DB,GZ,GOLD,FULL,BLIND,PRED store
     class AGENT yours
 ```
 
-Red is the piece you build. Everything else exists.
+Red is where a better classifier goes. Both arms feeding it are built, and the
+rule arm is the number a new one has to beat.
 
 ### Design constraints, and why
 
@@ -619,37 +626,44 @@ python3 -m flakeagent.eval dossiers --predictions preds.json
 
 ## 11. What to do next
 
+Rewritten after the first measurements. The original version ranked "label 30-50
+dossiers" first; that is done, and doing it is what revealed the real blocker.
+
 ```mermaid
 flowchart TD
-    A["1. Read ~20 issues with their fixes<br/>30 min, no code"] --> B["Decide whether the six<br/>categories are the right six"]
-    B --> C["2. Label 30-50 dossiers<br/>from independent evidence"]
-    C --> D["3. Build the classifier<br/>against --blind output"]
-    D --> E["4. Score it"]
-    E --> F{"abstention sane?<br/>real bugs safe?"}
-    F -->|"no"| D
-    F -->|"yes"| G["a defensible number<br/>for the application"]
+    A["1. Mine real_bug from<br/>fix commits touching<br/>the code under test"] --> B["a gold set where one<br/>class is not one bug"]
+    B --> C["2. Score on the abstention set,<br/>against the rule arm"]
+    C --> D{"beats rules AND<br/>real bugs safe?"}
+    D -->|"no"| E["say so, publish it,<br/>and keep the rules"]
+    D -->|"yes"| F["a number that means<br/>something"]
 
-    H["optional: resume the<br/>remaining ~880 job logs"] -.-> E
+    G["3. Decide whether the<br/>six categories are the right six"] -.-> A
 
     classDef now fill:#e6f4ea,stroke:#1e8449,color:#145a32
     classDef mid fill:#eef1f5,stroke:#7f8c9b,color:#2c3e50
     class A,B,C now
-    class D,E,F,G,H mid
+    class D,E,F,G mid
 ```
 
-**1. Read before labelling.** `labels list` then `labels show --issue N` on
-twenty of them. Not for labels — to find out whether my six categories are the
-right six. I guessed them from the issue text; you will have read fifty real
-flakes with their fixes. If `race_condition` should split, or
-`network_timeout` collapses into `infra_blip`, you will know.
+**1. Fix the gold set before trusting any accuracy figure.** 39 labels exist, but
+33 are `race_condition` and all 6 `real_bug` come from a single issue — so a rule
+comparing one float to a constant scores 92% ([RESULTS.md §6](RESULTS.md#6-the-gold-set-cannot-support-a-real_bug-claim-at-all)).
+`real_bug` cannot be mined from the `flakes` label, because real bugs are not
+filed as flakes. It needs failures on PRs whose merged fix touched the code under
+test. That is a different mining path, not more labelling.
 
-**2. Label 30–50 dossiers.** `labels dossiers` ranks by how much independent
-evidence exists. Decide from the top of the page.
+**2. Score on the abstention set, against the rule arm.** `triage.py` resolves
+the infrastructure classes for free and abstains on the rest — 82% of a live
+window. Those abstentions are the only place a model can add value, and
+`eval.py` already takes both arms' output in the same format.
 
-**3. Build against `--blind`.** Iterate on `tests/dossiers/` — no token needed.
+**3. Read before re-labelling.** `labels list`, then `labels show --issue N` on
+twenty. Not for labels — to find out whether the six categories are the right
+six. They were guessed from the issue text.
 
-**4. Score, and read past the headline.** Abstention rate and real-bugs-called-
-re-runnable matter more than the accuracy figure.
+**4. Read past the headline when scoring.** Abstention rate and
+real-bugs-called-re-runnable matter more than the accuracy figure, and with three
+arms answering disjoint subsets, overall accuracy is close to meaningless.
 
 ### Optional, non-blocking
 
@@ -659,13 +673,8 @@ re-runnable matter more than the accuracy figure.
 - **`related_issues` is lexical word-overlap.** It works (it correctly surfaces
   *"machine: Volume ops test"* for a `machine init with volume` failure) but is
   an obvious early improvement.
-
-### Upstream, with an external clock
-
-PR **#29091** is open *now*. Reviewing it having actually run it is worth more
-than more private code, and the opportunity ends when it merges. Issue **#28842**
-(nightly cron runs) is unassigned and stale, and is the direct fix for the
-selection bias in §9.
+- **Ginkgo HTML parsing is still 0%.** Slicing routes around it; per-test
+  identity for deduplication would need it solved.
 
 ---
 
@@ -700,7 +709,7 @@ Genuinely unresolved, and worth your judgement rather than mine:
 | 3 | [`DOSSIER.md`](DOSSIER.md) | the JSON contract, field by field |
 | 4 | [`FETCH_AUDIT.md`](FETCH_AUDIT.md) | the API surface and every hard limit |
 | 5 | [`MAP.md`](MAP.md) | how the project got here, including the wrong turns |
-| 6 | [`plans/`](plans/) | the four approved plans, in sequence |
+| 6 | [`RESULTS.md`](RESULTS.md) | every number measured, including the bad ones |
 | 7 | [`ROADMAP.md`](ROADMAP.md) | what is done and what is next, as diagrams |
 
 Licensed Apache-2.0, matching Podman.

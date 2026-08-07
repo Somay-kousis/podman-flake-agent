@@ -82,8 +82,13 @@ from .taxonomy import CATEGORIES
 
 STEP_ROLES = (
     ("aggregate", re.compile(r"(?i)check all required jobs")),
-    ("setup", re.compile(r"(?i)^set up job|^checkout|actions/checkout|"
-                         r"lima-actions/setup|^set up (qemu|lima|ssh|go|python)|"
+    # `^set up ` is deliberately broad: GitHub names every implicit setup step
+    # that way, and a step this misses gets role `unknown`, which no rule acts
+    # on -- so the cost of being broad here is bounded by the rules downstream.
+    # `actions/setup-` catches `Run actions/setup-go@<sha>`, which is how a
+    # pinned setup action appears and which none of the other patterns match.
+    ("setup", re.compile(r"(?i)^set up |^checkout|actions/checkout|"
+                         r"actions/setup-|lima-actions/setup|"
                          r"^install |^fetch |^restore |^cache ")),
     ("report", re.compile(r"(?i)^output failure log|^upload |^collect |"
                           r"actions/upload-artifact")),

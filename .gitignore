@@ -11,6 +11,10 @@ data/logs/
 data/dossiers/
 data/*.log
 data/gold.json
+# Application planning, session notes -- real, useful, and nobody else's business.
+# The engineering record lives in docs/MAP.md and in the git history.
+.private/
+
 # Run outputs land in data/ by default; the copies worth keeping are in results/.
 data/preds*.json
 data/verdicts*.json

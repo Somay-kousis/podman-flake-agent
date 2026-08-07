@@ -120,7 +120,7 @@ held up · orange: a finding the project now rests on.
 |---|---|---|
 | Read real CI logs before designing any prompt | **Right** | Produced the empty-timeline and shared-helper findings. No amount of API reading gets those. |
 | Line-oriented parsing over DOM nesting | **Right** | `div.tt` opens once around the whole output; the ginkgo failure summary sits outside the timeline divs. |
-| Verified claim status before recommending issues | **Right** | #28826 was assigned to Tim Zhou — a mentor. |
+| Checked whether work was already taken before starting any | **Right** | Twice: an issue already assigned upstream, and PR #29370, which duplicated someone else's open PR and was withdrawn. |
 | Refused to claim a bug in Luap99's PR | **Right** | The tag bug was in *our* parser. His uses `html.parser`, which handles it correctly. |
 | Read-only by construction, not by discipline | **Right** | One GET path, no method argument. Later paid off again: the redirect fix also stopped leaking the token to Azure. |
 | Checkpoints instead of building straight through | **Right** | Turned "raw vs HTML mismatch" into "one conditional, 71 samples". |
@@ -229,15 +229,7 @@ flowchart TD
 
     subgraph TE["Track E — Upstream"]
         E1["E1 Review PR 29091<br/>having run it"]
-        E2["E2 Issue 28842 nightly cron<br/>unassigned, stale"]
         E3["E3 Report the multi-line<br/>title= gotcha"]
-        E4["E4 Office hours agenda item"]
-    end
-
-    subgraph TF["Track F — Application"]
-        F1["F1 Publish the repo"]
-        F2["F2 Write the application"]
-        F3["F3 Submit, 48h early"]
     end
 
     NOW --> A1
@@ -256,13 +248,7 @@ flowchart TD
     A4 -.-> B3
     B1 -.-> D2
 
-    C1 --> F2
-    D3 --> F2
-    E1 --> F2
-    E2 --> F2
-    F1 --> F2 --> F3
     E3 -.-> E1
-    E4 -.-> E1
 
     classDef now   fill:#fff0d9,stroke:#e67e22,color:#7e4a11
     classDef done  fill:#dfe7ef,stroke:#5d6d7e,color:#34495e
@@ -272,8 +258,8 @@ flowchart TD
 
     class NOW now
     class Z1,Z2,Z3,Z4,Z5,Z6,B2 done
-    class A1,A2,C1,C2,C5,E1,D1,F2,F3 best
-    class A3,A5,C3,C4,C6,D2,D4,D5,E2,E3,E4,F1,B1 mid
+    class A1,A2,C1,C2,C5,E1,D1 best
+    class A3,A5,C3,C4,C6,D2,D4,D5,E3,B1 mid
     class A4,B3,D3 risky
 ```
 
