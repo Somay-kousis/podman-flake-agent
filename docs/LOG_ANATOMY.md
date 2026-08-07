@@ -263,7 +263,7 @@ Given the above, the questions the classifier is really answering:
 | Is this test's failure about this test? | The file:line — shared helper vs the spec's own file |
 | Was it slow, or was it broken? | Relative timestamps and the `[N seconds]` on the FAILED marker |
 | Is it this PR's fault? | **Not in the log at all** — comes from mined history (`cross_pr`, `rerun_disagreement`) |
-| Has someone already reported it? | The 42 open `flakes` issues, via the `search_flake_issues` tool |
+| Has someone already reported it? | The 372 `flakes`-labelled issues (open and closed), via the `search_flake_issues` tool |
 
 The last two are the ones that make this an *agent* rather than a log
 classifier: the log alone genuinely cannot tell you whether a failure is a
@@ -277,10 +277,17 @@ Reading the above should make the gaps obvious:
 
 - **The failure block is often empty**, so the highest-value next step is
   pulling correlated context — the `journal-<test>.log` window around the
-  failure timestamp, and the preceding spec's teardown. That's what
-  `get_journal_context` in the plan is for, and it isn't implemented yet.
+  failure timestamp, and the preceding spec's teardown. Still not
+  implemented: `dossier.py` slices the job log, not the separate journal
+  artifact, so this context is missing from every dossier today.
 - **Cross-spec contamination isn't modelled.** A failure in spec B caused by
   spec A's teardown needs the *previous* spec, which the current per-failure
   extraction throws away.
-- **Everything here is from a 2023-era fixture.** Real 2026 logs under PR
-  #29091's output shape need re-checking against live artifacts.
+- **The three worked examples above are from a 2023-era fixture** — the
+  reproduce command at the top says so, and that's deliberate:
+  `logformatter.t` is Podman's own fixture file, not an invented one. What
+  was still open when this line was first written — whether real 2026
+  output under PR #29091's shape would parse the same way — is now closed:
+  `triage.py` and `agent.py` have both run against hundreds of dossiers
+  built from live 2026 job logs (see [RESULTS.md](RESULTS.md)), not just
+  these fixtures.

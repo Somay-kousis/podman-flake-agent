@@ -61,8 +61,13 @@ call — no log, no artifact, no extra request.
 ```
 
 A job that died in `Install build dependencies` is infrastructure. One that died
-in `Run machine e2e` is a test. That distinction costs nothing and resolves a
-large share of triage before any model is involved.
+in `Run machine e2e` is a test. That distinction costs nothing — and once
+measured (`flakeagent/triage.py`, role split over 1,139 failing steps) it
+resolves **2.8%** of non-aggregate failures outright, not "a large share": two
+thirds of failures are a test that genuinely failed, where the step name says
+nothing. See [RESULTS.md §7](RESULTS.md#7-the-rule-layer-abstains-on-all-39-and-that-is-the-informative-part)
+for what the step name *does* buy — mostly filtering aggregator noise, not
+answering the category.
 
 `found: false` means the job predates step capture, not that no step failed.
 
