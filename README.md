@@ -28,18 +28,44 @@ each other and against a baseline built to embarrass both.</strong></p>
 <p align="center"><strong>Status: prototype.</strong> Written to demonstrate approach and
 judgment, not to be deployed. It files nothing and posts nothing.</p>
 
-What the scheduled workflow actually posts to a job summary, unedited:
+What the scheduled workflow actually posts to a job summary — rendered, not a
+code dump, from a real run:
 
-```markdown
-# CI flake triage
+> **CI flake triage** — 23 failed jobs. Rules resolved **4**, abstained on **19**.
+>
+> | category | jobs |
+> |---|---:|
+> | `unknown` | 19 |
+> | `infra_blip` | 4 |
 
-**23 failed jobs.** Rules resolved **4**, abstained on **19**.
+---
 
-| category | jobs |
-|---|---:|
-| `unknown` | 19 |
-| `infra_blip` | 4 |
+## How it works
+
+```mermaid
+%%{init: {"flowchart": {"curve": "basis"}}}%%
+flowchart LR
+    API["GitHub Actions API<br/>read-only"] --> FETCH["fetch.py<br/>runs, jobs, logs, issues"]
+    FETCH --> DOSS["dossier.py<br/>one JSON per failed job"]
+    DOSS --> BLIND["blinded<br/>labeller's evidence withheld"]
+    BLIND --> RULES["triage.py<br/>rules, no model<br/>runs in CI"]
+    BLIND --> AGENT["agent.py<br/>asks a model"]
+    RULES --> PRED[("predictions<br/>job id → category")]
+    AGENT --> PRED
+    PRED --> SCORE["eval.py<br/>scored against gold labels<br/>and a baseline"]
+
+    classDef ext   fill:#eef1f5,stroke:#7f8c9b,color:#2c3e50
+    classDef core  fill:#e6f4ea,stroke:#1e8449,color:#145a32
+    classDef store fill:#fff0d9,stroke:#e67e22,color:#7e4a11
+
+    class API ext
+    class FETCH,DOSS,RULES,AGENT,SCORE core
+    class BLIND,PRED store
 ```
+
+Two arms, one prediction format, one scorer — that's the whole design.
+Full version, with the acquisition side (7 API endpoints, SQLite, the
+gzip'd logs) drawn out: [HANDBOOK.md §3](docs/HANDBOOK.md#3-architecture).
 
 ---
 
