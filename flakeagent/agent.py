@@ -31,6 +31,13 @@ Three decisions worth defending:
    package's own history is the argument: the three worst bugs in it all shipped
    in code that had been written and reviewed but never executed.
 
+   Against `--backend api` the count is measured, not guessed: it calls
+   `AnthropicBackend.count_tokens`, which is `client.messages.count_tokens` --
+   the same policy as everywhere else in this package, never a third-party
+   tokenizer. If `anthropic` isn't installed or no key resolves, dry-run
+   still runs; it says so and falls back to the char/4 estimate used for
+   ollama and groq.
+
 Output is two files. `preds.json` is exactly the contract `eval.py dossiers`
 expects -- `{"<job_id>": "<category>"}` -- and nothing else, so it stays
 readable and diffable. `verdicts.json` keeps everything else: reasoning,
@@ -38,6 +45,8 @@ evidence, the verification result, token counts, and the prompt's size.
 
     python3 -m flakeagent.agent --dossiers data/dossiers --dry-run
     python3 -m flakeagent.agent --dossiers data/dossiers --limit 30 --backend ollama
+    python3 -m flakeagent.agent --dossiers data/dossiers --only-labelled \
+            --backend api --effort low --out data/preds_agentic.json
     python3 -m flakeagent.eval dossiers --predictions data/preds.json
 """
 
@@ -176,6 +185,10 @@ def main(argv=None):
     ap.add_argument("--limit", type=int)
     ap.add_argument("--backend", choices=["ollama", "api", "groq"], default="ollama")
     ap.add_argument("--model")
+    ap.add_argument("--effort", choices=["low", "medium", "high", "xhigh", "max"],
+                    help="--backend api only. Unset runs Opus 5's default (high), "
+                         "which is priced for deep reasoning this task doesn't need "
+                         "-- start at low. No effect on ollama/groq.")
     ap.add_argument("--no-blind", action="store_true",
                     help="show the labeller's evidence too; scores from this are "
                          "not a measurement of triage skill -- see the module docstring")
@@ -210,7 +223,31 @@ def main(argv=None):
         elif args.backend == "groq":
             backend = GroqBackend(args.model or MODEL_GROQ)
         else:
-            backend = AnthropicBackend(store.connect(args.db), args.model or MODEL_API)
+            backend = AnthropicBackend(store.connect(args.db), args.model or MODEL_API,
+                                       effort=args.effort)
+
+    # Dry run against --backend api: count real tokens via the API's own
+    # counter instead of the char/4 guess used for ollama/groq, which have no
+    # equivalent free endpoint. Needs `anthropic` importable and a resolvable
+    # key; degrade to the estimate rather than making dry-run (which should
+    # never need either) depend on both.
+    token_counter = None
+    if args.dry_run and args.backend == "api":
+        try:
+            import anthropic  # noqa: F401  -- import-only probe
+            from .classify import MODEL_API, AnthropicBackend
+            token_counter = AnthropicBackend(None, args.model or MODEL_API,
+                                             effort=args.effort)
+            token_counter.count_tokens("probe")  # fail fast on a bad/missing key
+        except ImportError:
+            print("(no `anthropic` package -- dry-run token counts below are "
+                  "the char/4 estimate, not measured; `pip install anthropic` "
+                  "for real counts)\n")
+            token_counter = None
+        except Exception as e:                    # noqa: BLE001 - any init/auth failure
+            print(f"(count_tokens unavailable ({e}) -- dry-run token counts "
+                  "below are the char/4 estimate, not measured)\n")
+            token_counter = None
 
     mode = "raw" if args.no_blind else "blinded"
     print(f"{len(files)} dossiers, {mode}, "
@@ -232,7 +269,11 @@ def main(argv=None):
         sizes.append(len(prompt))
 
         if args.dry_run:
-            print(f"  {job_id}  {len(prompt):>6,} chars  ~{len(prompt)//4:>5,} tokens")
+            if token_counter is not None:
+                real = token_counter.count_tokens(prompt)
+                print(f"  {job_id}  {len(prompt):>6,} chars  {real:>5,} tokens (measured)")
+            else:
+                print(f"  {job_id}  {len(prompt):>6,} chars  ~{len(prompt)//4:>5,} tokens (estimate)")
             continue
 
         try:

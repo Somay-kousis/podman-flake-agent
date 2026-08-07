@@ -240,6 +240,51 @@ case as a negative test.
 
 ---
 
+## 8. The agentic arm is wired and unmeasured
+
+Every number above comes from `GroqBackend`: one request, a JSON schema, no
+tool use — `gpt-oss-120b` and `gpt-oss-20b` are single-shot classifiers,
+not agents. The actual tool-calling loop lives in `AnthropicBackend`
+(`flakeagent/classify.py`), gives the model a `search_flake_issues` tool
+backed by the `known_issues` table, and loops on `stop_reason == "tool_use"`
+for up to 4 turns before answering. `agent.py --backend api` already calls it.
+
+**It has never run.** `anthropic` isn't installed here, no key is configured,
+and there are zero verdicts, zero tokens spent, zero rows in the tables above
+for it. For a project named *"Agentic CI Flake Categorization,"* that gap is
+worth naming plainly rather than leaving implicit: right now the only thing
+measured in this document is not agentic.
+
+Two pieces were added to close the *mechanical* half of that gap without
+spending anything — `AnthropicBackend` and `agent.py` now take `--effort`
+(unset runs Opus 5's default, `"high"`, which is the wrong default for a
+six-way classification task — start at `low`), and `--dry-run --backend api`
+counts real tokens via `count_tokens()` instead of guessing, so the cost of
+actually running it is knowable before it's spent. `tests/test_classify.py`
+covers `_search()` — the SQL half of the tool, which needs no key — offline.
+
+The other half — actually spending tokens on it — needs a decision, not more
+code:
+
+```bash
+pip install anthropic
+export ANTHROPIC_API_KEY=...
+python3 -m flakeagent.agent --dossiers data/dossiers --only-labelled \
+        --backend api --effort low --out data/preds_agentic.json
+python3 -m flakeagent.eval dossiers --predictions data/preds_agentic.json
+```
+
+`--effort low` first — raise it only if abstention is high and `medium`/`high`
+measurably help, the same escalation the rest of this document asks of every
+other claim. When it's run, report it exactly like every arm above: accuracy,
+abstention, and `baselines.py` beside it, on the same 39-item gold set — with
+the same warning that 39 items with two classes supports a direction, not a
+verdict. Whether `search_flake_issues` gets called at all, and whether it
+changes the answer when it does, are measurements this document doesn't have
+yet either.
+
+---
+
 ## What these numbers do not support
 
 - **Any claim that one model is better.** 39 items, two classes, and 13 missing

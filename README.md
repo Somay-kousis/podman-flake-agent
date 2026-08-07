@@ -239,6 +239,16 @@ python3 -m flakeagent.eval  dossiers --predictions data/preds.json
 Measured over the 400 generated dossiers, the prompt is a **median 1,678
 characters (~419 tokens)**, max 13,080.
 
+`--backend groq` and `--backend ollama` are both single-shot: one request, a
+JSON schema, no tool use. The actual agentic path is `--backend api`, which
+gives Claude a `search_flake_issues` tool over the `known_issues` table and
+loops on tool calls before answering (`AnthropicBackend` in `classify.py`) —
+and it has never been run. `pip install anthropic`, an `ANTHROPIC_API_KEY`,
+and `--effort low` (unset runs the expensive default) get it going; see
+[RESULTS.md §8](docs/RESULTS.md#8-the-agentic-arm-is-wired-and-unmeasured)
+for the exact command and why this is stated as a gap rather than quietly
+left unmentioned.
+
 Three things it does deliberately:
 
 - **Blinded by default.** The evidence a human labels from is withheld from the

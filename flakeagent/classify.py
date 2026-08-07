@@ -14,6 +14,15 @@ has to run over ~30 failing jobs per PR without being ruinous:
    rerun on a genuine bug. Abstention rate is reported by eval.py as a
    first-class metric, not hidden.
 
+3. EFFORT IS A COST KNOB, NOT AN ACCURACY ONE -- SET IT EXPLICITLY.
+   `AnthropicBackend` left unconfigured runs Opus 5 at its default effort,
+   `"high"`, which is priced for deep multi-step reasoning. Classifying one
+   failure against six categories is not that: `--effort low` is the sane
+   starting point, with `medium`/`high` available for a second pass if low
+   turns out to abstain too often. Nothing here has been measured yet -- see
+   `docs/RESULTS.md` for the unmeasured-arm note and the exact command to
+   change that.
+
 Backends:
   --backend ollama   local model, stdlib only, no API key   (issue #29265: "Local AI is a plus")
   --backend api      Claude via the official `anthropic` SDK (pip install anthropic)
@@ -203,7 +212,7 @@ class AnthropicBackend:
     """Claude via the official SDK, with a tool for deduplicating against the
     existing `flakes` issues."""
 
-    def __init__(self, conn, model=MODEL_API):
+    def __init__(self, conn, model=MODEL_API, effort=None):
         try:
             import anthropic
         except ImportError:
@@ -213,7 +222,11 @@ class AnthropicBackend:
         self.client = anthropic.Anthropic()
         self.model = model
         self.conn = conn
-        self.name = f"anthropic:{model}"
+        # None means "don't set it" -- the API default (Opus 5: "high"), not a
+        # deliberate choice. Pass a level explicitly to control cost; see the
+        # module docstring's point 3.
+        self.effort = effort
+        self.name = f"anthropic:{model}" + (f" effort={effort}" if effort else "")
 
     TOOLS = [{
         "name": "search_flake_issues",
@@ -258,6 +271,10 @@ class AnthropicBackend:
         messages = [{"role": "user", "content": prompt}]
         tokens_in = tokens_out = 0
 
+        output_config = {"format": {"type": "json_schema", "schema": SCHEMA}}
+        if self.effort:
+            output_config["effort"] = self.effort
+
         # Tool loop: let the model look up existing issues before it answers.
         for _ in range(4):
             resp = self.client.messages.create(
@@ -268,7 +285,7 @@ class AnthropicBackend:
                 system=SYSTEM,
                 messages=messages,
                 tools=self.TOOLS,
-                output_config={"format": {"type": "json_schema", "schema": SCHEMA}},
+                output_config=output_config,
             )
             tokens_in += resp.usage.input_tokens
             tokens_out += resp.usage.output_tokens
