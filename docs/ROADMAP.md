@@ -116,7 +116,8 @@ is missing because it needs human judgement, not more code.
 | 5 · upstream | Aug 1–2 | PR #29376 open and green; #29370 withdrawn as a duplicate | — |
 | 6 · agent | Aug 3 | `taxonomy.py`, `agent.py`, published repo | `fetch.py:548` stored the word `"referenced"` where the commit message belonged — **1,593 of 1,928 rows** |
 | 7 · measured | Aug 4 | 39 gold labels, two model arms, `baselines.py`, `RESULTS.md` | The gold set failed its own audit: all 6 `real_bug` labels are one issue, and `history.failure_rate >= 0.19` scores **92%** with no model and no log |
-| 8 · rules + CI | Aug 5 | `triage.py`, both workflows, `LICENSE`; a cold 2-day run is **185s / ~100 requests**, inside a 10-minute limit | The first pattern set matched `/journald?/` and fired on **21 of 23** failures — every job uploads a `journal-*.log` artifact. And HANDBOOK's claim that step names "resolve a large share of triage" was wrong once counted: **2.8%** |
+| 8 · rules + CI | Aug 5 | `triage.py`, both workflows, `LICENSE`; a cold 2-day run is **185s / ~100 requests** locally, inside a 10-minute limit | The first pattern set matched `/journald?/` and fired on **21 of 23** failures — every job uploads a `journal-*.log` artifact. And HANDBOOK's claim that step names "resolve a large share of triage" was wrong once counted: **2.8%** |
+| 9 · live | Aug 7 | Both workflows green on GitHub. `triage` run 1: **58s**, 29 dossiers, 17 triaged, 3 `infra_blip`, **82% abstention** — the same rate as the local window, on a corpus it had not seen | The 185s local figure was almost all round-trip latency; a runner talking to GitHub's own API does the same work in a third of the time. Quoting a laptop measurement as a CI budget was the mistake |
 
 ---
 

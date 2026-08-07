@@ -4,12 +4,16 @@ name: triage
 # slice each log to its failing step, and post a rule-based triage table to the
 # job summary. No model, no key, no cost.
 #
-# The ten-minute limit is the design constraint, not a safety net. A cold run
-# over a two-day window measured 189s end to end -- 4s runs, 81s jobs, 94s logs
-# (37 of them), 9s PR files, 1s dossiers -- against a 5,000/hr token, using
-# about 80 requests. Widening `days` is what will break it first: the `jobs`
-# stage pages through every job of every run in the window, failed or not,
-# because rerun disagreement is only visible in the passes.
+# The ten-minute limit is the design constraint, not a safety net. Run 1 on a
+# cold cache did a two-day window in 58 seconds. The same thing measured on a
+# laptop took 185s -- 4s runs, 81s jobs, 94s for 37 logs, 9s PR files -- so
+# nearly all of it is round-trip latency, and a runner talking to GitHub's own
+# API does not pay it. Use the 185s shape to reason about what is expensive and
+# the 58s to reason about the budget.
+#
+# Widening `days` is what will break it first: the `jobs` stage pages through
+# every job of every run in the window, failed or not, because rerun
+# disagreement is only visible in the passes.
 #
 # A fork needs a read-only token in the PODMAN_READ_TOKEN secret. Without one
 # this still runs, against the dossiers committed in tests/ -- the workflow

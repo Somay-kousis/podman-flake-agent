@@ -271,10 +271,15 @@ python3 -m flakeagent.eval   dossiers --predictions data/triage_preds.json
 
 [`.github/workflows/triage.yml`](.github/workflows/triage.yml) runs the whole
 deterministic path end to end on a schedule and posts the table to the job
-summary. **Measured cold, a two-day window takes 185 seconds and about 100 API
-requests** — 4s runs, 81s jobs, 94s for 37 logs, 9s PR files, 1s dossiers, 1s
-triage — against a ten-minute limit. Widening the window is what will break that
-first: the `jobs` stage pages through every job in it, passing ones included,
+summary. **On its first live run it did a two-day window in 58 seconds** on a
+cold cache — 29 dossiers built, 17 triaged, 3 resolved as `infra_blip`, 82%
+abstained — against a ten-minute limit.
+
+The same run measured on a laptop takes 185s (4s runs, 81s jobs, 94s for 37
+logs, 9s PR files), so almost all of that is round-trip latency a runner talking
+to GitHub's own API does not pay. Read the 185s breakdown for *what is
+expensive*, and the 58s for *what fits*. Widening the window is what will break
+it first: the `jobs` stage pages through every job in it, passing ones included,
 because rerun disagreement is only visible in the passes.
 
 A fork needs a read-only `PODMAN_READ_TOKEN` secret. Without one the workflow
